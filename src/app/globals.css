@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #202020;
+  --muted: #f7f7f7;
+  --muted-foreground: #6c6c6d;
+  --border: #e4e4e4;
+  --brand-primary: #e42421;
+  --brand-primary-hover: #c91d1a;
+  --brand-secondary: #13283a;
+  --brand-accent: #fce9e9;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-primary-hover: var(--brand-primary-hover);
+  --color-brand-secondary: var(--brand-secondary);
+  --color-brand-accent: var(--brand-accent);
+  --font-sans: "Inter", "Inter Fallback", ui-sans-serif, system-ui, sans-serif;
+  --breakpoint-xs: 30rem; /* 480px  → موبايل كبير */
+  --breakpoint-sm: 40rem; /* 640px  → افتراضي */
+  --breakpoint-md: 48rem; /* 768px  → تابلت */
+  --breakpoint-lg: 64rem; /* 1024px → ديسكتوب صغير */
+  --breakpoint-xl: 80rem; /* 1280px → ديسكتوب */
+  --breakpoint-2xl: 96rem; /* 1536px → ديسكتوب كبير */
+
+  --container-3xs: 16rem;
+  --container-2xs: 18rem;
+  --container-xs: 20rem;
+  --container-sm: 24rem;
+  --container-md: 28rem;
+  --container-lg: 32rem;
+  --container-xl: 36rem;
+  --container-2xl: 42rem;
+  --container-3xl: 48rem;
+  --container-4xl: 56rem;
+  --container-5xl: 64rem;
+  --container-6xl: 72rem;
+  --container-7xl: 80rem;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-width: 320px;
+    overflow-x: hidden;
+    background: var(--background);
+    color: var(--foreground);
+    font-family:
+      "Inter", "Inter Fallback", ui-sans-serif, system-ui, sans-serif;
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]) {
+    cursor: pointer;
+  }
+
+  ::selection {
+    background: var(--brand-primary);
+    color: var(--background);
+  }
+}
+
+@layer utilities {
+  .faden-pattern {
+    background-image:
+      linear-gradient(
+        30deg,
+        transparent 24%,
+        rgb(228 36 33 / 0.035) 25%,
+        rgb(228 36 33 / 0.035) 26%,
+        transparent 27%,
+        transparent 74%,
+        rgb(228 36 33 / 0.035) 75%,
+        rgb(228 36 33 / 0.035) 76%,
+        transparent 77%
+      ),
+      linear-gradient(
+        150deg,
+        transparent 24%,
+        rgb(228 36 33 / 0.035) 25%,
+        rgb(228 36 33 / 0.035) 26%,
+        transparent 27%,
+        transparent 74%,
+        rgb(228 36 33 / 0.035) 75%,
+        rgb(228 36 33 / 0.035) 76%,
+        transparent 77%
+      );
+    background-size: 104px 180px;
+  }
+
+  .section-space {
+    padding-block: clamp(4rem, 8vw, 7.5rem);
+  }
+}
