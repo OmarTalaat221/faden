@@ -1,4 +1,5 @@
-﻿import Header from "@/components/layout/header";
+﻿import Footer from "@/components/layout/footer";
+import Header from "@/components/layout/header";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -157,6 +158,7 @@ export default function RootLayout({ children }) {
       <body className="font-sans antialiased">
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );

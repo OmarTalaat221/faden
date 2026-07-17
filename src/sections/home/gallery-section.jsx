@@ -32,7 +32,7 @@ export default function GallerySection() {
             </p>
             <h2
               id="gallery-heading"
-              className="mt-3 text-lg font-normal leading-relaxed text-[var(--muted-foreground)] sm:text-xl md:text-[22px] lg:text-2xl xl:text-[26px]"
+              className="mt-3 text-lg font-normal leading-relaxed text-[var(--muted-foreground)] sm:text-xl md:text-[22px] lg:text-2xl xl:text-[24px]"
             >
               Explore a visual journey through our completed projects and design
               concepts.

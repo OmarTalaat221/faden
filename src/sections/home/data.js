@@ -47,12 +47,12 @@ export const projects = [
     category: "Integrated Engineering Works",
     image: "/images/faden/projects-section-3.webp",
   },
-  {
-    id: 4,
-    title: "Factory For Plastic Pipes",
-    category: "Additional Works",
-    image: "/images/faden/image-02.jpg",
-  },
+  // {
+  //   id: 4,
+  //   title: "Factory For Plastic Pipes",
+  //   category: "Additional Works",
+  //   image: "/images/faden/image-02.jpg",
+  // },
 ];
 
 export const clients = [

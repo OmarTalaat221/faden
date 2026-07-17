@@ -33,7 +33,7 @@ export default function ProjectsSection() {
             </p>
             <h2
               id="projects-heading"
-              className="mt-3 text-lg font-normal leading-relaxed text-[var(--muted-foreground)] sm:text-xl md:text-[22px] lg:text-2xl xl:text-[26px]"
+              className="mt-3 text-lg font-normal leading-relaxed text-[var(--muted-foreground)] sm:text-xl md:text-[22px] lg:text-2xl xl:text-[24px]"
             >
               Discover our projects that reflect our expertise, versatility, and
               commitment to excellence at every stage.

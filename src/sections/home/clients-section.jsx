@@ -25,9 +25,10 @@ export default function ClientsSection() {
             </p>
             <h2
               id="clients-heading"
-              className="mt-3 text-lg font-normal leading-relaxed text-[var(--muted-foreground)] sm:text-xl md:text-[22px] lg:text-2xl xl:text-[26px]"
+              className="mt-3 text-lg font-normal leading-relaxed text-[var(--muted-foreground)] sm:text-xl md:text-[22px] lg:text-2xl xl:text-[24px]"
             >
-              Hear from the companies and organizations we collaborate with.
+              Our clients’ trust is a testament to our consistent delivery of
+              exceptional construction solutions.{" "}
             </h2>
           </div>
 

@@ -5,23 +5,51 @@ import Container from "@/components/layout/container";
 import ButtonLink from "@/components/ui/button-link";
 import { cn } from "@/lib/utils";
 import { ChevronDown, Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const aboutSubItems = [
-  { label: "Company Overview", href: "#about-overview" },
-  { label: "Our Vision & Mission", href: "#about-vision" },
-  { label: "Leadership Messages", href: "#about-leadership" },
-  { label: "Our Partners", href: "#about-partners" },
-  { label: "Our Certifications", href: "#about-certifications" },
+  { label: "Company Overview", href: "/about/overview" },
+  { label: "Our Vision & Mission", href: "/about/vision-mission" },
+  { label: "Leadership Messages", href: "/about/leadership" },
+  { label: "Our Partners", href: "/about/partners" },
+  { label: "Our Certifications", href: "/about/certifications" },
 ];
 
 const navItems = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about", children: aboutSubItems },
-  { label: "Services", href: "#services" },
-  { label: "Projects", href: "#projects" },
-  { label: "Clients", href: "#clients" },
+  { label: "Home", href: "/" },
+  { label: "About", href: "", children: aboutSubItems },
+  { label: "Services", href: "/#services" },
+  { label: "Projects", href: "/#projects" },
+  { label: "Clients", href: "/#clients" },
 ];
+
+// ============ Active State Helper ============
+/**
+ * Determines if a nav item should be marked as active based on current pathname.
+ * - Empty href = group only (never navigable, active if any child matches)
+ * - Home ("/") is active only when pathname is exactly "/"
+ * - Anchor links (starting with "/#") are never active (scroll targets)
+ */
+function isItemActive(item, pathname) {
+  // Group with no direct href — active if any child matches
+  if (!item.href) {
+    if (Array.isArray(item.children)) {
+      return item.children.some((c) => pathname === c.href);
+    }
+    return false;
+  }
+  // Root
+  if (item.href === "/") {
+    return pathname === "/";
+  }
+  // Anchor links to home (e.g., /#services) — only active on home
+  if (item.href.startsWith("/#")) {
+    return false;
+  }
+  // Exact match for other routes
+  return pathname === item.href;
+}
 
 const InstagramIcon = ({ size = 18 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
@@ -52,41 +80,54 @@ const socialLinks = [
 ];
 
 // ============ Desktop Nav Item ============
-function DesktopNavItem({ item, isActive, isSticky, setActiveItem }) {
+function DesktopNavItem({ item, pathname, isSticky }) {
   const hasChildren = Array.isArray(item.children) && item.children.length > 0;
+  const isActive = isItemActive(item, pathname);
+  const isGroupOnly = !item.href; // No href = group trigger only
+
+  const triggerClasses = cn(
+    "relative flex items-center gap-1 py-2 text-[13px] font-semibold uppercase tracking-[0.08em] transition-colors duration-300",
+    isGroupOnly && "cursor-default select-none",
+    isSticky
+      ? isActive
+        ? "text-[var(--brand-primary)]"
+        : "text-[var(--foreground)] hover:text-[var(--brand-primary)]"
+      : isActive
+        ? "text-white"
+        : "text-white/85 hover:text-white",
+  );
+
+  const triggerContent = (
+    <>
+      {item.label}
+      {hasChildren && (
+        <ChevronDown
+          size={14}
+          className="transition-transform duration-300 group-hover/nav:rotate-180"
+        />
+      )}
+      <span
+        className={cn(
+          "pointer-events-none absolute -bottom-1 left-1/2 h-[2px] -translate-x-1/2 bg-[var(--brand-primary)] transition-all duration-300 ease-out",
+          isActive
+            ? "w-full opacity-100"
+            : "w-0 opacity-0 group-hover/nav:w-full group-hover/nav:opacity-100",
+        )}
+      />
+    </>
+  );
 
   return (
     <div className="group/nav relative">
-      <a
-        href={item.href}
-        onClick={() => setActiveItem(item.label)}
-        className={cn(
-          "relative flex items-center gap-1 py-2 text-[13px] font-semibold uppercase tracking-[0.08em] transition-colors duration-300",
-          isSticky
-            ? isActive
-              ? "text-[var(--brand-primary)]"
-              : "text-[var(--foreground)] hover:text-[var(--brand-primary)]"
-            : isActive
-              ? "text-white"
-              : "text-white/85 hover:text-white",
-        )}
-      >
-        {item.label}
-        {hasChildren && (
-          <ChevronDown
-            size={14}
-            className="transition-transform duration-300 group-hover/nav:rotate-180"
-          />
-        )}
-        <span
-          className={cn(
-            "pointer-events-none absolute -bottom-1 left-1/2 h-[2px] -translate-x-1/2 bg-[var(--brand-primary)] transition-all duration-300 ease-out",
-            isActive
-              ? "w-6 opacity-100"
-              : "w-0 opacity-0 group-hover/nav:w-6 group-hover/nav:opacity-100",
-          )}
-        />
-      </a>
+      {isGroupOnly ? (
+        <span className={triggerClasses} aria-haspopup="true">
+          {triggerContent}
+        </span>
+      ) : (
+        <a href={item.href} className={triggerClasses}>
+          {triggerContent}
+        </a>
+      )}
 
       {/* Dropdown */}
       {hasChildren && (
@@ -98,20 +139,27 @@ function DesktopNavItem({ item, isActive, isSticky, setActiveItem }) {
               : "bg-[#4A4A4A] ring-white/10 backdrop-blur-md",
           )}
         >
-          {item.children.map((sub) => (
-            <a
-              key={sub.label}
-              href={sub.href}
-              className={cn(
-                "block border-b-[#C9C7C6] border-b-[0.01px]! last:border-0! px-4 py-2.5 text-[13px] font-medium transition-colors",
-                isSticky
-                  ? "text-[var(--foreground)] hover:bg-[var(--muted)] hover:text-[var(--brand-primary)]"
-                  : "text-white/90 hover:bg-white/10 hover:text-white",
-              )}
-            >
-              {sub.label}
-            </a>
-          ))}
+          {item.children.map((sub) => {
+            const isSubActive = pathname === sub.href;
+            return (
+              <a
+                key={sub.label}
+                href={sub.href}
+                className={cn(
+                  "block border-b-[#C9C7C6] border-b-[0.01px]! last:border-0! px-4 py-2.5 text-[13px] font-medium transition-colors",
+                  isSticky
+                    ? isSubActive
+                      ? "bg-[var(--muted)] text-[var(--brand-primary)]"
+                      : "text-[var(--foreground)] hover:bg-[var(--muted)] hover:text-[var(--brand-primary)]"
+                    : isSubActive
+                      ? "bg-white/10 text-white"
+                      : "text-white/90 hover:bg-white/10 hover:text-white",
+                )}
+              >
+                {sub.label}
+              </a>
+            );
+          })}
         </div>
       )}
     </div>
@@ -119,7 +167,7 @@ function DesktopNavItem({ item, isActive, isSticky, setActiveItem }) {
 }
 
 // ============ Header Content (Desktop + Hamburger) ============
-function HeaderContent({ variant, open, setOpen, activeItem, setActiveItem }) {
+function HeaderContent({ variant, open, setOpen, pathname }) {
   const isSticky = variant === "sticky";
 
   return (
@@ -139,15 +187,14 @@ function HeaderContent({ variant, open, setOpen, activeItem, setActiveItem }) {
           <DesktopNavItem
             key={item.label}
             item={item}
-            isActive={activeItem === item.label}
+            pathname={pathname}
             isSticky={isSticky}
-            setActiveItem={setActiveItem}
           />
         ))}
       </nav>
 
       <ButtonLink
-        href="#contact"
+        href="/#contact"
         variant={isSticky ? "outline" : "ghost"}
         className={cn(
           "hidden min-h-10 rounded-[4px] px-6 py-2 text-[13px] font-medium lg:inline-flex",
@@ -177,19 +224,17 @@ function HeaderContent({ variant, open, setOpen, activeItem, setActiveItem }) {
 }
 
 // ============ Mobile Nav Item (Accordion) ============
-function MobileNavItem({ item, activeItem, setActiveItem, setOpen }) {
-  const [expanded, setExpanded] = useState(false);
+function MobileNavItem({ item, pathname, setOpen }) {
   const hasChildren = Array.isArray(item.children) && item.children.length > 0;
-  const isActive = activeItem === item.label;
+  const isActive = isItemActive(item, pathname);
+  // Auto-expand group if we are inside one of its children
+  const [expanded, setExpanded] = useState(isActive && hasChildren);
 
   if (!hasChildren) {
     return (
       <a
         href={item.href}
-        onClick={() => {
-          setActiveItem(item.label);
-          setOpen(false);
-        }}
+        onClick={() => setOpen(false)}
         className={cn(
           "block py-3 text-[15px] font-bold uppercase tracking-[0.08em] transition-colors",
           isActive
@@ -236,19 +281,24 @@ function MobileNavItem({ item, activeItem, setActiveItem, setOpen }) {
       >
         <div className="min-h-0 overflow-hidden">
           <div className="mb-2 ml-3 flex flex-col border-l border-[var(--border)] pl-4">
-            {item.children.map((sub) => (
-              <a
-                key={sub.label}
-                href={sub.href}
-                onClick={() => {
-                  setActiveItem(item.label);
-                  setOpen(false);
-                }}
-                className="py-2 text-[13px] font-medium text-[var(--muted-foreground)] transition-colors hover:text-[var(--brand-primary)]"
-              >
-                {sub.label}
-              </a>
-            ))}
+            {item.children.map((sub) => {
+              const isSubActive = pathname === sub.href;
+              return (
+                <a
+                  key={sub.label}
+                  href={sub.href}
+                  onClick={() => setOpen(false)}
+                  className={cn(
+                    "py-2 text-[13px] font-medium transition-colors",
+                    isSubActive
+                      ? "text-[var(--brand-primary)]"
+                      : "text-[var(--muted-foreground)] hover:text-[var(--brand-primary)]",
+                  )}
+                >
+                  {sub.label}
+                </a>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -259,7 +309,7 @@ function MobileNavItem({ item, activeItem, setActiveItem, setOpen }) {
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeItem, setActiveItem] = useState("Home");
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -280,6 +330,11 @@ export default function Header() {
     };
   }, [open]);
 
+  // Close sidebar when navigating to another page
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
   return (
     <>
       {/* Static Header (فوق Hero) */}
@@ -288,8 +343,7 @@ export default function Header() {
           variant="hero"
           open={open}
           setOpen={setOpen}
-          activeItem={activeItem}
-          setActiveItem={setActiveItem}
+          pathname={pathname}
         />
       </header>
 
@@ -304,8 +358,7 @@ export default function Header() {
           variant="sticky"
           open={open}
           setOpen={setOpen}
-          activeItem={activeItem}
-          setActiveItem={setActiveItem}
+          pathname={pathname}
         />
       </header>
 
@@ -345,8 +398,7 @@ export default function Header() {
               <li key={item.label}>
                 <MobileNavItem
                   item={item}
-                  activeItem={activeItem}
-                  setActiveItem={setActiveItem}
+                  pathname={pathname}
                   setOpen={setOpen}
                 />
               </li>
@@ -355,7 +407,7 @@ export default function Header() {
 
           <div className="mt-6">
             <ButtonLink
-              href="#contact"
+              href="/#contact"
               variant="outline"
               onClick={() => setOpen(false)}
               className="inline-flex border-[var(--brand-primary)] px-6 py-2 text-[14px] font-medium text-[var(--brand-primary)] hover:bg-[var(--brand-primary)] hover:text-white"

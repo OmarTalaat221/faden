@@ -24,10 +24,10 @@ export default function EquipmentSection() {
             </p>
             <h2
               id="equipment-heading"
-              className="mt-3 text-lg font-normal leading-relaxed text-[var(--muted-foreground)] sm:text-xl md:text-[22px] lg:text-2xl xl:text-[26px]"
+              className="mt-3 text-lg font-normal leading-relaxed text-[var(--muted-foreground)] sm:text-xl md:text-[22px] lg:text-2xl xl:text-[24px]"
             >
-              An outline of the machinery and technical assets employed in
-              projects.
+              FADEN uses advanced technology and equipment to deliver efficient,
+              safe projects.
             </h2>
           </div>
 

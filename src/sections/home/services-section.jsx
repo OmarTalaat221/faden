@@ -27,7 +27,7 @@ export default function ServicesSection() {
             </p>
             <h2
               id="services-heading"
-              className="mt-3 text-lg font-normal leading-relaxed text-[var(--muted-foreground)] sm:text-xl md:text-[22px] lg:text-2xl xl:text-[26px]"
+              className="mt-3 text-lg font-normal leading-relaxed text-[var(--muted-foreground)] sm:text-xl md:text-[22px] lg:text-2xl xl:text-[24px]"
             >
               At FADEN, we offer comprehensive contracting and construction
               services tailored to client needs, ensuring smooth project

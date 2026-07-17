@@ -66,7 +66,7 @@ export default function Footer() {
   return (
     <footer
       id="contact"
-      className="scroll-mt-20 bg-white pt-14 sm:pt-16 lg:pt-20"
+      className="scroll-mt-20 bg-[#FEFEFE] pt-14 sm:pt-16 lg:pt-20"
     >
       <Container className="grid gap-10 pb-12 sm:grid-cols-2 sm:gap-12 lg:grid-cols-[1.15fr_1fr_1.15fr_0.9fr] lg:gap-14 lg:pb-14">
         {/* Logo Column */}
