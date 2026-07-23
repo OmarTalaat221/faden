@@ -19,7 +19,7 @@ const aboutSubItems = [
 const navItems = [
   { label: "Home", href: "/" },
   { label: "About", href: "", children: aboutSubItems },
-  { label: "Services", href: "/#services" },
+  { label: "Services", href: "/services" },
   { label: "Projects", href: "/#projects" },
   { label: "Clients", href: "/#clients" },
 ];
@@ -194,7 +194,7 @@ function HeaderContent({ variant, open, setOpen, pathname }) {
       </nav>
 
       <ButtonLink
-        href="/#contact"
+        href="/contact"
         variant={isSticky ? "outline" : "ghost"}
         className={cn(
           "hidden min-h-10 rounded-[4px] px-6 py-2 text-[13px] font-medium lg:inline-flex",

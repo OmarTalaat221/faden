@@ -111,3 +111,7 @@
     padding-block: clamp(4rem, 8vw, 7.5rem);
   }
 }
+
+.swiper-wrapper {
+  transition-timing-function: linear !important;
+}
