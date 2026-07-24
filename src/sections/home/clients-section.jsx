@@ -34,7 +34,7 @@ export default function ClientsSection() {
 
           <div className="shrink-0">
             <ButtonLink
-              href="#clients"
+              href="/clients"
               variant="outline"
               className="border-[var(--brand-primary)] text-[var(--brand-primary)] hover:bg-[var(--brand-primary)] hover:text-white"
             >

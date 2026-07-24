@@ -21,33 +21,32 @@ const navItems = [
   { label: "About", href: "", children: aboutSubItems },
   { label: "Services", href: "/services" },
   { label: "Projects", href: "/#projects" },
-  { label: "Clients", href: "/#clients" },
+  { label: "Clients", href: "/clients" },
 ];
 
+// Pages that have NO Hero/PageBanner — Header should be WHITE from the start
+const PAGES_WITHOUT_HERO = ["/equipment", "/gallery"];
+
+function isPageWithoutHero(pathname) {
+  return PAGES_WITHOUT_HERO.some(
+    (route) => pathname === route || pathname.startsWith(route + "/"),
+  );
+}
+
 // ============ Active State Helper ============
-/**
- * Determines if a nav item should be marked as active based on current pathname.
- * - Empty href = group only (never navigable, active if any child matches)
- * - Home ("/") is active only when pathname is exactly "/"
- * - Anchor links (starting with "/#") are never active (scroll targets)
- */
 function isItemActive(item, pathname) {
-  // Group with no direct href — active if any child matches
   if (!item.href) {
     if (Array.isArray(item.children)) {
       return item.children.some((c) => pathname === c.href);
     }
     return false;
   }
-  // Root
   if (item.href === "/") {
     return pathname === "/";
   }
-  // Anchor links to home (e.g., /#services) — only active on home
   if (item.href.startsWith("/#")) {
     return false;
   }
-  // Exact match for other routes
   return pathname === item.href;
 }
 
@@ -83,7 +82,7 @@ const socialLinks = [
 function DesktopNavItem({ item, pathname, isSticky }) {
   const hasChildren = Array.isArray(item.children) && item.children.length > 0;
   const isActive = isItemActive(item, pathname);
-  const isGroupOnly = !item.href; // No href = group trigger only
+  const isGroupOnly = !item.href;
 
   const triggerClasses = cn(
     "relative flex items-center gap-1 py-2 text-[13px] font-semibold uppercase tracking-[0.08em] transition-colors duration-300",
@@ -129,7 +128,6 @@ function DesktopNavItem({ item, pathname, isSticky }) {
         </a>
       )}
 
-      {/* Dropdown */}
       {hasChildren && (
         <div
           className={cn(
@@ -166,7 +164,7 @@ function DesktopNavItem({ item, pathname, isSticky }) {
   );
 }
 
-// ============ Header Content (Desktop + Hamburger) ============
+// ============ Header Content ============
 function HeaderContent({ variant, open, setOpen, pathname }) {
   const isSticky = variant === "sticky";
 
@@ -178,7 +176,6 @@ function HeaderContent({ variant, open, setOpen, pathname }) {
         className="w-[90px] xs:w-[100px] sm:w-[110px] md:w-[120px] lg:w-[130px] xl:w-[140px]"
       />
 
-      {/* Desktop Nav */}
       <nav
         aria-label="Main navigation"
         className="hidden items-center gap-10 lg:flex"
@@ -223,11 +220,10 @@ function HeaderContent({ variant, open, setOpen, pathname }) {
   );
 }
 
-// ============ Mobile Nav Item (Accordion) ============
+// ============ Mobile Nav Item ============
 function MobileNavItem({ item, pathname, setOpen }) {
   const hasChildren = Array.isArray(item.children) && item.children.length > 0;
   const isActive = isItemActive(item, pathname);
-  // Auto-expand group if we are inside one of its children
   const [expanded, setExpanded] = useState(isActive && hasChildren);
 
   if (!hasChildren) {
@@ -270,7 +266,6 @@ function MobileNavItem({ item, pathname, setOpen }) {
         />
       </button>
 
-      {/* Sub items */}
       <div
         className={cn(
           "grid overflow-hidden transition-all duration-300 ease-out",
@@ -311,6 +306,8 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
+  const noHero = isPageWithoutHero(pathname);
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 200);
@@ -330,14 +327,111 @@ export default function Header() {
     };
   }, [open]);
 
-  // Close sidebar when navigating to another page
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
 
+  // For pages without Hero: render ONE white header that stays fixed
+  if (noHero) {
+    return (
+      <>
+        <header
+          className={`fixed inset-x-0 top-0 z-50 bg-white ${
+            scrolled ? "shadow-sm" : ""
+          }`}
+        >
+          <HeaderContent
+            variant="sticky"
+            open={open}
+            setOpen={setOpen}
+            pathname={pathname}
+          />
+        </header>
+
+        {/* Mobile Sidebar Backdrop */}
+        <div
+          onClick={() => setOpen(false)}
+          className={cn(
+            "fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm transition-opacity duration-300 lg:hidden",
+            open ? "opacity-100" : "pointer-events-none opacity-0",
+          )}
+          aria-hidden="true"
+        />
+
+        {/* Mobile Sidebar */}
+        <aside
+          className={cn(
+            "fixed inset-y-0 left-0 z-[70] flex w-[85%] max-w-[340px] flex-col bg-white shadow-2xl transition-transform duration-300 ease-out lg:hidden",
+            open ? "translate-x-0" : "-translate-x-full",
+          )}
+          aria-label="Mobile navigation"
+        >
+          <div className="flex items-center justify-between border-b border-[var(--border)] px-6 py-5">
+            <FadenLogo light={false} className="w-[130px]" />
+            <button
+              type="button"
+              aria-label="Close menu"
+              onClick={() => setOpen(false)}
+              className="grid size-9 place-items-center rounded-md text-[var(--foreground)] transition hover:bg-[var(--muted)]"
+            >
+              <X size={22} />
+            </button>
+          </div>
+
+          <nav className="flex flex-1 flex-col overflow-y-auto px-6 py-6">
+            <ul className="flex flex-col gap-1">
+              {navItems.map((item) => (
+                <li key={item.label}>
+                  <MobileNavItem
+                    item={item}
+                    pathname={pathname}
+                    setOpen={setOpen}
+                  />
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-6">
+              <ButtonLink
+                href="/contact"
+                variant="outline"
+                onClick={() => setOpen(false)}
+                className="inline-flex border-[var(--brand-primary)] px-6 py-2 text-[14px] font-medium text-[var(--brand-primary)] hover:bg-[var(--brand-primary)] hover:text-white"
+              >
+                Contact us
+              </ButtonLink>
+            </div>
+
+            <div className="mt-6 flex items-center gap-2">
+              {socialLinks.map((social) => {
+                const { Icon } = social;
+                const isExternal = social.href.startsWith("http");
+                return (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    aria-label={social.label}
+                    target={isExternal ? "_blank" : undefined}
+                    rel={isExternal ? "noopener noreferrer" : undefined}
+                    className="grid size-9 place-items-center rounded-md bg-[var(--muted)] text-[var(--muted-foreground)] transition hover:bg-[var(--brand-primary)] hover:text-white"
+                  >
+                    <Icon size={16} />
+                  </a>
+                );
+              })}
+            </div>
+          </nav>
+        </aside>
+
+        {/* Spacer so content is not hidden behind fixed header */}
+        <div className="h-[72px] sm:h-[84px] lg:h-[96px]" aria-hidden="true" />
+      </>
+    );
+  }
+
+  // Default: Two Headers (static + sticky) for pages with Hero/PageBanner
   return (
     <>
-      {/* Static Header (فوق Hero) */}
       <header className="absolute inset-x-0 top-0 z-40">
         <HeaderContent
           variant="hero"
@@ -347,7 +441,6 @@ export default function Header() {
         />
       </header>
 
-      {/* Sticky Header (بعد Scroll) */}
       <header
         className={cn(
           "fixed inset-x-0 top-0 z-50 bg-white shadow-md backdrop-blur-md transition-transform duration-500 ease-out",
@@ -362,7 +455,6 @@ export default function Header() {
         />
       </header>
 
-      {/* Mobile Sidebar Backdrop */}
       <div
         onClick={() => setOpen(false)}
         className={cn(
@@ -372,7 +464,6 @@ export default function Header() {
         aria-hidden="true"
       />
 
-      {/* Mobile Sidebar */}
       <aside
         className={cn(
           "fixed inset-y-0 left-0 z-[70] flex w-[85%] max-w-[340px] flex-col bg-white shadow-2xl transition-transform duration-300 ease-out lg:hidden",
@@ -407,7 +498,7 @@ export default function Header() {
 
           <div className="mt-6">
             <ButtonLink
-              href="/#contact"
+              href="/contact"
               variant="outline"
               onClick={() => setOpen(false)}
               className="inline-flex border-[var(--brand-primary)] px-6 py-2 text-[14px] font-medium text-[var(--brand-primary)] hover:bg-[var(--brand-primary)] hover:text-white"

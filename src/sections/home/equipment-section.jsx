@@ -33,7 +33,7 @@ export default function EquipmentSection() {
 
           <div className="shrink-0">
             <ButtonLink
-              href="#equipment"
+              href="/equipment"
               variant="outline"
               className="border-[var(--brand-primary)] text-[var(--brand-primary)] hover:bg-[var(--brand-primary)] hover:text-white"
             >

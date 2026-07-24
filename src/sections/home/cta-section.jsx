@@ -30,11 +30,11 @@ export default function CtaSection() {
         </div>
 
         <div className="flex flex-wrap gap-3">
-          <ButtonLink href="#contact" className="min-w-36">
+          <ButtonLink href="/contact" className="min-w-36">
             Contact Us
           </ButtonLink>
           <ButtonLink
-            href="#projects"
+            href="/projects"
             variant="ghost"
             className="min-w-36 border border-white/40 text-white hover:bg-white/10"
           >

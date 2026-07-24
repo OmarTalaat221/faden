@@ -41,7 +41,7 @@ export default function GallerySection() {
 
           <div className="shrink-0">
             <ButtonLink
-              href="#gallery"
+              href="/gallery"
               variant="outline"
               className="border-[var(--brand-primary)] text-[var(--brand-primary)] hover:bg-[var(--brand-primary)] hover:text-white"
             >
