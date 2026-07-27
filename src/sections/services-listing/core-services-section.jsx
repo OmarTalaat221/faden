@@ -1,6 +1,7 @@
+import RevealImage from "@/components/common/reveal-image";
+import Container from "@/components/layout/container";
 import Image from "next/image";
 import Link from "next/link";
-import Container from "@/components/layout/container";
 
 export default function CoreServicesSection({ heading, services = [] }) {
   if (!services.length) return null;
@@ -26,7 +27,10 @@ export default function CoreServicesSection({ heading, services = [] }) {
               href={`/services/${service.slug}`}
               className="group block"
             >
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg">
+              <RevealImage
+                delay={200}
+                className="relative aspect-[4/3] w-full overflow-hidden rounded-lg"
+              >
                 <Image
                   src={service.img || "/images/faden/our-services-1.webp"}
                   alt={service.name}
@@ -34,7 +38,7 @@ export default function CoreServicesSection({ heading, services = [] }) {
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-              </div>
+              </RevealImage>
               <h3 className="mt-4 text-base font-semibold text-[var(--foreground)] transition-colors group-hover:text-[var(--brand-primary)] sm:text-lg md:text-xl lg:text-[22px]">
                 {service.name}
               </h3>
