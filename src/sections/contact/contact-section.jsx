@@ -9,7 +9,7 @@ export default function ContactSection({ info, form }) {
       <DecorativePattern
         variant="triangles"
         // opacity={0.35}
-        className="pointer-events-none absolute right-0 top-0 w-[180px] sm:w-[220px] md:w-[260px] -z-1"
+        className="pointer-events-none absolute right-0 top-0  -z-1"
       />
 
       <Container>

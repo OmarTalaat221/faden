@@ -9,7 +9,7 @@ export default function WhyChooseSection({ whyChoose }) {
       <DecorativePattern
         variant="trianglesOutlined"
         // opacity={0.35}
-        className="pointer-events-none absolute bottom-0 left-0 w-[180px] sm:w-[220px] md:w-[260px]"
+        className="pointer-events-none absolute bottom-0 left-0 "
       />
 
       <Container>

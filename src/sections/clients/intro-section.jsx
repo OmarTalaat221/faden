@@ -11,7 +11,7 @@ export default function IntroSection() {
       <DecorativePattern
         variant="triangles"
         // opacity={0.35}
-        className="left-0 top-0 h-auto w-[180px] sm:w-[220px] md:w-[260px] lg:w-[300px]"
+        className="left-0 top-0 h-auto "
       />
 
       <Container className="relative z-10">

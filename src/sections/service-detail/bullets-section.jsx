@@ -15,7 +15,7 @@ export default function BulletsSection({ section, muted = false }) {
         <DecorativePattern
           variant="trianglesOutlined"
           // opacity={0.35 }
-          className="pointer-events-none absolute right-0 top-1/2 w-[180px] -translate-y-1/2 sm:w-[220px] md:w-[260px]"
+          className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2"
         />
       )}
 

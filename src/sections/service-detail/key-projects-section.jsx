@@ -1,10 +1,10 @@
 ﻿"use client";
 
-import Image from "next/image";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Autoplay } from "swiper/modules";
-import Container from "@/components/layout/container";
 import DecorativePattern from "@/components/common/decorative-pattern";
+import Container from "@/components/layout/container";
+import Image from "next/image";
+import { Autoplay, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -17,7 +17,7 @@ export default function KeyProjectsSection({ projects = [] }) {
       <DecorativePattern
         variant="trianglesOutlined"
         opacity={0.35}
-        className="pointer-events-none absolute right-0 top-0 w-[180px] sm:w-[220px] md:w-[260px]"
+        className="pointer-events-none absolute right-0 top-0 "
       />
 
       <Container>

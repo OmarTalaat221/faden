@@ -9,7 +9,7 @@ export default function IntroSection({ intro }) {
       <DecorativePattern
         variant="trianglesOutlined"
         // opacity={0.35}
-        className="pointer-events-none absolute left-0 top-0 w-[180px] sm:w-[220px] md:w-[260px]"
+        className="pointer-events-none absolute left-0 top-0 "
       />
 
       <Container>

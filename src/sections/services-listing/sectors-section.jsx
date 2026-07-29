@@ -1,6 +1,6 @@
-import Image from "next/image";
-import Container from "@/components/layout/container";
 import DecorativePattern from "@/components/common/decorative-pattern";
+import Container from "@/components/layout/container";
+import Image from "next/image";
 
 export default function SectorsSection({ sectors }) {
   if (!sectors || !sectors.items?.length) return null;
@@ -10,7 +10,7 @@ export default function SectorsSection({ sectors }) {
       <DecorativePattern
         variant="trianglesOutlined"
         opacity={0.35}
-        className="pointer-events-none absolute right-0 top-0 w-[180px] sm:w-[220px] md:w-[260px]"
+        className="pointer-events-none absolute right-0 top-0 "
       />
 
       <Container>

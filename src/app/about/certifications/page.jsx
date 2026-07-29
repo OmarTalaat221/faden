@@ -35,12 +35,12 @@ export default function CertificationsPage() {
       <DecorativePattern
         variant="trianglesOutlined"
         // opacity={0.3}
-        className="top-[600px] left-0 h-auto w-[140px] sm:w-[180px] md:w-[220px] lg:w-[260px]"
+        className="top-[600px] left-0 h-auto"
       />
       <DecorativePattern
         variant="trianglesOutlined"
         // opacity={0.3}
-        className="bottom-0 right-0 h-auto w-[140px] sm:w-[180px] md:w-[220px] lg:w-[260px]"
+        className="bottom-0 right-0 h-auto"
       />
 
       {/* Page Banner */}

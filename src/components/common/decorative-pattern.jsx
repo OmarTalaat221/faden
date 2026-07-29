@@ -1,4 +1,5 @@
-﻿import Image from "next/image";
+import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 const PATTERNS = {
   triangles: {
@@ -18,6 +19,17 @@ const PATTERNS = {
   },
 };
 
+// Default responsive sizes per variant
+// Max 260px on xl, scales down responsively
+const DEFAULT_SIZES = {
+  triangles:
+    "w-[110px] xs:w-[130px] sm:w-[160px] md:w-[190px] lg:w-[220px] xl:w-[260px] h-auto",
+  trianglesOutlined:
+    "w-[110px] xs:w-[130px] sm:w-[160px] md:w-[190px] lg:w-[220px] xl:w-[260px] h-auto",
+  fadenOutline:
+    "w-[140px] xs:w-[170px] sm:w-[200px] md:w-[220px] lg:w-[240px] xl:w-[260px] h-auto",
+};
+
 export default function DecorativePattern({
   variant = "triangles",
   className = "",
@@ -25,6 +37,10 @@ export default function DecorativePattern({
 }) {
   const pattern = PATTERNS[variant];
   if (!pattern) return null;
+
+  // If user passes explicit width (w-*, w-[...]) in className,
+  // it overrides the default via tailwind-merge in cn().
+  const defaultSize = DEFAULT_SIZES[variant] || "";
 
   return (
     <Image
@@ -35,9 +51,13 @@ export default function DecorativePattern({
       height={pattern.naturalHeight}
       loading="lazy"
       decoding="async"
-      sizes="(max-width: 640px) 200px, (max-width: 1024px) 300px, 400px"
+      sizes="(max-width: 640px) 160px, (max-width: 1024px) 220px, 260px"
       style={{ opacity }}
-      className={`pointer-events-none absolute select-none ${className}`}
+      className={cn(
+        "pointer-events-none absolute select-none",
+        defaultSize,
+        className,
+      )}
     />
   );
 }

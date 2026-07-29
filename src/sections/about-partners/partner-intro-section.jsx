@@ -12,7 +12,7 @@ export default function PartnerIntroSection() {
       <DecorativePattern
         variant="triangles"
         // opacity={0.35}
-        className="top-0 left-0 h-auto w-[140px] sm:w-[180px] md:w-[220px] lg:w-[260px]"
+        className="top-0 left-0 "
       />
 
       <Container>

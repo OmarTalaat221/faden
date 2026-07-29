@@ -14,13 +14,13 @@ export default function GallerySection() {
       {/* Decorative pattern - top left */}
       <DecorativePattern
         variant="trianglesOutlined"
-        className="left-0 top-0 -z-0 w-[180px] sm:w-[240px] lg:w-[300px] xl:w-[360px]"
+        className="left-0 top-0 -z-0"
       />
 
       {/* Decorative pattern - bottom right */}
       <DecorativePattern
         variant="triangles"
-        className="bottom-0 right-0 -z-0 w-[180px] sm:w-[240px] lg:w-[320px] xl:w-[380px]"
+        className="bottom-0 right-0 -z-0"
       />
 
       <Container>

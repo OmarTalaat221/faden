@@ -1,16 +1,8 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import DecorativePattern from "@/components/common/decorative-pattern";
+import Container from "@/components/layout/container";
+import { GALLERY_LIST } from "@/lib/gallery/data";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import {
   AnimatePresence,
@@ -19,9 +11,17 @@ import {
   useMotionValue,
   useReducedMotion,
 } from "motion/react";
-import Container from "@/components/layout/container";
-import DecorativePattern from "@/components/common/decorative-pattern";
-import { GALLERY_LIST } from "@/lib/gallery/data";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 const useIsoLayoutEffect =
   typeof window !== "undefined" ? useLayoutEffect : useEffect;
@@ -173,25 +173,22 @@ export default function GalleryViewerSection() {
     [selectImage],
   );
 
-  const handlePendingImageLoad = useCallback(
-    async (event, targetIndex) => {
-      const imageElement = event.currentTarget;
-      try {
-        if (typeof imageElement.decode === "function") {
-          await imageElement.decode();
-        }
-      } catch {}
+  const handlePendingImageLoad = useCallback(async (event, targetIndex) => {
+    const imageElement = event.currentTarget;
+    try {
+      if (typeof imageElement.decode === "function") {
+        await imageElement.decode();
+      }
+    } catch {}
 
+    if (selectedIndexRef.current !== targetIndex) return;
+
+    requestAnimationFrame(() => {
       if (selectedIndexRef.current !== targetIndex) return;
-
-      requestAnimationFrame(() => {
-        if (selectedIndexRef.current !== targetIndex) return;
-        displayedIndexRef.current = targetIndex;
-        setDisplayedIndex(targetIndex);
-      });
-    },
-    [],
-  );
+      displayedIndexRef.current = targetIndex;
+      setDisplayedIndex(targetIndex);
+    });
+  }, []);
 
   // Keyboard navigation
   useEffect(() => {
@@ -320,12 +317,12 @@ export default function GalleryViewerSection() {
     <section className="relative overflow-hidden py-10 sm:py-14 md:py-16">
       <DecorativePattern
         variant="trianglesOutlined"
-        className="right-0 top-4 h-auto w-[140px] sm:w-[180px] md:w-[220px] lg:w-[260px]"
+        className="right-0 top-4 "
       />
 
       <DecorativePattern
         variant="trianglesOutlined"
-        className="bottom-16 left-0 h-auto w-[140px] sm:w-[180px] md:w-[220px] lg:w-[260px]"
+        className="bottom-16 left-0 "
       />
 
       <Container className="relative z-10">
@@ -421,9 +418,7 @@ export default function GalleryViewerSection() {
             href={`?image=${previousItem.id}`}
             scroll={false}
             aria-label="Previous image"
-            onClick={(event) =>
-              handleNavigationClick(event, previousIndex, -1)
-            }
+            onClick={(event) => handleNavigationClick(event, previousIndex, -1)}
             className="group absolute left-2 top-1/2 z-20 grid size-10 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-[var(--foreground)] shadow-md ring-1 ring-black/5 backdrop-blur-sm transition-[transform,background-color,color,box-shadow] duration-300 hover:scale-110 hover:bg-white hover:text-[var(--brand-primary)] hover:shadow-lg active:scale-95 sm:left-4 sm:size-11 md:-left-5 md:size-12"
           >
             <ChevronLeft

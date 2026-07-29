@@ -13,14 +13,14 @@ export default function HeavyEquipmentSection() {
       <DecorativePattern
         variant="trianglesOutlined"
         // opacity={0.35}
-        className="left-0 top-0 h-auto w-[180px] sm:w-[220px] md:w-[260px] lg:w-[300px]"
+        className="left-0 top-0 h-auto "
       />
 
       {/* Decorative Pattern - Bottom Right */}
       <DecorativePattern
         variant="trianglesOutlined"
         // opacity={0.35}
-        className="right-0 bottom-10 h-auto w-[180px] sm:w-[220px] md:w-[260px] lg:w-[300px]"
+        className="right-0 bottom-10 h-auto "
       />
 
       <Container className="relative z-10">
