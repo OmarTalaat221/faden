@@ -17,7 +17,7 @@ export const metadata = {
     template: "%s | FADEN Contracting",
   },
   description:
-    "FADEN Contracting Company — a leading Saudi construction firm established in 1976 in Riyadh. Delivering end-to-end engineering, construction, and MEP solutions with 48+ years of proven excellence across Saudi Arabia.",
+    "FADEN Contracting Company — a leading Saudi construction firm established in 1976 in Riyadh. Delivering end-to-end engineering, construction, and MEP solutions with 50 years of proven excellence across Saudi Arabia.",
   keywords: [
     "FADEN Contracting",
     "Saudi construction company",
@@ -41,7 +41,6 @@ export const metadata = {
     canonical: "/",
     languages: {
       "en-SA": "/",
-      "ar-SA": "/ar",
     },
   },
   openGraph: {
@@ -51,22 +50,13 @@ export const metadata = {
     siteName: "FADEN Contracting Company",
     title: "FADEN Contracting Company | Construction Excellence Since 1976",
     description:
-      "Leading Saudi construction firm delivering end-to-end engineering, construction, and MEP solutions. 48+ years of excellence, 1000+ experts, 40+ landmark projects.",
-    images: [
-      {
-        url: "/images/faden/image-05.jpg",
-        width: 1200,
-        height: 630,
-        alt: "FADEN Contracting Company completed construction project",
-      },
-    ],
+      "Leading Saudi construction firm delivering end-to-end engineering, construction, and MEP solutions across Saudi Arabia.",
   },
   twitter: {
     card: "summary_large_image",
     title: "FADEN Contracting Company",
     description:
       "Leading Saudi construction firm since 1976. End-to-end engineering, construction, and MEP solutions.",
-    images: ["/images/faden/image-05.jpg"],
   },
   robots: {
     index: true,
@@ -79,11 +69,7 @@ export const metadata = {
       "max-snippet": -1,
     },
   },
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
-  },
+
   category: "construction",
 };
 
@@ -100,7 +86,7 @@ const organizationSchema = {
   name: "FADEN Contracting Company",
   alternateName: "شركة فادن للمقاولات",
   url: "https://www.fadensa.com",
-  logo: "https://www.fadensa.com/images/faden/logo.png",
+  logo: "https://www.fadensa.com/images/faden/logo.webp",
   image: "https://www.fadensa.com/images/faden/image-05.jpg",
   description:
     "Leading Saudi construction and contracting company established in 1976, headquartered in Riyadh. Specialized in engineering works, construction, and MEP services.",
@@ -112,23 +98,20 @@ const organizationSchema = {
   },
   contactPoint: {
     "@type": "ContactPoint",
-    telephone: "+966-11-4508555",
+    telephone: "+966-11-2158333",
     contactType: "customer service",
     email: "info@fadensa.com",
     areaServed: "SA",
     availableLanguage: ["en", "ar"],
   },
-  sameAs: [
-    "https://www.linkedin.com/company/faden-contracting/",
-    "https://www.fadensa.com",
-  ],
+  sameAs: ["https://www.linkedin.com/company/faden-contracting/"],
   areaServed: {
     "@type": "Country",
     name: "Saudi Arabia",
   },
   numberOfEmployees: {
     "@type": "QuantitativeValue",
-    value: "1000+",
+    minValue: 1000,
   },
 };
 
