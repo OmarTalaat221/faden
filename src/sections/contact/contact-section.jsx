@@ -7,7 +7,7 @@ export default function ContactSection({ info, form }) {
   return (
     <section className="relative z-10 overflow-hidden bg-white py-14 sm:py-16 md:py-20 lg:py-24">
       <DecorativePattern
-        variant="triangles"
+        variant="trianglesRight"
         // opacity={0.35}
         className="pointer-events-none absolute right-0 top-0  -z-1"
       />

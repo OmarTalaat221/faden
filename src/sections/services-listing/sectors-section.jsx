@@ -8,7 +8,7 @@ export default function SectorsSection({ sectors }) {
   return (
     <section className="relative overflow-hidden bg-[var(--muted)] py-14 sm:py-16 md:py-20 lg:py-24">
       <DecorativePattern
-        variant="trianglesOutlined"
+        variant="trianglesOutlinedRight"
         opacity={0.35}
         className="pointer-events-none absolute right-0 top-0 "
       />

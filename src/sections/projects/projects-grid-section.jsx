@@ -104,7 +104,7 @@ export default function ProjectsGridSection() {
 
       {/* Decorative Pattern - Middle Right */}
       <DecorativePattern
-        variant="trianglesOutlined"
+        variant="trianglesOutlinedRight"
         className="top-1/2 right-0 -translate-y-1/2"
       />
 

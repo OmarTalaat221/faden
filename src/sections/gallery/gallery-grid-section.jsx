@@ -135,7 +135,7 @@ export default function GalleryGridSection() {
   return (
     <section className="relative overflow-hidden pb-16 sm:pb-20 md:pb-24">
       <DecorativePattern
-        variant="trianglesOutlined"
+        variant="trianglesOutlinedRight"
         className="right-0 top-4 "
       />
 

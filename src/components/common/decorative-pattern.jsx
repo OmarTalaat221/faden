@@ -1,14 +1,24 @@
-import Image from "next/image";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const PATTERNS = {
   triangles: {
-    src: "/images/faden/pattern-for-faden.webp",
+    src: "/images/faden/pattern-for-faden.png",
+    naturalWidth: 280,
+    naturalHeight: 420,
+  },
+  trianglesRight: {
+    src: "/images/faden/pattern-for-faden-right.png",
     naturalWidth: 280,
     naturalHeight: 420,
   },
   trianglesOutlined: {
-    src: "/images/faden/pattern-for-faden-2.webp",
+    src: "/images/faden/pattern-for-faden-2.png",
+    naturalWidth: 280,
+    naturalHeight: 420,
+  },
+  trianglesOutlinedRight: {
+    src: "/images/faden/pattern-for-faden-2-right.webp",
     naturalWidth: 280,
     naturalHeight: 420,
   },
@@ -24,7 +34,11 @@ const PATTERNS = {
 const DEFAULT_SIZES = {
   triangles:
     "w-[110px] xs:w-[130px] sm:w-[160px] md:w-[190px] lg:w-[220px] xl:w-[260px] h-auto",
+  trianglesRight:
+    "w-[110px] xs:w-[130px] sm:w-[160px] md:w-[190px] lg:w-[220px] xl:w-[260px] h-auto",
   trianglesOutlined:
+    "w-[110px] xs:w-[130px] sm:w-[160px] md:w-[190px] lg:w-[220px] xl:w-[260px] h-auto",
+  trianglesOutlinedRight:
     "w-[110px] xs:w-[130px] sm:w-[160px] md:w-[190px] lg:w-[220px] xl:w-[260px] h-auto",
   fadenOutline:
     "w-[140px] xs:w-[170px] sm:w-[200px] md:w-[220px] lg:w-[240px] xl:w-[260px] h-auto",

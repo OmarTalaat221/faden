@@ -38,7 +38,7 @@ export default function CertificationsPage() {
         className="top-[600px] left-0 h-auto"
       />
       <DecorativePattern
-        variant="trianglesOutlined"
+        variant="trianglesOutlinedRight"
         // opacity={0.3}
         className="bottom-0 right-0 h-auto"
       />

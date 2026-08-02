@@ -8,7 +8,7 @@ export default function ClientsGridSection() {
     <section className="relative overflow-hidden pb-16 sm:pb-20 md:pb-24">
       {/* Decorative Pattern - Bottom Right */}
       <DecorativePattern
-        variant="trianglesOutlined"
+        variant="trianglesOutlinedRight"
         // opacity={0.3}
         className="bottom-1/4 right-0 "
       />

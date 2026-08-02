@@ -9,7 +9,7 @@ export default function IntroSection() {
     <section className="relative overflow-hidden py-12 sm:py-14 md:py-16 lg:py-20">
       {/* Decorative Pattern - Top Right (smaller) */}
       <DecorativePattern
-        variant="trianglesOutlined"
+        variant="trianglesOutlinedRight"
         // opacity={0.35}
         className="right-0 top-4 h-auto"
       />

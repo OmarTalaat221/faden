@@ -430,7 +430,7 @@ export default function GalleryViewerSection({ currentId }) {
   return (
     <section className="relative overflow-hidden py-10 sm:py-14 md:py-16">
       <DecorativePattern
-        variant="trianglesOutlined"
+        variant="trianglesOutlinedRight"
         className="right-0 top-4"
       />
 

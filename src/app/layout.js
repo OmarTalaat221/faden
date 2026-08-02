@@ -10,8 +10,11 @@ const inter = Inter({
   preload: true,
 });
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://faden-wine.vercel.app";
+
 export const metadata = {
-  metadataBase: new URL("https://www.fadensa.com"),
+  metadataBase: new URL(siteUrl),
   title: {
     default: "FADEN Contracting Company | Construction Excellence Since 1976",
     template: "%s | FADEN Contracting",

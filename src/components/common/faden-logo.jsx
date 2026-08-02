@@ -15,7 +15,7 @@ export default function FadenLogo({
 
   return (
     <Link
-      href="#home"
+      href="/"
       aria-label="FADEN Contracting Company - Home"
       className={cn("inline-flex items-center", className)}
     >

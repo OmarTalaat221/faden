@@ -13,7 +13,10 @@ export default function ProjectsSection() {
       aria-labelledby="projects-heading"
     >
       {/* Decorative pattern - top right */}
-      <DecorativePattern variant="triangles" className="right-0 top-0 -z-0" />
+      <DecorativePattern
+        variant="trianglesRight"
+        className="right-0 top-0 -z-0"
+      />
 
       {/* Decorative pattern - bottom left */}
       <DecorativePattern

@@ -19,7 +19,7 @@ export default function GallerySection() {
 
       {/* Decorative pattern - bottom right */}
       <DecorativePattern
-        variant="triangles"
+        variant="trianglesRight"
         className="bottom-0 right-0 -z-0"
       />
 

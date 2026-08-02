@@ -9,7 +9,7 @@ export default function DriversSection() {
     <section className="relative w-full overflow-hidden bg-white py-12 sm:py-16 md:py-20 lg:py-24">
       {/* Decorative Pattern - Top Right */}
       <DecorativePattern
-        variant="triangles"
+        variant="trianglesRight"
         // opacity={0.35}
         className="top-0 right-0 "
       />

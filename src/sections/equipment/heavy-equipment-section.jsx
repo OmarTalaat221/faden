@@ -18,7 +18,7 @@ export default function HeavyEquipmentSection() {
 
       {/* Decorative Pattern - Bottom Right */}
       <DecorativePattern
-        variant="trianglesOutlined"
+        variant="trianglesOutlinedRight"
         // opacity={0.35}
         className="right-0 bottom-10 h-auto "
       />

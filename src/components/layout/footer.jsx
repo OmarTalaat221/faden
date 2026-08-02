@@ -3,7 +3,7 @@ import Container from "@/components/layout/container";
 import { Mail, MapPin, Phone } from "lucide-react";
 
 const quickLinks = [
-  { label: "Home", href: "#home" },
+  { label: "Home", href: "/" },
   { label: "About Us", href: "#about" },
   { label: "Services", href: "#services" },
   { label: "Projects", href: "#projects" },

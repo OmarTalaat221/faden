@@ -21,7 +21,7 @@ export default function CertificationsSection() {
     <section className="relative w-full overflow-hidden bg-white py-10 pb-16 sm:py-12 sm:pb-20 md:py-14 md:pb-24 lg:py-16 lg:pb-28">
       {/* Decorative Pattern - Bottom Right */}
       <DecorativePattern
-        variant="trianglesOutlined"
+        variant="trianglesOutlinedRight"
         opacity={0.35}
         className="bottom-0 right-0 "
       />

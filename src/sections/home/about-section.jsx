@@ -11,7 +11,7 @@ export default function AboutSection() {
       className="relative isolate scroll-mt-20 overflow-hidden bg-white pt-20 pb-0 sm:pt-24 lg:pt-32"
     >
       {/* Triangles pattern — top-left */}
-      <DecorativePattern variant="triangles" className="left-0 -top-10 -z-10" />
+      {/* <DecorativePattern variant="triangles" className="left-0 -top-10 -z-10" /> */}
 
       {/* FADEN outline — bottom-right */}
       <DecorativePattern
