@@ -1,9 +1,10 @@
 import DecorativePattern from "@/components/common/decorative-pattern";
 import Container from "@/components/layout/container";
-import { CLIENTS_LIST } from "@/lib/clients/data";
+import { getClientsList } from "@/lib/clients/data";
 import Image from "next/image";
 
-export default function ClientsGridSection() {
+export default async function ClientsGridSection() {
+  const CLIENTS_LIST = await getClientsList();
   return (
     <section className="relative overflow-hidden pb-16 sm:pb-20 md:pb-24">
       {/* Decorative Pattern - Bottom Right */}

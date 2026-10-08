@@ -1,5 +1,5 @@
 ﻿import PageBanner from "@/components/common/page-banner";
-import { overviewData } from "@/sections/about-overview/data";
+import { getAboutOverview } from "@/sections/about-overview/data";
 import OverviewIntro from "@/sections/about-overview/overview-intro";
 import OverviewStats from "@/sections/about-overview/overview-stats";
 
@@ -19,7 +19,9 @@ export const metadata = {
   },
 };
 
-export default function CompanyOverviewPage() {
+export default async function CompanyOverviewPage() {
+  const overviewData = await getAboutOverview();
+
   return (
     <main className="min-h-screen bg-white">
       <PageBanner {...overviewData.banner} />

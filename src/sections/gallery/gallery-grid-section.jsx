@@ -3,7 +3,6 @@
 import DecorativePattern from "@/components/common/decorative-pattern";
 import RevealImage from "@/components/common/reveal-image";
 import Container from "@/components/layout/container";
-import { GALLERY_LIST, GALLERY_PAGE_META } from "@/lib/gallery/data";
 import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
@@ -92,7 +91,7 @@ function buildPages(current, total) {
   return result;
 }
 
-export default function GalleryGridSection() {
+export default function GalleryGridSection({ galleryList: GALLERY_LIST, galleryMeta: GALLERY_PAGE_META }) {
   const { itemsPerPage } = GALLERY_PAGE_META;
   const searchParams = useSearchParams();
   const router = useRouter();

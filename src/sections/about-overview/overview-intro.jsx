@@ -1,8 +1,16 @@
 ﻿import DecorativePattern from "@/components/common/decorative-pattern";
 import Container from "@/components/layout/container";
-import { overviewData } from "./data";
+import { getAboutOverview } from "./data";
 
-export default function OverviewIntro() {
+// A paragraph is either rich text (parts, some highlighted) as authored in
+// the original static copy, or a plain string as the dashboard stores it.
+function toParts(paragraph) {
+  if (typeof paragraph === "string") return [{ text: paragraph }];
+  return paragraph?.parts ?? [];
+}
+
+export default async function OverviewIntro() {
+  const overviewData = await getAboutOverview();
   const { intro } = overviewData;
 
   return (
@@ -30,7 +38,7 @@ export default function OverviewIntro() {
           <div className="mt-8 space-y-5 text-sm leading-[1.85] text-black sm:text-[15px] md:text-base lg:text-[18px] xl:text-xl">
             {intro.paragraphs.map((p, i) => (
               <p key={i}>
-                {p.parts.map((part, j) =>
+                {toParts(p).map((part, j) =>
                   part.highlight ? (
                     <span
                       key={j}

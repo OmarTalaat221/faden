@@ -1,3 +1,5 @@
+import { apiGet, apiGetObject } from "@/lib/api";
+
 // Mock data matching API response structure (ready for backend integration)
 
 export const PROJECTS_PAGE_META = {
@@ -47,6 +49,7 @@ export const PROJECTS_ITEMS = [
     order: 1,
     client: "Al Amoudi Holding",
     location: "Jeddah, Saudi Arabia",
+    country: "Saudi Arabia",
     service: SERVICES.engineering,
     createdAt: "2024-01-15T00:00:00.000Z",
   },
@@ -60,6 +63,7 @@ export const PROJECTS_ITEMS = [
     order: 2,
     client: "AIS Educational Group",
     location: "Riyadh, Saudi Arabia",
+    country: "Saudi Arabia",
     service: SERVICES.engineering,
     createdAt: "2024-02-10T00:00:00.000Z",
   },
@@ -73,6 +77,7 @@ export const PROJECTS_ITEMS = [
     order: 3,
     client: "Private Client",
     location: "Riyadh, Saudi Arabia",
+    country: "Saudi Arabia",
     service: SERVICES.engineering,
     createdAt: "2024-03-05T00:00:00.000Z",
   },
@@ -88,6 +93,7 @@ export const PROJECTS_ITEMS = [
     order: 4,
     client: "Royal Protocol",
     location: "Um Alhamam, Riyadh, Saudi Arabia",
+    country: "Saudi Arabia",
     service: SERVICES.construction,
     createdAt: "2024-04-01T00:00:00.000Z",
   },
@@ -101,6 +107,7 @@ export const PROJECTS_ITEMS = [
     order: 5,
     client: "Aviation Authority",
     location: "Salboukh, Saudi Arabia",
+    country: "Saudi Arabia",
     service: SERVICES.construction,
     createdAt: "2024-04-15T00:00:00.000Z",
   },
@@ -114,6 +121,7 @@ export const PROJECTS_ITEMS = [
     order: 6,
     client: "Royal Saudi Air Force",
     location: "Riyadh, Saudi Arabia",
+    country: "Saudi Arabia",
     service: SERVICES.construction,
     createdAt: "2024-05-01T00:00:00.000Z",
   },
@@ -129,6 +137,7 @@ export const PROJECTS_ITEMS = [
     order: 7,
     client: "ARGO Industrial",
     location: "Cairo, Egypt",
+    country: "Egypt",
     service: SERVICES.mep,
     createdAt: "2024-05-20T00:00:00.000Z",
   },
@@ -142,6 +151,7 @@ export const PROJECTS_ITEMS = [
     order: 8,
     client: "Ministry of Science",
     location: "Riyadh, Saudi Arabia",
+    country: "Egypt",
     service: SERVICES.mep,
     createdAt: "2024-06-05T00:00:00.000Z",
   },
@@ -155,6 +165,7 @@ export const PROJECTS_ITEMS = [
     order: 9,
     client: "Egyptian Electricity Holding",
     location: "Cairo, Egypt",
+    country: "Egypt",
     service: SERVICES.mep,
     createdAt: "2024-06-20T00:00:00.000Z",
   },
@@ -170,6 +181,7 @@ export const PROJECTS_ITEMS = [
     order: 10,
     client: "National Water Company",
     location: "Al-Alamein, Egypt",
+    country: "Egypt",
     service: SERVICES.water,
     createdAt: "2024-07-10T00:00:00.000Z",
   },
@@ -183,6 +195,7 @@ export const PROJECTS_ITEMS = [
     order: 11,
     client: "Ministry of Water",
     location: "Egypt",
+    country: "Egypt",
     service: SERVICES.water,
     createdAt: "2024-08-01T00:00:00.000Z",
   },
@@ -195,7 +208,8 @@ export const PROJECTS_ITEMS = [
     partnershipType: "With Global Energy",
     order: 12,
     client: "National Water Company",
-    location: "Saudi Arabia",
+    location: "Egypt",
+    country: "Egypt",
     service: SERVICES.water,
     createdAt: "2024-08-20T00:00:00.000Z",
   },
@@ -207,10 +221,11 @@ export const PROJECTS_ITEMS = [
     slug: "marassi-blanca-85",
     img: "/images/faden/projects-page-13.webp",
     status: "Finished",
-    partnershipType: "Faden Only",
+    partnershipType: "With Global Energy",
     order: 13,
-    client: "Marassi Development",
-    location: "North Coast, Egypt",
+    client: "EMAAR MISR – Egypt",
+    location: "Marassi, North Coast – Egypt",
+    country: "Egypt",
     service: SERVICES.roads,
     createdAt: "2024-09-10T00:00:00.000Z",
   },
@@ -224,6 +239,7 @@ export const PROJECTS_ITEMS = [
     order: 14,
     client: "SODIC",
     location: "West Cairo, Egypt",
+    country: "Egypt",
     service: SERVICES.roads,
     createdAt: "2024-09-25T00:00:00.000Z",
   },
@@ -237,8 +253,23 @@ export const PROJECTS_ITEMS = [
     order: 15,
     client: "SODIC",
     location: "West Cairo, Egypt",
+    country: "Egypt",
     service: SERVICES.roads,
     createdAt: "2024-10-05T00:00:00.000Z",
+  },
+  {
+    id: "62762e6c-b5b4-4ccd-8e5e-6bfb907e20b9",
+    title: "Westown Courtyard Block 46",
+    slug: "westown-courtyard-block-46",
+    img: "/images/faden/projects-page-15.webp",
+    status: "Finished",
+    partnershipType: "Faden Only",
+    order: 19,
+    client: "SODIC",
+    location: "West Cairo, Egypt",
+    country: "Saudi Arabia",
+    service: SERVICES.roads,
+    createdAt: "2024-10-10T00:00:00.000Z",
   },
 
   // Additional Engineering Works (3 more)
@@ -252,6 +283,7 @@ export const PROJECTS_ITEMS = [
     order: 16,
     client: "Radisson Hospitality",
     location: "Riyadh, Saudi Arabia",
+    country: "Saudi Arabia",
     service: SERVICES.engineering,
     createdAt: "2024-10-20T00:00:00.000Z",
   },
@@ -265,6 +297,7 @@ export const PROJECTS_ITEMS = [
     order: 17,
     client: "Riyadh Equestrian Society",
     location: "Riyadh, Saudi Arabia",
+    country: "Saudi Arabia",
     service: SERVICES.engineering,
     createdAt: "2024-11-05T00:00:00.000Z",
   },
@@ -278,6 +311,7 @@ export const PROJECTS_ITEMS = [
     order: 18,
     client: "Private Client",
     location: "Riyadh, Saudi Arabia",
+    country: "Saudi Arabia",
     service: SERVICES.engineering,
     createdAt: "2024-11-20T00:00:00.000Z",
   },
@@ -295,6 +329,8 @@ export const PROJECTS_PARTNERSHIP_TYPES = ["Faden Only", "With Global Energy"];
 
 export const PROJECTS_STATUS_OPTIONS = ["Finished", "In Progress"];
 
+export const PROJECTS_COUNTRIES = ["Saudi Arabia", "Egypt"];
+
 export const SORT_OPTIONS = [
   { value: "default", label: "Default Sorting" },
   { value: "name-asc", label: "Name (A - Z)" },
@@ -302,3 +338,398 @@ export const SORT_OPTIONS = [
   { value: "newest", label: "Newest First" },
   { value: "oldest", label: "Oldest First" },
 ];
+
+// ========================================
+// PROJECT DETAIL DATA (Project Details page)
+// ========================================
+
+// Recycle the existing gallery photos as project-photo filler (same
+// "recycle until more images are added" approach used in lib/gallery/data.js)
+function recyclePhotos(order, count = 4) {
+  return Array.from({ length: count }, (_, i) => {
+    const imgIndex = ((order - 1 + i) % 12) + 1;
+    return `/images/faden/gallery-page-${imgIndex}.webp`;
+  });
+}
+
+// Generic, plausible detail content generated from the base project fields.
+// Used for every project that doesn't have hand-authored Figma copy below.
+function defaultProjectDetail(project) {
+  return {
+    overview: {
+      label: "PROJECT OVERVIEW",
+      caption:
+        "An overview of the project, presenting a concise summary and overall context.",
+      paragraphs: [
+        `${project.title} is a ${project.service.name.toLowerCase()} project delivered for ${project.client} in ${project.location}.`,
+        project.partnershipType === "Faden Only"
+          ? "FADEN Contracting Company served as the main contractor and executed the project independently, delivering the works to the highest standards of safety and quality."
+          : "FADEN Contracting Company partnered with Global Energy to jointly execute the project, delivering the works to the highest standards of safety and quality.",
+      ],
+    },
+    infoTabs: {
+      details: {
+        left: [
+          { label: "Category", value: `${project.service.name}.` },
+          { label: "Client", value: `${project.client}.` },
+          { label: "Location", value: `${project.location}.` },
+        ],
+        right: [
+          { label: "Partnership", value: `${project.partnershipType}.` },
+          { label: "Status", value: `${project.status}.` },
+        ],
+      },
+      composition: {
+        left: [
+          { label: "Sector", value: `${project.service.name}.` },
+          { label: "Structure", value: "Single main structure." },
+        ],
+        right: [
+          { label: "Status", value: `${project.status}.` },
+        ],
+      },
+    },
+    designIntent: {
+      label: "DESIGN INTENT",
+      caption:
+        "A general overview describing the main objectives and inspiration of the design concept.",
+      paragraphs: [
+        `The design approach for ${project.title} focused on functionality, durability, and alignment with FADEN's quality standards, ensuring a result that serves its intended purpose efficiently.`,
+      ],
+      image: project.img,
+    },
+    amenitiesFeatures: {
+      label: "AMENITIES & FEATURES",
+      caption:
+        "An overview of the facilities and key features enhancing the project's functionality and comfort.",
+      items: [
+        "Quality-assured structural and finishing works.",
+        "Efficient project scheduling and resource management.",
+        "Compliance with international safety standards.",
+        "Skilled multidisciplinary engineering team.",
+      ],
+    },
+    keyAchievements: {
+      label: "KEY ACHIEVEMENTS",
+      caption:
+        "An overview of the major successes achieved throughout the project's development.",
+      items: [
+        "Delivered to the client's full satisfaction.",
+        "Executed in line with FADEN's quality and safety protocols.",
+        "Completed with efficient resource and time management.",
+      ],
+    },
+    photos: recyclePhotos(project.order),
+  };
+}
+
+// Hand-authored overrides, matching the Figma "Projects Details" designs.
+const PROJECT_DETAIL_OVERRIDES = {
+  "king-road-tower-jeddah": {
+    overview: {
+      label: "PROJECT OVERVIEW",
+      caption:
+        "An overview of the project, presenting a concise summary and overall context.",
+      paragraphs: [
+        "King Road Tower is a landmark high-rise located at the intersection of King Abdulaziz Road and Corniche Road, near Al-Tahlia Square in Jeddah. This tower has become an architectural icon due to its distinctive curved glass façade and elegant skyline presence.",
+        "FADEN Contracting Company served as the Main Contractor and executed the project on a full Turn-Key basis, encompassing structural works, MEP systems, façade installation, and premium interior finishes. The project was delivered on schedule with the highest standards of safety and quality.",
+      ],
+    },
+    infoTabs: {
+      details: {
+        left: [
+          { label: "Category", value: "Integrated Engineering Works." },
+          { label: "Client", value: "Confidential / TBD." },
+          { label: "Project Type", value: "Commercial High-Rise Tower." },
+          { label: "Built-Up Area", value: "136,000 m²." },
+          { label: "Floors", value: "35 Above Ground + 2 Basement." },
+          { label: "Elevators", value: "17." },
+          {
+            label: "Scope",
+            value:
+              "Full structural, façade, interior finishing, and MEP execution.",
+          },
+        ],
+        right: [
+          {
+            label: "Partnership",
+            value: "Exclusively executed by FADEN Contracting Company.",
+          },
+          { label: "Contract Type", value: "Turn-Key." },
+          { label: "Architectural Height", value: "143 m." },
+          { label: "Parking Capacity", value: "1,000 Cars." },
+          { label: "Duration", value: "2008 – 2010." },
+          { label: "Status", value: "Finished." },
+        ],
+      },
+      composition: {
+        left: [
+          {
+            label: "Main Structure",
+            value: "1 main tower + 2 annexes (North & South).",
+          },
+          { label: "Ground Floor", value: "1." },
+          { label: "Podium Floors (Parking)", value: "5." },
+          { label: "VIP & Restaurant Floors", value: "4." },
+        ],
+        right: [
+          { label: "Basements", value: "2." },
+          { label: "Mezzanine Floor", value: "1." },
+          { label: "Typical Floors", value: "22." },
+          { label: "Roof", value: "Helipad." },
+        ],
+      },
+    },
+    designIntent: {
+      label: "DESIGN INTENT",
+      caption:
+        "A general overview describing the main objectives and inspiration of the design concept.",
+      paragraphs: [
+        "The design of King Road Tower was conceived to establish a modern architectural landmark within Jeddah's evolving skyline. Our design philosophy intends to create a structure that merges aesthetic appeal with functional. The vertical massing and fluid form were developed to optimize natural light penetration, enhance interior flexibility, and provide visual balance between the tower and its annexes. The curved façade highlights elegance and transparency, symbolizing progress and innovation.",
+      ],
+      image: "/images/faden/projects-page-1.webp",
+    },
+    amenitiesFeatures: {
+      label: "AMENITIES & FEATURES",
+      caption:
+        "An overview of the facilities and key features enhancing the project's functionality and comfort.",
+      items: [
+        "Executive lounges and VIP reception areas.",
+        "Smart building management and automation systems.",
+        "Secure underground service and parking access.",
+        "High-end restaurants with panoramic city views.",
+        "Energy-efficient double-glazed façade.",
+        "Integrated fire safety and monitoring systems.",
+      ],
+    },
+    keyAchievements: {
+      label: "KEY ACHIEVEMENTS",
+      caption:
+        "An overview of the major successes achieved throughout the project's development.",
+      items: [
+        "Delivered on time and within budget.",
+        "Recognized as a modern landmark in Jeddah's skyline.",
+        "Advanced façade and MEP systems integrated with sustainable materials.",
+        "Exceptional safety record throughout the construction phase.",
+      ],
+    },
+  },
+  "al-muhaiza-residential-palace": {
+    overview: {
+      label: "PROJECT OVERVIEW",
+      caption:
+        "An overview of the project, presenting a concise summary and overall context.",
+      paragraphs: [
+        "Thamer Al Muhaiza – Al Hada Palace is a prestigious luxury residential development designed to deliver exclusive and refined living experience. The project reflects a perfect balance between architectural elegance, functional planning, and complete privacy.",
+        "Executed by FADEN Contracting Company, the project was developed as a fully integrated luxury palace, combining high-end construction standards with meticulous attention to detail to meet elite residential requirements.",
+      ],
+    },
+    infoTabs: {
+      details: {
+        left: [
+          { label: "Category", value: "Integrated Engineering Works." },
+          { label: "Client", value: "Private / Confidential." },
+          { label: "Project Type", value: "Luxury Residential Palace." },
+          { label: "Built-Up Area", value: "4,598 m²." },
+          {
+            label: "Scope",
+            value:
+              "Full structural works, architectural execution, premium interior and exterior finishing, landscaping, and complete MEP works.",
+          },
+        ],
+        right: [
+          {
+            label: "Partnership",
+            value: "Exclusively executed by FADEN Contracting Company.",
+          },
+          { label: "Contract Type", value: "Turn-Key." },
+          { label: "Status", value: "Completed." },
+        ],
+      },
+      composition: {
+        left: [
+          {
+            label: "Main Residence",
+            children: [
+              {
+                label: "Basement",
+                value: "1,018 m² (Indoor swimming pool & recreational facilities).",
+              },
+              { label: "Ground Floor", value: "683 m²." },
+              { label: "First Floor", value: "793 m²." },
+              { label: "Second Floor", value: "819 m²." },
+            ],
+          },
+        ],
+        right: [
+          {
+            label: "Sunroom Building",
+            children: [
+              { label: "Basement", value: "645 m²." },
+              { label: "Ground Floor", value: "523 m²." },
+            ],
+          },
+          {
+            label: "Girl's Majlis",
+            children: [{ label: "Built-up Area", value: "117 m²." }],
+          },
+        ],
+      },
+    },
+    designIntent: {
+      label: "DESIGN INTENT",
+      caption:
+        "A general overview describing the main objectives and inspiration of the design concept.",
+      paragraphs: [
+        "The design of Al Hada Palace was conceived to establish a luxurious and private residential environment that supports comfort, elegance, and functionality. The architectural concept emphasizes spatial harmony, seamless indoor-outdoor integration, and clear zoning between living, reception, and leisure areas.",
+        "The result is a refined residential palace that reflects sophistication, exclusivity, and timeless architectural value.",
+      ],
+      image: "/images/faden/projects-page-3.webp",
+    },
+    amenitiesFeatures: {
+      label: "AMENITIES & FEATURES",
+      caption:
+        "An overview of the facilities and key features enhancing the project's functionality and comfort.",
+      items: [
+        "Indoor swimming pool.",
+        "Landscaped outdoor areas.",
+        "Dedicated majlis facilities.",
+        "Multi-level luxury living spaces.",
+        "Family gathering and entertainment areas.",
+        "High-end architectural and interior finishes.",
+      ],
+    },
+    keyAchievements: {
+      label: "KEY ACHIEVEMENTS",
+      caption:
+        "An overview of the major successes achieved throughout the project's development.",
+      items: [
+        "Delivery of a high-end VIP residential palace.",
+        "Exceptional construction and finishing quality.",
+        "Intelligent spatial planning ensuring maximum privacy.",
+        "Seamless integration of architecture and landscape.",
+        "Creation of a fully self-contained luxury residence.",
+      ],
+    },
+    photosCaption:
+      "An overview of photographs highlighting major design and construction elements.",
+  },
+  "marassi-blanca-85": {
+    overview: {
+      label: "PROJECT OVERVIEW",
+      caption:
+        "An overview of the project, presenting a concise summary and overall context.",
+      paragraphs: [
+        "Marassi Blanca 85 is a premium residential infrastructure project located within the Marassi development on Egypt's North Coast. The project was executed by Global Energy for Investment & Industry, covering execution, testing, and commissioning of integrated infrastructure networks, including water supply, drainage, irrigation, firefighting, electrical, and telecommunication systems.",
+        "The project was delivered in compliance with approved technical specifications, safety standards, and quality requirements, ensuring reliable and efficient infrastructure to support the residential community.",
+      ],
+    },
+    infoTabs: {
+      details: {
+        left: [
+          { label: "Category", value: "Roads & Infrastructure Works." },
+          { label: "Client", value: "EMAAR MISR – Egypt." },
+          {
+            label: "Project Type",
+            value: "Residential Infrastructure Development.",
+          },
+          {
+            label: "Scope",
+            value:
+              "Water supply network, Drainage networks, Irrigation systems, Firefighting networks, Electrical networks, and Telecommunication networks.",
+          },
+        ],
+        right: [
+          {
+            label: "Partnership",
+            value: "Executed by Global Energy for Investment & Industry.",
+          },
+          { label: "Contract Type", value: "Execution, Testing & Commissioning." },
+          { label: "Status", value: "Completed." },
+        ],
+      },
+    },
+    designIntent: {
+      label: "DESIGN INTENT",
+      caption:
+        "A general overview describing the main objectives and inspiration of the design concept.",
+      paragraphs: [
+        "The infrastructure design of Marassi Blanca 85 was developed to support a luxury residential environment through robust, efficient, and future-ready utility systems. Emphasizing sustainability, operational efficiency, and seamless integration with the surrounding Marassi development, ensuring uninterrupted services and enhanced living comfort for residents.",
+      ],
+      image: "/images/faden/projects-page-13.webp",
+    },
+    amenitiesFeatures: {
+      label: "AMENITIES & FEATURES",
+      caption:
+        "An overview of the facilities and key features enhancing the project's functionality and comfort.",
+      items: [
+        "Fully integrated water systems.",
+        "Advanced drainage network systems.",
+        "Efficient irrigation infrastructure solutions.",
+        "Reliable firefighting safety systems.",
+        "High performance electrical networks.",
+        "Scalable infrastructure for maintenance.",
+      ],
+    },
+    keyAchievements: {
+      label: "KEY ACHIEVEMENTS",
+      caption:
+        "An overview of the major successes achieved throughout the project's development.",
+      items: [
+        "Successful execution and commissioning within planned timelines.",
+        "High-quality infrastructure supporting luxury residential standards.",
+        "Compliance with international safety and engineering regulations.",
+        "Contribution to the overall value and functionality of the Marassi development.",
+      ],
+    },
+    photosCaption:
+      "An overview of photographs highlighting major design and construction elements.",
+  },
+};
+
+function buildProjectFallback(slug) {
+  const project = PROJECTS_ITEMS.find((p) => p.slug === slug);
+  if (!project) return null;
+
+  const detail = {
+    ...defaultProjectDetail(project),
+    ...(PROJECT_DETAIL_OVERRIDES[slug] || {}),
+  };
+
+  const relatedProjects = PROJECTS_ITEMS.filter(
+    (p) => p.service.id === project.service.id && p.slug !== project.slug,
+  )
+    .sort((a, b) => a.order - b.order)
+    .slice(0, 3);
+
+  return { ...project, detail, relatedProjects };
+}
+
+// ========================================
+// API ACCESSORS (fall back to the data above)
+// ========================================
+
+export async function getProjects() {
+  return apiGet("/projects", PROJECTS_ITEMS);
+}
+
+export async function getProjectsPageMeta() {
+  // The API nests the banner copy one level down.
+  const meta = await apiGetObject("/projects/meta", { banner: PROJECTS_PAGE_META });
+  return { ...PROJECTS_PAGE_META, ...(meta?.banner ?? {}) };
+}
+
+export async function getProjectCategories() {
+  return apiGet("/projects/categories", PROJECTS_CATEGORIES);
+}
+
+// Returns the project with its detail page resolved and `relatedProjects`
+// already computed by the server.
+export async function getProjectBySlug(slug) {
+  return apiGet(`/projects/by-slug/${slug}`, buildProjectFallback(slug));
+}
+
+export async function getAllProjectSlugs() {
+  const projects = await getProjects();
+  return projects.map((p) => p.slug);
+}

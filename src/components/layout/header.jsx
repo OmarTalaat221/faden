@@ -27,9 +27,22 @@ const navItems = [
 // Pages that have NO Hero/PageBanner — Header should be WHITE from the start
 const PAGES_WITHOUT_HERO = ["/equipment", "/gallery"];
 
+// Dynamic detail routes whose hero is a plain white section (no dark
+// PageBanner image), so the header must also start WHITE here — only the
+// detail pages themselves, not the listing page at the bare route.
+const DETAIL_ROUTES_WITHOUT_HERO = ["/projects"];
+
 function isPageWithoutHero(pathname) {
-  return PAGES_WITHOUT_HERO.some(
-    (route) => pathname === route || pathname.startsWith(route + "/"),
+  if (
+    PAGES_WITHOUT_HERO.some(
+      (route) => pathname === route || pathname.startsWith(route + "/"),
+    )
+  ) {
+    return true;
+  }
+
+  return DETAIL_ROUTES_WITHOUT_HERO.some((route) =>
+    pathname.startsWith(route + "/"),
   );
 }
 

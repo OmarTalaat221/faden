@@ -6,9 +6,8 @@ import Container from "@/components/layout/container";
 import Image from "next/image";
 import { useState } from "react";
 import AccordionItem from "./accordion-item";
-import { visionMissionData } from "./data";
 
-export default function DifferentSection() {
+export default function DifferentSection({ visionMissionData }) {
   const { different } = visionMissionData;
   // Single open (first item open by default)
   const [openIndex, setOpenIndex] = useState(0);

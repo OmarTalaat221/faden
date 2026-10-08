@@ -1,8 +1,9 @@
 ﻿import DecorativePattern from "@/components/common/decorative-pattern";
 import Container from "@/components/layout/container";
-import { overviewData } from "./data";
+import { getAboutOverview } from "./data";
 
-export default function OverviewStats() {
+export default async function OverviewStats() {
+  const overviewData = await getAboutOverview();
   const { stats } = overviewData;
 
   return (

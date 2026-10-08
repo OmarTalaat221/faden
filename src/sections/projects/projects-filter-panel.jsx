@@ -4,13 +4,14 @@ import { useEffect, useState } from "react";
 import { ChevronDown, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
-  PROJECTS_CATEGORIES,
   PROJECTS_PARTNERSHIP_TYPES,
+  PROJECTS_COUNTRIES,
 } from "@/lib/projects/data";
 
 const EMPTY_FILTERS = {
   categories: [],
   partnershipTypes: [],
+  countries: [],
   withoutImages: false,
 };
 
@@ -19,11 +20,13 @@ export default function ProjectsFilterPanel({
   onClose,
   appliedFilters,
   onApply,
+  categories: PROJECTS_CATEGORIES = [],
 }) {
   // Local state (draft) - only commits on Apply
   const [draft, setDraft] = useState(appliedFilters || EMPTY_FILTERS);
   const [categoriesOpen, setCategoriesOpen] = useState(true);
   const [partnershipOpen, setPartnershipOpen] = useState(true);
+  const [countryOpen, setCountryOpen] = useState(true);
 
   // Sync draft when panel opens
   useEffect(() => {
@@ -79,6 +82,18 @@ export default function ProjectsFilterPanel({
         partnershipTypes: has
           ? prev.partnershipTypes.filter((t) => t !== type)
           : [...prev.partnershipTypes, type],
+      };
+    });
+  };
+
+  const toggleCountry = (country) => {
+    setDraft((prev) => {
+      const has = prev.countries.includes(country);
+      return {
+        ...prev,
+        countries: has
+          ? prev.countries.filter((c) => c !== country)
+          : [...prev.countries, country],
       };
     });
   };
@@ -288,6 +303,69 @@ export default function ProjectsFilterPanel({
                       />
                       <span className="text-[13px] sm:text-[14px] text-foreground">
                         {type}
+                      </span>
+                    </label>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
+          {/* Country */}
+          <div className="border-b border-border py-5">
+            <button
+              type="button"
+              onClick={() => setCountryOpen((v) => !v)}
+              className="w-full flex items-center justify-between text-left"
+            >
+              <span className="text-[15px] sm:text-[16px] font-semibold text-foreground">
+                Country
+              </span>
+              <ChevronDown
+                className={cn(
+                  "h-4 w-4 text-foreground transition-transform",
+                  countryOpen && "rotate-180",
+                )}
+              />
+            </button>
+
+            {countryOpen && (
+              <div className="mt-4 space-y-3">
+                {PROJECTS_COUNTRIES.map((country) => {
+                  const checked = draft.countries.includes(country);
+                  return (
+                    <label
+                      key={country}
+                      className="flex items-center gap-3 cursor-pointer group"
+                    >
+                      <span
+                        className={cn(
+                          "flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-sm border transition-colors",
+                          checked
+                            ? "bg-brand-primary border-brand-primary"
+                            : "bg-white border-border group-hover:border-foreground/40",
+                        )}
+                      >
+                        {checked && (
+                          <svg
+                            className="h-3 w-3 text-white"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="3"
+                            viewBox="0 0 24 24"
+                          >
+                            <polyline points="20 6 9 17 4 12" />
+                          </svg>
+                        )}
+                      </span>
+                      <input
+                        type="checkbox"
+                        checked={checked}
+                        onChange={() => toggleCountry(country)}
+                        className="sr-only"
+                      />
+                      <span className="text-[13px] sm:text-[14px] text-foreground">
+                        {country}
                       </span>
                     </label>
                   );

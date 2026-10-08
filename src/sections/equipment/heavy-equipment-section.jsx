@@ -1,10 +1,12 @@
 import DecorativePattern from "@/components/common/decorative-pattern";
 import Container from "@/components/layout/container";
-import { EQUIPMENT_LIST, EQUIPMENT_PAGE_META } from "@/lib/equipment/data";
+import { getEquipmentList, getEquipmentPageMeta } from "@/lib/equipment/data";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
-export default function HeavyEquipmentSection() {
+export default async function HeavyEquipmentSection() {
+  const EQUIPMENT_LIST = await getEquipmentList();
+  const EQUIPMENT_PAGE_META = await getEquipmentPageMeta();
   const { eyebrow, subtitle } = EQUIPMENT_PAGE_META.heavy;
 
   return (

@@ -1,8 +1,9 @@
 import DecorativePattern from "@/components/common/decorative-pattern";
 import Container from "@/components/layout/container";
-import { CLIENTS_PAGE_META } from "@/lib/clients/data";
+import { getClientsPageMeta } from "@/lib/clients/data";
 
-export default function IntroSection() {
+export default async function IntroSection() {
+  const CLIENTS_PAGE_META = await getClientsPageMeta();
   const { eyebrow, title, description } = CLIENTS_PAGE_META.intro;
 
   return (

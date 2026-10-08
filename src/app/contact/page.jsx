@@ -1,7 +1,7 @@
 import PageBanner from "@/components/common/page-banner";
 import ContactSection from "@/sections/contact/contact-section";
 import MapSection from "@/sections/contact/map-section";
-import { CONTACT_PAGE_DATA } from "@/lib/contact/data";
+import { getContactPageData } from "@/lib/contact/data";
 
 export const metadata = {
   title: "Contact Us",
@@ -9,8 +9,8 @@ export const metadata = {
     "Get in touch with FADEN Contracting Company. Visit our office in Riyadh, Saudi Arabia, or send us a message and we'll get back to you.",
 };
 
-export default function ContactPage() {
-  const data = CONTACT_PAGE_DATA;
+export default async function ContactPage() {
+  const data = await getContactPageData();
 
   return (
     <>

@@ -1,7 +1,7 @@
 import Container from "@/components/layout/container";
-import { GALLERY_PAGE_META } from "@/lib/gallery/data";
 
-export default function IntroSection() {
+export default function IntroSection({ galleryMeta }) {
+  const GALLERY_PAGE_META = galleryMeta;
   const { eyebrow, subtitle } = GALLERY_PAGE_META.intro;
 
   return (

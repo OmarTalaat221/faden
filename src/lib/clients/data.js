@@ -28,3 +28,17 @@ export const CLIENTS_LIST = Array.from({ length: 58 }, (_, i) => {
     logo: `/images/faden/client-${i + 1}.png`,
   };
 });
+
+// ========================================
+// API ACCESSORS (fall back to the data above)
+// ========================================
+
+import { apiGet, apiGetObject } from "@/lib/api";
+
+export async function getClientsList() {
+  return apiGet("/clients", CLIENTS_LIST);
+}
+
+export async function getClientsPageMeta() {
+  return apiGetObject("/clients/meta", CLIENTS_PAGE_META);
+}

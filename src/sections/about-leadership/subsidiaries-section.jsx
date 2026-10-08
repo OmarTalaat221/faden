@@ -1,8 +1,9 @@
 ﻿import Image from "next/image";
 import Container from "@/components/layout/container";
-import { leadershipData } from "./data";
+import { getAboutLeadership } from "./data";
 
-export default function SubsidiariesSection() {
+export default async function SubsidiariesSection() {
+  const leadershipData = await getAboutLeadership();
   const { subsidiaries } = leadershipData;
 
   return (

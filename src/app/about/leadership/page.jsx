@@ -1,5 +1,5 @@
 ﻿import PageBanner from "@/components/common/page-banner";
-import { leadershipData } from "@/sections/about-leadership/data";
+import { getAboutLeadership } from "@/sections/about-leadership/data";
 import MessagesSection from "@/sections/about-leadership/messages-section";
 import SubsidiariesSection from "@/sections/about-leadership/subsidiaries-section";
 
@@ -19,7 +19,9 @@ export const metadata = {
   },
 };
 
-export default function LeadershipPage() {
+export default async function LeadershipPage() {
+  const leadershipData = await getAboutLeadership();
+
   return (
     <main className="min-h-screen bg-white">
       <PageBanner {...leadershipData.banner} />

@@ -2,7 +2,6 @@
 
 import DecorativePattern from "@/components/common/decorative-pattern";
 import Container from "@/components/layout/container";
-import { GALLERY_LIST } from "@/lib/gallery/data";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import {
   AnimatePresence,
@@ -38,7 +37,7 @@ const mainImageVariants = {
   },
 };
 
-function findGalleryIndex(id) {
+function findGalleryIndex(GALLERY_LIST, id) {
   const index = GALLERY_LIST.findIndex(
     (item) => String(item.id) === String(id),
   );
@@ -61,7 +60,7 @@ function isModifiedClick(event) {
   );
 }
 
-export default function GalleryViewerSection() {
+export default function GalleryViewerSection({ galleryList: GALLERY_LIST }) {
   const shouldReduceMotion = useReducedMotion();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -74,7 +73,7 @@ export default function GalleryViewerSection() {
   const currentPageFromUrl = searchParams.get("page");
 
   const initialIndex = useMemo(
-    () => findGalleryIndex(currentIdFromUrl),
+    () => findGalleryIndex(GALLERY_LIST, currentIdFromUrl),
     [], // Only on mount — LOCAL state takes over after
   );
 

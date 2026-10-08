@@ -1,9 +1,13 @@
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function ProjectCard({ project, className }) {
   return (
-    <div className={cn("group cursor-pointer", className)}>
+    <Link
+      href={`/projects/${project.slug}`}
+      className={cn("group block cursor-pointer", className)}
+    >
       {/* Image */}
       <div className="relative overflow-hidden rounded-lg bg-muted aspect-[4/3]">
         <Image
@@ -24,6 +28,6 @@ export default function ProjectCard({ project, className }) {
           {project.service.name}
         </p>
       </div>
-    </div>
+    </Link>
   );
 }

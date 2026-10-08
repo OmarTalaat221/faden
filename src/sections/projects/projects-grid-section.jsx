@@ -2,23 +2,24 @@
 
 import DecorativePattern from "@/components/common/decorative-pattern";
 import Container from "@/components/layout/container";
-import { PROJECTS_ITEMS } from "@/lib/projects/data";
 import { useEffect, useMemo, useState } from "react";
 import ProjectCard from "./project-card";
 import ProjectsControls from "./projects-controls";
 import ProjectsFilterPanel from "./projects-filter-panel";
 import ProjectsMobileChips from "./projects-mobile-chips";
 import ProjectsPagination from "./projects-pagination";
+import ProjectsCountryToggle from "./projects-country-toggle";
 
 const EMPTY_FILTERS = {
   categories: [],
   partnershipTypes: [],
+  countries: [],
   withoutImages: false,
 };
 
 const ITEMS_PER_PAGE = 18;
 
-export default function ProjectsGridSection() {
+export default function ProjectsGridSection({ projects: PROJECTS_ITEMS = [], categories = [] }) {
   const [sortValue, setSortValue] = useState("default");
   const [filters, setFilters] = useState(EMPTY_FILTERS);
   const [filterOpen, setFilterOpen] = useState(false);
@@ -33,6 +34,7 @@ export default function ProjectsGridSection() {
   const activeFiltersCount =
     filters.categories.length +
     filters.partnershipTypes.length +
+    filters.countries.length +
     (filters.withoutImages ? 1 : 0);
 
   const filteredProjects = useMemo(() => {
@@ -46,6 +48,10 @@ export default function ProjectsGridSection() {
       items = items.filter((p) =>
         filters.partnershipTypes.includes(p.partnershipType),
       );
+    }
+
+    if (filters.countries.length > 0) {
+      items = items.filter((p) => filters.countries.includes(p.country));
     }
 
     if (filters.withoutImages) {
@@ -86,6 +92,12 @@ export default function ProjectsGridSection() {
   const totalCount = PROJECTS_ITEMS.length;
   const shownCount = filteredProjects.length;
 
+  const selectedCountry = filters.countries.length === 1 ? filters.countries[0] : null;
+
+  const handleCountryChange = (country) => {
+    setFilters((prev) => ({ ...prev, countries: country ? [country] : [] }));
+  };
+
   const handlePageChange = (newPage) => {
     setPage(newPage);
     // Scroll to top of section smoothly
@@ -117,6 +129,11 @@ export default function ProjectsGridSection() {
       <Container className="relative z-10">
         <div id="projects-grid-top" className="scroll-mt-24" />
 
+        {/* Country split - the primary entry point into the grid */}
+        <div className="mb-6 sm:mb-8">
+          <ProjectsCountryToggle value={selectedCountry} onChange={handleCountryChange} />
+        </div>
+
         {/* Top bar: Results counter + Controls (desktop/tablet only) */}
         <div className="hidden md:flex flex-wrap items-center justify-between gap-3 sm:gap-4">
           <p className="text-[13px] sm:text-[14px] text-muted-foreground">
@@ -137,7 +154,7 @@ export default function ProjectsGridSection() {
 
         {/* Mobile: chips + sort */}
         <div className="md:hidden space-y-3">
-          <ProjectsMobileChips filters={filters} onChange={setFilters} />
+          <ProjectsMobileChips filters={filters} onChange={setFilters} categories={categories} />
           <div className="flex items-center justify-between gap-3">
             <p className="text-[13px] text-muted-foreground">
               <span className="font-semibold text-foreground">
@@ -195,6 +212,7 @@ export default function ProjectsGridSection() {
         onClose={() => setFilterOpen(false)}
         appliedFilters={filters}
         onApply={setFilters}
+        categories={categories}
       />
     </section>
   );

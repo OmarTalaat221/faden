@@ -1,5 +1,5 @@
 ﻿import PageBanner from "@/components/common/page-banner";
-import { partnersData } from "@/sections/about-partners/data";
+import { getAboutPartners } from "@/sections/about-partners/data";
 import AchievementsSection from "@/sections/about-partners/achievements-section";
 import CertificationsSection from "@/sections/about-partners/certifications-section";
 import PartnerIntroSection from "@/sections/about-partners/partner-intro-section";
@@ -21,13 +21,15 @@ export const metadata = {
   },
 };
 
-export default function PartnersPage() {
+export default async function PartnersPage() {
+  const partnersData = await getAboutPartners();
+
   return (
     <main className="min-h-screen bg-white">
       <PageBanner {...partnersData.banner} />
       <PartnerIntroSection />
       <AchievementsSection />
-      <PartnerProjectsSection />
+      <PartnerProjectsSection partnersData={partnersData} />
       <CertificationsSection />
     </main>
   );

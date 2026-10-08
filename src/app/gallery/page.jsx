@@ -1,4 +1,5 @@
 import GalleryPage from "@/sections/gallery/gallery-page";
+import { getGalleryList, getGalleryPageMeta } from "@/lib/gallery/data";
 
 export const metadata = {
   title: "Gallery",
@@ -22,6 +23,11 @@ export const metadata = {
   },
 };
 
-export default function Page() {
-  return <GalleryPage />;
+export default async function Page() {
+  const [galleryList, galleryMeta] = await Promise.all([
+    getGalleryList(),
+    getGalleryPageMeta(),
+  ]);
+
+  return <GalleryPage galleryList={galleryList} galleryMeta={galleryMeta} />;
 }

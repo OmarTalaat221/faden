@@ -1,9 +1,10 @@
 ﻿import DecorativePattern from "@/components/common/decorative-pattern";
 import Container from "@/components/layout/container";
-import { leadershipData } from "./data";
+import { getAboutLeadership } from "./data";
 import LeaderCard from "./leader-card";
 
-export default function MessagesSection() {
+export default async function MessagesSection() {
+  const leadershipData = await getAboutLeadership();
   const { messages } = leadershipData;
 
   return (

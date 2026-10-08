@@ -1,9 +1,10 @@
 ﻿import DecorativePattern from "@/components/common/decorative-pattern";
 import Container from "@/components/layout/container";
 import Image from "next/image";
-import { partnersData } from "./data";
+import { getAboutPartners } from "./data";
 
-export default function PartnerIntroSection() {
+export default async function PartnerIntroSection() {
+  const partnersData = await getAboutPartners();
   const { intro } = partnersData;
 
   return (

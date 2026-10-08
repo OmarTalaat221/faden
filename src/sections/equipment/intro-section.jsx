@@ -1,8 +1,9 @@
 import DecorativePattern from "@/components/common/decorative-pattern";
 import Container from "@/components/layout/container";
-import { EQUIPMENT_PAGE_META } from "@/lib/equipment/data";
+import { getEquipmentPageMeta } from "@/lib/equipment/data";
 
-export default function IntroSection() {
+export default async function IntroSection() {
+  const EQUIPMENT_PAGE_META = await getEquipmentPageMeta();
   const { eyebrow, subtitle, description } = EQUIPMENT_PAGE_META.intro;
 
   return (

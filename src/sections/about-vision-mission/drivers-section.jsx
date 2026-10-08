@@ -1,8 +1,9 @@
 ﻿import DecorativePattern from "@/components/common/decorative-pattern";
 import Container from "@/components/layout/container";
-import { visionMissionData } from "./data";
+import { getAboutVisionMission } from "./data";
 
-export default function DriversSection() {
+export default async function DriversSection() {
+  const visionMissionData = await getAboutVisionMission();
   const { drivers } = visionMissionData;
 
   return (

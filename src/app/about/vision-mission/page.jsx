@@ -1,5 +1,5 @@
 ﻿import PageBanner from "@/components/common/page-banner";
-import { visionMissionData } from "@/sections/about-vision-mission/data";
+import { getAboutVisionMission } from "@/sections/about-vision-mission/data";
 import DifferentSection from "@/sections/about-vision-mission/different-section";
 import DriversSection from "@/sections/about-vision-mission/drivers-section";
 
@@ -19,12 +19,14 @@ export const metadata = {
   },
 };
 
-export default function VisionMissionPage() {
+export default async function VisionMissionPage() {
+  const visionMissionData = await getAboutVisionMission();
+
   return (
     <main className="min-h-screen bg-white">
       <PageBanner {...visionMissionData.banner} />
       <DriversSection />
-      <DifferentSection />
+      <DifferentSection visionMissionData={visionMissionData} />
     </main>
   );
 }

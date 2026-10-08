@@ -26,3 +26,16 @@ export const GALLERY_LIST = Array.from({ length: TOTAL_IMAGES }, (_, i) => {
     // position: "center", // optional: override objectPosition per item
   };
 });
+// ========================================
+// API ACCESSORS (fall back to the data above)
+// ========================================
+
+import { apiGet, apiGetObject } from "@/lib/api";
+
+export async function getGalleryList() {
+  return apiGet("/gallery", GALLERY_LIST);
+}
+
+export async function getGalleryPageMeta() {
+  return apiGetObject("/gallery/meta", GALLERY_PAGE_META);
+}

@@ -1,3 +1,5 @@
+import { apiGet, apiGetObject } from "@/lib/api";
+
 // ========================================
 // FALLBACK DATA (until backend is ready)
 // ========================================
@@ -103,11 +105,14 @@ export const SERVICES_PAGE_META = {
 // FETCH HELPERS (LIST + PAGE META)
 // ========================================
 export async function getAllServices() {
-  return SERVICES_LIST_FALLBACK;
+  // The API returns a bare array; this site has always consumed the
+  // { items: [...] } envelope, so it is re-applied here.
+  const items = await apiGet("/services", SERVICES_LIST_FALLBACK.items);
+  return { items };
 }
 
 export async function getServicesPageMeta() {
-  return SERVICES_PAGE_META;
+  return apiGetObject("/services/meta", SERVICES_PAGE_META);
 }
 
 // ========================================
@@ -452,9 +457,11 @@ export const SERVICES_FALLBACK = {
 };
 
 export async function getServiceBySlug(slug) {
-  return SERVICES_FALLBACK[slug] || null;
+  // The API resolves the shared "Why Choose FADEN" block into `sections`.
+  return apiGet(`/services/by-slug/${slug}`, SERVICES_FALLBACK[slug] || null);
 }
 
 export async function getAllServiceSlugs() {
-  return Object.keys(SERVICES_FALLBACK);
+  const { items } = await getAllServices();
+  return items.map((s) => s.slug);
 }

@@ -3,6 +3,12 @@
 import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
 import { useState } from "react";
 
+// Posts straight to the public submissions endpoint — no auth, and the
+// message lands in the dashboard's Contact Inbox.
+const API_URL = (
+  process.env.NEXT_PUBLIC_FADEN_API_URL || "https://api.faden.digital/api"
+).replace(/\/$/, "");
+
 const INITIAL_VALUES = {
   fullName: "",
   email: "",
@@ -73,9 +79,12 @@ export default function ContactForm({ form }) {
     setStatus("loading");
 
     try {
-      // TODO: Replace with real API call when backend is ready
-      await new Promise((resolve) => setTimeout(resolve, 1200));
-      console.log("[Contact Form Submission]", values);
+      const res = await fetch(`${API_URL}/contact/submissions`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+      if (!res.ok) throw new Error(`Submission failed (${res.status})`);
       setStatus("success");
       setValues(INITIAL_VALUES);
       setErrors({});

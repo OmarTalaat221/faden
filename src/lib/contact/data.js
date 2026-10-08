@@ -48,3 +48,14 @@ export const CONTACT_PAGE_DATA = {
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.5!2d46.6367!3d24.7136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDQyJzQ5LjAiTiA0NsKwMzgnMTIuMSJF!5e0!3m2!1sen!2ssa!4v1700000000000",
   },
 };
+// ========================================
+// API ACCESSORS (fall back to the data above)
+// ========================================
+
+import { apiGet, apiGetObject } from "@/lib/api";
+
+// `info.items` (address / phone / email) is built by the server from Site
+// Settings, so the footer and this page can never show different numbers.
+export async function getContactPageData() {
+  return apiGetObject("/contact/page", CONTACT_PAGE_DATA);
+}

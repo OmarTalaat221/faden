@@ -4,12 +4,11 @@ import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import Container from "@/components/layout/container";
-import { partnersData } from "./data";
 
 import "swiper/css";
 import "swiper/css/pagination";
 
-export default function PartnerProjectsSection() {
+export default function PartnerProjectsSection({ partnersData }) {
   const { projects } = partnersData;
 
   return (

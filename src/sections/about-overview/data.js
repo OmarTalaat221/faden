@@ -74,3 +74,13 @@ export const overviewData = {
     },
   ],
 };
+
+// ========================================
+// API ACCESSOR (falls back to the data above)
+// ========================================
+
+import { apiGet, apiGetObject } from "@/lib/api";
+
+export async function getAboutOverview() {
+  return apiGetObject("/about/overview", overviewData);
+}

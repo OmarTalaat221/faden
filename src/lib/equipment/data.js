@@ -33,3 +33,16 @@ export const EQUIPMENT_LIST = [
   { id: 18, name: "Car",             count: 21, image: "/images/faden/equipment-18.webp", rotate: true  },
   { id: 19, name: "Tank Truck",      count: 1,  image: "/images/faden/equipment-19.webp", rotate: false },
 ];
+// ========================================
+// API ACCESSORS (fall back to the data above)
+// ========================================
+
+import { apiGet, apiGetObject } from "@/lib/api";
+
+export async function getEquipmentList() {
+  return apiGet("/equipment", EQUIPMENT_LIST);
+}
+
+export async function getEquipmentPageMeta() {
+  return apiGetObject("/equipment/meta", EQUIPMENT_PAGE_META);
+}

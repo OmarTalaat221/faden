@@ -1,9 +1,8 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { PROJECTS_CATEGORIES } from "@/lib/projects/data";
 
-export default function ProjectsMobileChips({ filters, onChange }) {
+export default function ProjectsMobileChips({ filters, onChange, categories: PROJECTS_CATEGORIES = [] }) {
   const isAll = filters.categories.length === 0;
 
   const handleAll = () => {
