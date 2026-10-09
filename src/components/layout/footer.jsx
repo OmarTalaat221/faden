@@ -1,5 +1,6 @@
 import FadenLogo from "@/components/common/faden-logo";
 import Container from "@/components/layout/container";
+import { getSettings, telHref } from "@/lib/settings/data";
 import { Mail, MapPin, Phone } from "lucide-react";
 
 const quickLinks = [
@@ -52,17 +53,20 @@ const LinkedInIcon = ({ size = 22 }) => (
   </svg>
 );
 
-const socialLinks = [
-  { label: "Instagram", Icon: InstagramIcon, href: "#" },
-  { label: "Twitter", Icon: TwitterIcon, href: "#" },
-  {
-    label: "LinkedIn",
-    Icon: LinkedInIcon,
-    href: "https://www.linkedin.com/company/faden-contracting/",
-  },
-];
+// Settings stores an icon as a string key; this maps it to the component.
+const SOCIAL_ICONS = {
+  instagram: InstagramIcon,
+  twitter: TwitterIcon,
+  linkedin: LinkedInIcon,
+};
 
-export default function Footer() {
+export default async function Footer() {
+  const settings = await getSettings();
+  const { contact, quickLinks, copyrightText } = settings.footer;
+  const socialLinks = (settings.socialLinks || []).filter(
+    (s) => SOCIAL_ICONS[s.icon],
+  );
+
   return (
     <footer
       id="contact"
@@ -84,7 +88,7 @@ export default function Footer() {
             Quick Links
           </h3>
           <ul className="space-y-3 text-sm text-[var(--muted-foreground)] sm:text-[15px]">
-            {quickLinks.map((item) => (
+            {(quickLinks || []).map((item) => (
               <li key={item.label}>
                 <a
                   href={item.href}
@@ -108,11 +112,11 @@ export default function Footer() {
                 size={18}
                 className="shrink-0 text-[var(--brand-primary)]"
               />
-              <span>Riyadh, Saudi Arabia</span>
+              <span>{contact.address}</span>
             </li>
             <li>
               <a
-                href="tel:+966114508555"
+                href={telHref(contact.phone)}
                 className="flex items-center gap-3 transition-colors hover:text-[var(--brand-primary)]"
                 dir="ltr"
               >
@@ -120,19 +124,19 @@ export default function Footer() {
                   size={18}
                   className="shrink-0 text-[var(--brand-primary)]"
                 />
-                <span>+966 11 4508555</span>
+                <span>{contact.phone}</span>
               </a>
             </li>
             <li>
               <a
-                href="mailto:info@fadensa.com"
+                href={`mailto:${contact.email}`}
                 className="flex items-center gap-3 transition-colors hover:text-[var(--brand-primary)]"
               >
                 <Mail
                   size={18}
                   className="shrink-0 text-[var(--brand-primary)]"
                 />
-                <span>info@fadensa.com</span>
+                <span>{contact.email}</span>
               </a>
             </li>
           </ul>
@@ -145,7 +149,7 @@ export default function Footer() {
           </h3>
           <div className="flex items-center gap-4">
             {socialLinks.map((social) => {
-              const { Icon } = social;
+              const Icon = SOCIAL_ICONS[social.icon];
               const isExternal = social.href.startsWith("http");
               return (
                 <a
@@ -166,7 +170,7 @@ export default function Footer() {
 
       {/* Copyright Bar */}
       <div className="bg-[var(--brand-primary)] py-3 text-center text-[11px] text-white sm:text-xs">
-        © 2026 By FADEN Contracting C.E. All Rights Reserved
+        {copyrightText}
       </div>
     </footer>
   );

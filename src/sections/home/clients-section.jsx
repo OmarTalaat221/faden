@@ -5,11 +5,10 @@ import ButtonLink from "@/components/ui/button-link";
 import Image from "next/image";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { clients } from "./data";
 
 import "swiper/css";
 
-export default function ClientsSection() {
+export default function ClientsSection({ clients = [] }) {
   return (
     <section
       id="clients"

@@ -3,9 +3,8 @@ import RevealImage from "@/components/common/reveal-image";
 import Container from "@/components/layout/container";
 import ButtonLink from "@/components/ui/button-link";
 import Image from "next/image";
-import { projects } from "./data";
 
-export default function ProjectsSection() {
+export default function ProjectsSection({ projects = [] }) {
   return (
     <section
       id="projects"

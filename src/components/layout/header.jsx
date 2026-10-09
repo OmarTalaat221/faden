@@ -81,15 +81,12 @@ const LinkedInIcon = ({ size = 18 }) => (
   </svg>
 );
 
-const socialLinks = [
-  { label: "Instagram", Icon: InstagramIcon, href: "#" },
-  { label: "Twitter", Icon: TwitterIcon, href: "#" },
-  {
-    label: "LinkedIn",
-    Icon: LinkedInIcon,
-    href: "https://www.linkedin.com/company/faden-contracting/",
-  },
-];
+// Settings stores an icon as a string key; this maps it to the component.
+const SOCIAL_ICONS = {
+  instagram: InstagramIcon,
+  twitter: TwitterIcon,
+  linkedin: LinkedInIcon,
+};
 
 // ============ Desktop Nav Item ============
 function DesktopNavItem({ item, pathname, isSticky }) {
@@ -314,7 +311,9 @@ function MobileNavItem({ item, pathname, setOpen }) {
   );
 }
 
-export default function Header() {
+export default function Header({ socialLinks: socialLinksProp = [] }) {
+  // Only links whose icon we actually have a component for.
+  const socialLinks = socialLinksProp.filter((s) => SOCIAL_ICONS[s.icon]);
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
@@ -417,7 +416,7 @@ export default function Header() {
 
             <div className="mt-6 flex items-center gap-2">
               {socialLinks.map((social) => {
-                const { Icon } = social;
+                const Icon = SOCIAL_ICONS[social.icon];
                 const isExternal = social.href.startsWith("http");
                 return (
                   <a
@@ -522,7 +521,7 @@ export default function Header() {
 
           <div className="mt-6 flex items-center gap-2">
             {socialLinks.map((social) => {
-              const { Icon } = social;
+              const Icon = SOCIAL_ICONS[social.icon];
               const isExternal = social.href.startsWith("http");
               return (
                 <a

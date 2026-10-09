@@ -4,11 +4,10 @@ import Container from "@/components/layout/container";
 import ButtonLink from "@/components/ui/button-link";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { equipment } from "./data";
 
 import "swiper/css";
 
-export default function EquipmentSection() {
+export default function EquipmentSection({ equipment = [] }) {
   return (
     <section
       id="equipment"

@@ -4,7 +4,10 @@ import Container from "@/components/layout/container";
 import ButtonLink from "@/components/ui/button-link";
 import Image from "next/image";
 
-export default function GallerySection() {
+export default function GallerySection({ gallery = [] }) {
+  // The mosaic has four fixed slots; slot n renders the nth pick.
+  const slot = (i) => gallery[i] ?? {};
+
   return (
     <section
       id="gallery"
@@ -57,8 +60,8 @@ export default function GallerySection() {
             className="group h-[161px] w-full overflow-hidden rounded-[6px] xs:h-[190px] sm:h-[240px]"
           >
             <Image
-              src="/images/faden/gallery-1.webp"
-              alt="Luxury FADEN project entrance"
+              src={slot(0).src}
+              alt={slot(0).alt ?? ""}
               fill
               loading="lazy"
               sizes="100vw"
@@ -70,8 +73,8 @@ export default function GallerySection() {
             className="group h-[161px] w-full overflow-hidden rounded-[6px] xs:h-[190px] sm:h-[240px]"
           >
             <Image
-              src="/images/faden/gallery-2.webp"
-              alt="Modern FADEN villa"
+              src={slot(1).src}
+              alt={slot(1).alt ?? ""}
               fill
               loading="lazy"
               sizes="100vw"
@@ -84,8 +87,8 @@ export default function GallerySection() {
               className="group h-[161px] overflow-hidden rounded-[6px] xs:h-[180px] sm:h-[220px]"
             >
               <Image
-                src="/images/faden/gallery-3.webp"
-                alt="FADEN landscaped courtyard"
+                src={slot(2).src}
+                alt={slot(2).alt ?? ""}
                 fill
                 loading="lazy"
                 sizes="50vw"
@@ -97,8 +100,8 @@ export default function GallerySection() {
               className="group h-[161px] overflow-hidden rounded-[6px] xs:h-[180px] sm:h-[220px]"
             >
               <Image
-                src="/images/faden/gallery-4.webp"
-                alt="FADEN completed palace"
+                src={slot(3).src}
+                alt={slot(3).alt ?? ""}
                 fill
                 loading="lazy"
                 sizes="50vw"
@@ -116,8 +119,8 @@ export default function GallerySection() {
             className="group overflow-hidden rounded-[6px] md:h-[520px] lg:h-[600px] xl:h-[640px]"
           >
             <Image
-              src="/images/faden/gallery-1.webp"
-              alt="Luxury FADEN project entrance"
+              src={slot(0).src}
+              alt={slot(0).alt ?? ""}
               fill
               loading="lazy"
               sizes="50vw"
@@ -132,8 +135,8 @@ export default function GallerySection() {
               className="group overflow-hidden rounded-[6px] md:h-[250px] lg:h-[290px] xl:h-[310px]"
             >
               <Image
-                src="/images/faden/gallery-2.webp"
-                alt="Modern FADEN villa"
+                src={slot(1).src}
+                alt={slot(1).alt ?? ""}
                 fill
                 loading="lazy"
                 sizes="50vw"
@@ -147,8 +150,8 @@ export default function GallerySection() {
                 className="group overflow-hidden rounded-[6px]"
               >
                 <Image
-                  src="/images/faden/gallery-3.webp"
-                  alt="FADEN landscaped courtyard"
+                  src={slot(2).src}
+                  alt={slot(2).alt ?? ""}
                   fill
                   loading="lazy"
                   sizes="25vw"
@@ -160,8 +163,8 @@ export default function GallerySection() {
                 className="group overflow-hidden rounded-[6px]"
               >
                 <Image
-                  src="/images/faden/gallery-4.webp"
-                  alt="FADEN completed palace"
+                  src={slot(3).src}
+                  alt={slot(3).alt ?? ""}
                   fill
                   loading="lazy"
                   sizes="25vw"

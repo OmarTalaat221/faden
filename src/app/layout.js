@@ -1,5 +1,6 @@
 ﻿import Footer from "@/components/layout/footer";
 import Header from "@/components/layout/header";
+import { getSettings } from "@/lib/settings/data";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -83,7 +84,13 @@ export const viewport = {
   maximumScale: 5,
 };
 
-const organizationSchema = {
+function buildOrganizationSchema(settings) {
+  const contact = settings?.footer?.contact ?? {};
+  const social = (settings?.socialLinks ?? [])
+    .map((s) => s.href)
+    .filter((href) => href && href.startsWith("http"));
+
+  return {
   "@context": "https://schema.org",
   "@type": "GeneralContractor",
   name: "FADEN Contracting Company",
@@ -101,24 +108,27 @@ const organizationSchema = {
   },
   contactPoint: {
     "@type": "ContactPoint",
-    telephone: "+966-11-2158333",
+    telephone: contact.phone,
     contactType: "customer service",
-    email: "info@fadensa.com",
+    email: contact.email,
     areaServed: "SA",
     availableLanguage: ["en", "ar"],
   },
-  sameAs: ["https://www.linkedin.com/company/faden-contracting/"],
+  sameAs: social,
   areaServed: {
     "@type": "Country",
     name: "Saudi Arabia",
   },
-  numberOfEmployees: {
-    "@type": "QuantitativeValue",
-    minValue: 1000,
-  },
-};
+    numberOfEmployees: {
+      "@type": "QuantitativeValue",
+      minValue: 1000,
+    },
+  };
+}
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const settings = await getSettings();
+  const organizationSchema = buildOrganizationSchema(settings);
   return (
     <html lang="en" dir="ltr" className={inter.variable}>
       <head>
@@ -142,7 +152,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className="font-sans antialiased">
-        <Header />
+        <Header socialLinks={settings.socialLinks} />
         {children}
         <Footer />
       </body>

@@ -6,12 +6,11 @@ import ButtonLink from "@/components/ui/button-link";
 import Image from "next/image";
 import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { services } from "./data";
 
 import "swiper/css";
 import "swiper/css/pagination";
 
-export default function ServicesSection() {
+export default function ServicesSection({ services = [] }) {
   return (
     <section
       id="services"
