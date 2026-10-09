@@ -1,4 +1,4 @@
-﻿import { Leaf, Users, Wrench } from "lucide-react";
+import { Leaf, Users, Wrench } from "lucide-react";
 
 export const partnersData = {
   banner: {
@@ -90,10 +90,6 @@ export const partnersData = {
     ],
   },
 };
-
-// ========================================
-// API ACCESSOR (falls back to the data above)
-// ========================================
 
 import { apiGet } from "@/lib/api";
 

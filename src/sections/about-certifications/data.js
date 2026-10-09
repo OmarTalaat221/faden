@@ -1,4 +1,4 @@
-﻿export const certificationsData = {
+export const certificationsData = {
   banner: {
     title: "Certifications",
     subtitle:
