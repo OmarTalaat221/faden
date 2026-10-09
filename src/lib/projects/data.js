@@ -1,4 +1,4 @@
-import { apiGet, apiGetObject } from "@/lib/api";
+import { apiGet } from "@/lib/api";
 
 // Mock data matching API response structure (ready for backend integration)
 
@@ -710,23 +710,23 @@ function buildProjectFallback(slug) {
 // ========================================
 
 export async function getProjects() {
-  return apiGet("/projects", PROJECTS_ITEMS);
+  return apiGet("/projects");
 }
 
 export async function getProjectsPageMeta() {
   // The API nests the banner copy one level down.
-  const meta = await apiGetObject("/projects/meta", { banner: PROJECTS_PAGE_META });
-  return { ...PROJECTS_PAGE_META, ...(meta?.banner ?? {}) };
+  const meta = await apiGet("/projects/meta");
+  return meta.banner ?? meta;
 }
 
 export async function getProjectCategories() {
-  return apiGet("/projects/categories", PROJECTS_CATEGORIES);
+  return apiGet("/projects/categories");
 }
 
 // Returns the project with its detail page resolved and `relatedProjects`
 // already computed by the server.
 export async function getProjectBySlug(slug) {
-  return apiGet(`/projects/by-slug/${slug}`, buildProjectFallback(slug));
+  return apiGet(`/projects/by-slug/${slug}`);
 }
 
 export async function getAllProjectSlugs() {

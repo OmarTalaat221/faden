@@ -85,8 +85,8 @@
 // API ACCESSOR (falls back to the data above)
 // ========================================
 
-import { apiGet, apiGetObject } from "@/lib/api";
+import { apiGet } from "@/lib/api";
 
 export async function getAboutVisionMission() {
-  return apiGetObject("/about/vision-mission", visionMissionData);
+  return apiGet("/about/vision-mission");
 }

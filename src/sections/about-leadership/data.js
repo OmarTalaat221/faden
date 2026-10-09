@@ -69,8 +69,8 @@
 // API ACCESSOR (falls back to the data above)
 // ========================================
 
-import { apiGet, apiGetObject } from "@/lib/api";
+import { apiGet } from "@/lib/api";
 
 export async function getAboutLeadership() {
-  return apiGetObject("/about/leadership", leadershipData);
+  return apiGet("/about/leadership");
 }

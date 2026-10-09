@@ -95,8 +95,8 @@ export const partnersData = {
 // API ACCESSOR (falls back to the data above)
 // ========================================
 
-import { apiGet, apiGetObject } from "@/lib/api";
+import { apiGet } from "@/lib/api";
 
 export async function getAboutPartners() {
-  return apiGetObject("/about/partners", partnersData);
+  return apiGet("/about/partners");
 }

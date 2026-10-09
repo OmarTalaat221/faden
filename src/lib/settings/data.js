@@ -5,38 +5,10 @@
 // footer and the /contact page both read it, so they can never drift apart
 // (they used to show two different phone numbers).
 
-import { apiGetObject } from "@/lib/api";
-
-export const SETTINGS_FALLBACK = {
-  socialLinks: [
-    { label: "Instagram", icon: "instagram", href: "#" },
-    { label: "Twitter", icon: "twitter", href: "#" },
-    {
-      label: "LinkedIn",
-      icon: "linkedin",
-      href: "https://www.linkedin.com/company/faden-contracting/",
-    },
-  ],
-  footer: {
-    quickLinks: [
-      { label: "Home", href: "/" },
-      { label: "About Us", href: "#about" },
-      { label: "Services", href: "#services" },
-      { label: "Projects", href: "#projects" },
-      { label: "Clients", href: "#clients" },
-      { label: "Contact Us", href: "#contact" },
-    ],
-    contact: {
-      address: "Riyadh, Saudi Arabia",
-      phone: "+966 11 2158333",
-      email: "info@fadensa.com",
-    },
-    copyrightText: "© 2026 By FADEN Contracting C.E. All Rights Reserved",
-  },
-};
+import { apiGet } from "@/lib/api";
 
 export async function getSettings() {
-  return apiGetObject("/settings", SETTINGS_FALLBACK);
+  return apiGet("/settings");
 }
 
 /** Strips everything but digits and a leading +, for tel: links. */

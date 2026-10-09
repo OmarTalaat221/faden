@@ -1,6 +1,8 @@
-// Content for this site comes from the FADEN admin API. Every fetch here
-// falls back to the static data that used to be hardcoded, so an API
-// outage degrades to the last-known content instead of a broken page.
+// Content for this site comes from the FADEN admin API.
+//
+// There is deliberately NO fallback to static data: if an endpoint is down,
+// missing or returns the wrong shape, the page must fail loudly rather than
+// quietly render stale copy that hides the problem.
 
 const API_URL = (process.env.NEXT_PUBLIC_FADEN_API_URL || "https://api.faden.digital/api").replace(
   /\/$/,
@@ -30,34 +32,40 @@ function resolveUploads(value) {
   return value;
 }
 
-/**
- * GET a public endpoint. Returns `fallback` if the API is unreachable, slow,
- * or answers with an error — never throws, so a page can always render.
- */
-export async function apiGet(path, fallback) {
-  try {
-    const res = await fetch(`${API_URL}${path}`, {
-      next: { revalidate: REVALIDATE_SECONDS },
-    });
-    if (!res.ok) throw new Error(`${path} -> ${res.status}`);
-    const payload = await res.json();
-    const data = payload?.data !== undefined ? payload.data : payload;
-    if (data === null || data === undefined) throw new Error(`${path} -> empty`);
-    return resolveUploads(data);
-  } catch (error) {
-    console.warn(`[faden-api] falling back for ${path}: ${error.message}`);
-    return fallback;
-  }
+function describe(data) {
+  if (Array.isArray(data)) return `array(${data.length})`;
+  if (data && typeof data === "object") return `object{${Object.keys(data).join(",")}}`;
+  return typeof data;
 }
 
-/**
- * Same as `apiGet`, for the single-object endpoints (page meta, settings,
- * About pages), but falls back key by key instead of all-or-nothing: a
- * section the API has no column for yet keeps its original copy rather than
- * silently vanishing from the page.
- */
-export async function apiGetObject(path, fallback) {
-  const data = await apiGet(path, null);
-  if (!data || typeof data !== "object" || Array.isArray(data)) return fallback;
-  return { ...fallback, ...data };
+/** GET a public endpoint. Throws on anything that isn't a usable response. */
+export async function apiGet(path) {
+  const startedAt = Date.now();
+  const url = `${API_URL}${path}`;
+
+  let res;
+  try {
+    res = await fetch(url, { next: { revalidate: REVALIDATE_SECONDS } });
+  } catch (error) {
+    console.error(`[api] GET ${path} -> NETWORK ERROR: ${error.message}`);
+    throw error;
+  }
+
+  const ms = Date.now() - startedAt;
+
+  if (!res.ok) {
+    console.error(`[api] GET ${path} -> HTTP ${res.status} (${ms}ms)`);
+    throw new Error(`GET ${path} failed with ${res.status}`);
+  }
+
+  const payload = await res.json();
+  const data = payload?.data !== undefined ? payload.data : payload;
+
+  if (data === null || data === undefined) {
+    console.error(`[api] GET ${path} -> 200 but no data (${ms}ms)`);
+    throw new Error(`GET ${path} returned no data`);
+  }
+
+  console.log(`[api] GET ${path} -> ${res.status} ${describe(data)} (${ms}ms)`);
+  return resolveUploads(data);
 }

@@ -52,10 +52,10 @@ export const CONTACT_PAGE_DATA = {
 // API ACCESSORS (fall back to the data above)
 // ========================================
 
-import { apiGet, apiGetObject } from "@/lib/api";
+import { apiGet } from "@/lib/api";
 
 // `info.items` (address / phone / email) is built by the server from Site
 // Settings, so the footer and this page can never show different numbers.
 export async function getContactPageData() {
-  return apiGetObject("/contact/page", CONTACT_PAGE_DATA);
+  return apiGet("/contact/page");
 }

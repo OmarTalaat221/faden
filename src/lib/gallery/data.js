@@ -30,12 +30,12 @@ export const GALLERY_LIST = Array.from({ length: TOTAL_IMAGES }, (_, i) => {
 // API ACCESSORS (fall back to the data above)
 // ========================================
 
-import { apiGet, apiGetObject } from "@/lib/api";
+import { apiGet } from "@/lib/api";
 
 export async function getGalleryList() {
-  return apiGet("/gallery", GALLERY_LIST);
+  return apiGet("/gallery");
 }
 
 export async function getGalleryPageMeta() {
-  return apiGetObject("/gallery/meta", GALLERY_PAGE_META);
+  return apiGet("/gallery/meta");
 }

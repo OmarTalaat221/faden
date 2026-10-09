@@ -37,12 +37,12 @@ export const EQUIPMENT_LIST = [
 // API ACCESSORS (fall back to the data above)
 // ========================================
 
-import { apiGet, apiGetObject } from "@/lib/api";
+import { apiGet } from "@/lib/api";
 
 export async function getEquipmentList() {
-  return apiGet("/equipment", EQUIPMENT_LIST);
+  return apiGet("/equipment");
 }
 
 export async function getEquipmentPageMeta() {
-  return apiGetObject("/equipment/meta", EQUIPMENT_PAGE_META);
+  return apiGet("/equipment/meta");
 }

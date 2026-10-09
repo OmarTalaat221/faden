@@ -33,12 +33,12 @@ export const CLIENTS_LIST = Array.from({ length: 58 }, (_, i) => {
 // API ACCESSORS (fall back to the data above)
 // ========================================
 
-import { apiGet, apiGetObject } from "@/lib/api";
+import { apiGet } from "@/lib/api";
 
 export async function getClientsList() {
-  return apiGet("/clients", CLIENTS_LIST);
+  return apiGet("/clients");
 }
 
 export async function getClientsPageMeta() {
-  return apiGetObject("/clients/meta", CLIENTS_PAGE_META);
+  return apiGet("/clients/meta");
 }
