@@ -7,7 +7,7 @@ export default function CoreServicesSection({ heading, services = [] }) {
   if (!services.length) return null;
 
   return (
-    <section className="relative overflow-hidden bg-white pb-14 sm:pb-16 md:pb-20 lg:pb-24">
+    <section className="relative overflow-hidden bg-white py-14 sm:py-16 md:py-20 lg:py-24">
       <Container>
         <div className="max-w-4xl">
           <p className="text-[13px] font-semibold uppercase tracking-[0.15em] text-[var(--brand-primary)] sm:text-sm md:text-[15px] lg:text-base">
