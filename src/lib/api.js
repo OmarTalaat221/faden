@@ -4,10 +4,9 @@
 // missing or returns the wrong shape, the page must fail loudly rather than
 // quietly render stale copy that hides the problem.
 
-const API_URL = (process.env.NEXT_PUBLIC_FADEN_API_URL || "https://api.faden.digital/api").replace(
-  /\/$/,
-  "",
-);
+const API_URL = (
+  process.env.NEXT_PUBLIC_FADEN_API_URL || "https://api.faden.digital/api"
+).replace(/\/$/, "");
 
 // Uploaded images live on the API host; everything else ships in /public.
 const UPLOADS_ORIGIN = API_URL.replace(/\/api$/, "");
@@ -34,7 +33,8 @@ function resolveUploads(value) {
 
 function describe(data) {
   if (Array.isArray(data)) return `array(${data.length})`;
-  if (data && typeof data === "object") return `object{${Object.keys(data).join(",")}}`;
+  if (data && typeof data === "object")
+    return `object{${Object.keys(data).join(",")}}`;
   return typeof data;
 }
 
@@ -45,7 +45,11 @@ export async function apiGet(path) {
 
   let res;
   try {
-    res = await fetch(url, { next: { revalidate: REVALIDATE_SECONDS } });
+    res = await fetch(
+      url,
+
+      // { next: { revalidate: REVALIDATE_SECONDS } }
+    );
   } catch (error) {
     console.error(`[api] GET ${path} -> NETWORK ERROR: ${error.message}`);
     throw error;
