@@ -77,6 +77,12 @@ export const metadata = {
   category: "construction",
 };
 
+// Every page is prerendered from the admin API at build time. Without this
+// the prerender is frozen forever, so a change saved in the dashboard would
+// never reach the site until the next deploy. Setting it on the root layout
+// covers every route beneath it.
+export const revalidate = 60;
+
 export const viewport = {
   themeColor: "#e42421",
   width: "device-width",
