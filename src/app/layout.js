@@ -77,11 +77,15 @@ export const metadata = {
   category: "construction",
 };
 
-// Every page is prerendered from the admin API at build time. Without this
-// the prerender is frozen forever, so a change saved in the dashboard would
-// never reach the site until the next deploy. Setting it on the root layout
-// covers every route beneath it.
-export const revalidate = 60;
+// TEMPORARY, while the client is reviewing content: nothing is cached, so
+// every page build runs against the admin API on each request and a change
+// saved in the dashboard shows up on the next refresh.
+//
+// This costs a round trip to the API per page view. Once the content is
+// signed off, put the line below back to 'export const revalidate = 60'
+// to go back to prerendered pages that refresh once a minute, and restore
+// the fetch cache in src/lib/api.js.
+export const dynamic = "force-dynamic";
 
 export const viewport = {
   themeColor: "#e42421",

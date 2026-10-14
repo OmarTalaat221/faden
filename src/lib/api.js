@@ -11,7 +11,13 @@ const API_URL = (
 // Uploaded images live on the API host; everything else ships in /public.
 const UPLOADS_ORIGIN = API_URL.replace(/\/api$/, "");
 
-const REVALIDATE_SECONDS = 60;
+// TEMPORARY, while the client is reviewing content: every call goes to the
+// API and nothing is served from cache, so a change saved in the dashboard
+// shows up on the next refresh.
+//
+// Swap this back to { next: { revalidate: 60 } } once the content is signed
+// off, together with the dynamic export in src/app/layout.js.
+const FETCH_OPTIONS = { cache: "no-store" };
 
 /**
  * Rewrites every "/uploads/..." path in a fetched payload to an absolute URL
@@ -45,11 +51,7 @@ export async function apiGet(path) {
 
   let res;
   try {
-    res = await fetch(
-      url,
-
-      // { next: { revalidate: REVALIDATE_SECONDS } }
-    );
+    res = await fetch(url, FETCH_OPTIONS);
   } catch (error) {
     console.error(`[api] GET ${path} -> NETWORK ERROR: ${error.message}`);
     throw error;
