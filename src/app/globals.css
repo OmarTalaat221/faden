@@ -2,8 +2,22 @@
 
 :root {
   --background: #ffffff;
+
+  /* Page surfaces. The two alternate down the page; cards stay --background
+     (white) so they lift off them. Swap this pair to retheme the whole site:
+
+       cool grey    #f3f5f7 / #e9edf1   (lighter, barely-there)
+     > deeper cool  #eceef1 / #e1e5ea   (current — reads clearly as grey)
+       warm greige  #f3f1ee / #eae6e0   (warmer, more editorial)
+       stone        #eeebe7 / #e4dfd8   (warmest)
+       white        #ffffff / #F9FAFB   (what the site shipped with) */
+  --surface: #eceef1;
+  --surface-alt: #e1e5ea;
+
   --foreground: #202020;
-  --muted: #f7f7f7;
+  /* Was #f7f7f7, which now reads lighter than the page. Tracks the deeper
+     surface so banded sections and hover states stay in the same family. */
+  --muted: var(--surface-alt);
   --muted-foreground: #6c6c6d;
   --border: #e4e4e4;
   --brand-primary: #e42421;
@@ -14,6 +28,8 @@
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-alt: var(--surface-alt);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
@@ -57,7 +73,7 @@
   body {
     min-width: 320px;
     overflow-x: hidden;
-    background: var(--background);
+    background: var(--surface);
     color: var(--foreground);
     font-family:
       "Inter", "Inter Fallback", ui-sans-serif, system-ui, sans-serif;
@@ -124,4 +140,20 @@
 }
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+/* The sections still carry `bg-white` / `bg-[#F9FAFB]` from when the page was
+   white. Rather than rewrite 28 components while the surface colour is still
+   under review, both are remapped to the tokens above here — one place to
+   change. A card's own `bg-white` is untouched, so cards stay white.
+
+   These rules sit outside @layer deliberately: unlayered CSS beats layered
+   CSS, so Tailwind's utilities layer would otherwise win no matter how
+   specific the selector is. */
+section.bg-white {
+  background-color: var(--surface);
+}
+
+section[class*="F9FAFB"] {
+  background-color: var(--surface-alt);
 }
