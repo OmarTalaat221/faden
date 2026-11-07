@@ -1,11 +1,15 @@
 import DecorativePattern from "@/components/common/decorative-pattern";
 import Container from "@/components/layout/container";
 
+/**
+ * Closes the Company Overview page. The copy is still stored on the services
+ * meta record, where it has always lived.
+ */
 export default function WhyChooseSection({ whyChoose }) {
   if (!whyChoose || !whyChoose.items?.length) return null;
 
   return (
-    <section className="relative overflow-hidden bg-white py-14 sm:py-16 md:py-20 lg:py-24">
+    <section className="relative overflow-hidden bg-[#F9FAFB] py-14 sm:py-16 md:py-20 lg:py-24">
       <DecorativePattern
         variant="trianglesOutlined"
         // opacity={0.35}

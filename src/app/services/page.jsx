@@ -3,7 +3,6 @@ import CtaSection from "@/components/common/cta-section";
 import IntroSection from "@/sections/services-listing/intro-section";
 import CoreServicesSection from "@/sections/services-listing/core-services-section";
 import SectorsSection from "@/sections/services-listing/sectors-section";
-import WhyChooseSection from "@/sections/services-listing/why-choose-section";
 import { getAllServices, getServicesPageMeta } from "@/lib/services/data";
 
 export async function generateMetadata() {
@@ -42,8 +41,6 @@ export default async function ServicesPage() {
       <CoreServicesSection heading={meta.coreHeading} services={services} />
 
       <SectorsSection sectors={meta.sectors} />
-
-      <WhyChooseSection whyChoose={meta.whyChoose} />
 
       <CtaSection
         title={meta.cta.title}
