@@ -6,7 +6,7 @@ export const metadata = {
     "Discover the organizations and businesses who trust FADEN Contracting to transform their ambitions into reality. Our global partners rely on our proven expertise and integrity.",
   keywords: [
     "FADEN Clients",
-    "Our Partners",
+    "Partners",
     "Trusted Clients",
     "Saudi Contracting Clients",
     "FADEN Global Partners",

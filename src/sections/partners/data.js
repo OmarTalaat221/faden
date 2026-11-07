@@ -2,12 +2,12 @@ import { Leaf, Users, Wrench } from "lucide-react";
 
 export const partnersData = {
   banner: {
-    title: "Our Partners",
+    title: "Partners",
     subtitle: "Building success together with our trusted partners.",
     backgroundImage: "/images/faden/banner-partners.webp",
   },
   intro: {
-    eyebrow: "OUR PARTNERS",
+    eyebrow: "PARTNERS",
     subtitle: "Building success together with our strategic partners.",
     logo: "/images/faden/partner-global-energy.webp",
     logoAlt: "Global Energy for Investment & Industry",
