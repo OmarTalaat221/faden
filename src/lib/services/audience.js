@@ -14,7 +14,7 @@
 export const AUDIENCES = [
   {
     key: "corporate",
-    label: "Companies & Government",
+    label: "Companies",
     caption: "Developers, institutions and public bodies — the full catalogue.",
   },
   {

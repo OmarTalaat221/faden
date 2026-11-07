@@ -161,7 +161,7 @@ function ServicesBand({
   vip,
   reduceMotion,
 }) {
-  // "For Companies & Government" reads better with the preposition set
+  // "For Companies" reads better with the preposition set
   // apart from the audience it names; an eyebrow without one stays whole.
   const titleLead = /^for\s/i.test(eyebrow ?? "") ? eyebrow.slice(0, 3) : "";
   const titleMain = titleLead ? eyebrow.slice(4) : eyebrow;
@@ -235,7 +235,7 @@ export default function ServicesExplorer({ heading, services = [] }) {
   return (
     <>
       <ServicesBand
-        eyebrow="For Companies & Government"
+        eyebrow="For Companies"
         subtitle={heading?.subtitle}
         services={corporate}
         showPrivateNote
