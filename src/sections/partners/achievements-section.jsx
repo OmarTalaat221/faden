@@ -1,4 +1,5 @@
-﻿import Container from "@/components/layout/container";
+﻿import ContentIcon from "@/components/common/content-icon";
+import Container from "@/components/layout/container";
 import { getPartners } from "./data";
 
 export default async function AchievementsSection() {
@@ -21,7 +22,6 @@ export default async function AchievementsSection() {
           {/* Cards */}
           <div className="mt-8 grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
             {achievements.items.map((card, i) => {
-              const Icon = card.icon;
               return (
                 <div
                   key={i}
@@ -29,7 +29,8 @@ export default async function AchievementsSection() {
                 >
                   {/* Icon box */}
                   <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full sm:mb-4 sm:h-14 sm:w-14 lg:h-[60px] lg:w-[60px]">
-                    <Icon
+                    <ContentIcon
+                      name={card.icon}
                       className="h-5 w-5 text-[var(--brand-primary)] sm:h-6 sm:w-6 lg:h-7 lg:w-7"
                       strokeWidth={2}
                     />

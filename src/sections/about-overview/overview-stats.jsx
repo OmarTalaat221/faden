@@ -1,4 +1,5 @@
 ﻿import DecorativePattern from "@/components/common/decorative-pattern";
+import ContentIcon from "@/components/common/content-icon";
 import Container from "@/components/layout/container";
 import { getAboutOverview } from "./data";
 
@@ -18,7 +19,6 @@ export default async function OverviewStats() {
         <div className="relative z-10 mx-auto">
           <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4 lg:gap-5">
             {stats.map((stat, i) => {
-              const Icon = stat.icon;
               return (
                 <div
                   key={i}
@@ -27,7 +27,8 @@ export default async function OverviewStats() {
                   {/* Icon container - scales with icon */}
                   <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full sm:mb-4 sm:h-14 sm:w-14 lg:h-[60px] lg:w-[60px]">
                     {/* Icon - max 28px */}
-                    <Icon
+                    <ContentIcon
+                      name={stat.icon}
                       className="h-5 w-5 text-[var(--brand-primary)] sm:h-6 sm:w-6 lg:h-7 lg:w-7"
                       strokeWidth={2}
                     />
