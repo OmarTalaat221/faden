@@ -1,6 +1,5 @@
 ﻿"use client";
 
-import DecorativePattern from "@/components/common/decorative-pattern";
 import Container from "@/components/layout/container";
 import Image from "next/image";
 import { Autoplay, Pagination } from "swiper/modules";
@@ -14,12 +13,6 @@ export default function KeyProjectsSection({ projects = [] }) {
 
   return (
     <section className="relative overflow-hidden bg-white py-14 sm:py-16 md:py-20 lg:py-24">
-      <DecorativePattern
-        variant="trianglesOutlinedRight"
-        opacity={0.35}
-        className="pointer-events-none absolute right-0 top-0 "
-      />
-
       <Container>
         <div className="max-w-3xl">
           <p className="text-[13px] font-semibold uppercase tracking-[0.15em] text-[var(--brand-primary)] sm:text-sm md:text-[15px] lg:text-base">
@@ -29,7 +22,6 @@ export default function KeyProjectsSection({ projects = [] }) {
             Explore some of the key projects we&apos;ve proudly delivered.
           </p>
         </div>
-
         <div className="mt-8 md:mt-10">
           <Swiper
             modules={[Pagination, Autoplay]}
@@ -71,7 +63,6 @@ export default function KeyProjectsSection({ projects = [] }) {
           </Swiper>
         </div>
       </Container>
-
       <style jsx global>{`
         .swiper-pagination-bullet {
           background: #d1d5db;

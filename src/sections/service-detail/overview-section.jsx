@@ -1,5 +1,4 @@
-﻿import DecorativePattern from "@/components/common/decorative-pattern";
-import RevealImage from "@/components/common/reveal-image";
+﻿import RevealImage from "@/components/common/reveal-image";
 import Container from "@/components/layout/container";
 import Image from "next/image";
 
@@ -9,17 +8,6 @@ export default function OverviewSection({ section }) {
 
   return (
     <section className="relative overflow-hidden bg-white py-14 sm:py-16 md:py-20 lg:py-24">
-      <DecorativePattern
-        variant="trianglesOutlined"
-        // opacity={0.35}
-        className="pointer-events-none absolute left-0 top-0 "
-      />
-      {/* <DecorativePattern
-        variant="trianglesOutlined"
-        // opacity={0.35}
-        className="pointer-events-none absolute bottom-0 right-0 "
-      /> */}
-
       <Container>
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:items-start md:gap-12 lg:gap-16">
           <div>

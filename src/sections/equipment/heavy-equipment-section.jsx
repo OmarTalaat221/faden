@@ -1,4 +1,3 @@
-import DecorativePattern from "@/components/common/decorative-pattern";
 import Container from "@/components/layout/container";
 import { getEquipmentList, getEquipmentPageMeta } from "@/lib/equipment/data";
 import { cn } from "@/lib/utils";
@@ -11,20 +10,6 @@ export default async function HeavyEquipmentSection() {
 
   return (
     <section className="relative overflow-hidden pb-16 sm:pb-20 md:pb-24 lg:pb-28">
-      {/* Decorative Pattern - Middle Left */}
-      <DecorativePattern
-        variant="trianglesOutlined"
-        // opacity={0.35}
-        className="left-0 top-0 h-auto "
-      />
-
-      {/* Decorative Pattern - Bottom Right */}
-      <DecorativePattern
-        variant="trianglesOutlinedRight"
-        // opacity={0.35}
-        className="right-0 bottom-10 h-auto "
-      />
-
       <Container className="relative z-10">
         {/* Header */}
         <div className="max-w-3xl text-left">

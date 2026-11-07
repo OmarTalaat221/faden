@@ -1,5 +1,4 @@
-﻿import DecorativePattern from "@/components/common/decorative-pattern";
-import RevealImage from "@/components/common/reveal-image";
+﻿import RevealImage from "@/components/common/reveal-image";
 import Container from "@/components/layout/container";
 import Image from "next/image";
 
@@ -10,14 +9,8 @@ export default function AboutSection() {
       aria-labelledby="about-heading"
       className="relative isolate scroll-mt-20 overflow-hidden bg-white pt-20 pb-0 sm:pt-24 lg:pt-32"
     >
-      {/* Triangles pattern — top-left */}
-      <DecorativePattern variant="triangles" className="left-0 -top-10 -z-10" />
 
       {/* FADEN outline — bottom-right */}
-      <DecorativePattern
-        variant="fadenOutline"
-        className="bottom-0 right-0 -z-10 w-[200px] xs:w-[240px] sm:w-[280px] md:w-[320px] lg:w-[360px] xl:w-[385px]"
-      />
 
       <Container
         className="
@@ -33,14 +26,12 @@ export default function AboutSection() {
           <p className="mb-2 text-[13px] font-bold uppercase tracking-[0.02em] text-brand-primary sm:mb-3 sm:text-[14px] md:text-[15px] lg:text-[16px]">
             About Us
           </p>
-
           <h2
             id="about-heading"
             className="text-balance text-lg font-medium tracking-[-0.025em] text-muted-foreground xs:text-xl sm:text-[22px] md:text-[22px] lg:text-2xl xl:text-[26px]"
           >
             In-Depth Information About the Company and Its Work
           </h2>
-
           <div
             className="
               mt-6 space-y-4 text-[14px] leading-[1.7] text-[#555555]

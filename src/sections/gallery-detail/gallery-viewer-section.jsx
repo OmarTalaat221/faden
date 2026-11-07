@@ -1,6 +1,5 @@
 "use client";
 
-import DecorativePattern from "@/components/common/decorative-pattern";
 import Container from "@/components/layout/container";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import {
@@ -314,16 +313,6 @@ export default function GalleryViewerSection({ galleryList: GALLERY_LIST }) {
 
   return (
     <section className="relative overflow-hidden py-10 sm:py-14 md:py-16">
-      <DecorativePattern
-        variant="trianglesOutlinedRight"
-        className="right-0 top-4 "
-      />
-
-      <DecorativePattern
-        variant="trianglesOutlined"
-        className="bottom-16 left-0 "
-      />
-
       <Container className="relative z-10">
         {/* Close button - back to grid */}
         <div className="mx-auto mb-4 flex max-w-4xl justify-end">
@@ -339,7 +328,6 @@ export default function GalleryViewerSection({ galleryList: GALLERY_LIST }) {
             </span>
           </button>
         </div>
-
         <div className="relative mx-auto max-w-4xl">
           <div className="relative aspect-[16/10] w-full overflow-hidden rounded-md bg-[var(--muted)] sm:aspect-[16/9]">
             <div
@@ -361,7 +349,6 @@ export default function GalleryViewerSection({ galleryList: GALLERY_LIST }) {
                 />
               )}
             </div>
-
             <div
               className="pointer-events-none absolute inset-0 opacity-0"
               aria-hidden="true"
@@ -383,7 +370,6 @@ export default function GalleryViewerSection({ galleryList: GALLERY_LIST }) {
                 sizes="(max-width: 1024px) 100vw, 900px"
               />
             </div>
-
             <AnimatePresence
               initial={false}
               mode="sync"
@@ -412,7 +398,6 @@ export default function GalleryViewerSection({ galleryList: GALLERY_LIST }) {
               </motion.div>
             </AnimatePresence>
           </div>
-
           <Link
             href={`?image=${previousItem.id}`}
             scroll={false}
@@ -425,7 +410,6 @@ export default function GalleryViewerSection({ galleryList: GALLERY_LIST }) {
               className="transition-transform duration-300 group-hover:-translate-x-0.5"
             />
           </Link>
-
           <Link
             href={`?image=${nextItem.id}`}
             scroll={false}
@@ -439,7 +423,6 @@ export default function GalleryViewerSection({ galleryList: GALLERY_LIST }) {
             />
           </Link>
         </div>
-
         <div
           ref={wrapperRef}
           className="mx-auto mt-6 max-w-4xl overflow-hidden py-3 sm:mt-8"
@@ -500,7 +483,6 @@ export default function GalleryViewerSection({ galleryList: GALLERY_LIST }) {
                       sizes="(max-width: 640px) 60px, (max-width: 1024px) 96px, 112px"
                     />
                   </motion.div>
-
                   <motion.span
                     initial={false}
                     animate={{
@@ -524,7 +506,6 @@ export default function GalleryViewerSection({ galleryList: GALLERY_LIST }) {
             })}
           </motion.div>
         </div>
-
         <p className="mt-4 flex items-center justify-center text-xs text-[var(--muted-foreground)] sm:text-sm">
           <span className="relative inline-flex min-w-5 justify-center overflow-hidden font-semibold text-[var(--brand-primary)]">
             <AnimatePresence initial={false} mode="popLayout">
@@ -550,7 +531,6 @@ export default function GalleryViewerSection({ galleryList: GALLERY_LIST }) {
               </motion.span>
             </AnimatePresence>
           </span>
-
           <span className="mx-1 opacity-50">/</span>
           <span>{String(total).padStart(2, "0")}</span>
         </p>

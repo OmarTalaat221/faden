@@ -1,4 +1,3 @@
-import DecorativePattern from "@/components/common/decorative-pattern";
 import Container from "@/components/layout/container";
 
 export default function OverviewSection({ overview }) {
@@ -7,11 +6,6 @@ export default function OverviewSection({ overview }) {
 
   return (
     <section className="relative overflow-hidden bg-white py-10 sm:py-12 md:py-14">
-      <DecorativePattern
-        variant="trianglesRight"
-        className="pointer-events-none right-0 top-0 w-[220px] sm:w-[260px] lg:w-[300px]"
-      />
-
       <Container className="relative z-10">
         <p className="text-[13px] font-semibold uppercase tracking-[0.15em] text-[var(--brand-primary)] sm:text-sm md:text-[15px]">
           {label}

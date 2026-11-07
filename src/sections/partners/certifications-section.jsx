@@ -1,6 +1,5 @@
 ﻿"use client";
 
-import DecorativePattern from "@/components/common/decorative-pattern";
 import ImageModal from "@/components/common/image-modal";
 import Container from "@/components/layout/container";
 import Image from "next/image";
@@ -19,13 +18,6 @@ export default function CertificationsSection() {
 
   return (
     <section className="relative w-full overflow-hidden bg-white py-10 pb-16 sm:py-12 sm:pb-20 md:py-14 md:pb-24 lg:py-16 lg:pb-28">
-      {/* Decorative Pattern - Bottom Right */}
-      <DecorativePattern
-        variant="trianglesOutlinedRight"
-        opacity={0.35}
-        className="bottom-0 right-0 "
-      />
-
       <Container>
         <div className="relative z-10">
           {/* Eyebrow - max 16px */}

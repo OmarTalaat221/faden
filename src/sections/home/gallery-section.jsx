@@ -1,5 +1,4 @@
-﻿import DecorativePattern from "@/components/common/decorative-pattern";
-import RevealImage from "@/components/common/reveal-image";
+﻿import RevealImage from "@/components/common/reveal-image";
 import Container from "@/components/layout/container";
 import ButtonLink from "@/components/ui/button-link";
 import Image from "next/image";
@@ -14,18 +13,6 @@ export default function GallerySection({ gallery = [] }) {
       className="relative overflow-hidden bg-white py-16 sm:py-20 lg:py-24"
       aria-labelledby="gallery-heading"
     >
-      {/* Decorative pattern - top left */}
-      <DecorativePattern
-        variant="trianglesOutlined"
-        className="left-0 top-0 -z-0"
-      />
-
-      {/* Decorative pattern - bottom right */}
-      <DecorativePattern
-        variant="trianglesRight"
-        className="bottom-0 right-0 -z-0"
-      />
-
       <Container>
         {/* Header */}
         <div className="relative z-10 flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between lg:gap-10">
@@ -41,7 +28,6 @@ export default function GallerySection({ gallery = [] }) {
               concepts.
             </h2>
           </div>
-
           <div className="shrink-0">
             <ButtonLink
               href="/gallery"
@@ -143,7 +129,6 @@ export default function GallerySection({ gallery = [] }) {
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
             </RevealImage>
-
             <div className="grid flex-1 grid-cols-2 gap-5 lg:gap-6">
               <RevealImage
                 delay={300}

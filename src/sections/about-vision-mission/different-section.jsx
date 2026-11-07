@@ -1,6 +1,5 @@
 ﻿"use client";
 
-import DecorativePattern from "@/components/common/decorative-pattern";
 import RevealImage from "@/components/common/reveal-image";
 import Container from "@/components/layout/container";
 import Image from "next/image";
@@ -18,13 +17,6 @@ export default function DifferentSection({ visionMissionData }) {
 
   return (
     <section className="relative w-full overflow-hidden bg-white py-12 sm:py-16 md:py-20 lg:py-24">
-      {/* Decorative Pattern - Bottom Left */}
-      <DecorativePattern
-        variant="triangles"
-        // opacity={0.35}
-        className="bottom-0 left-0 "
-      />
-
       <Container>
         <div className="relative z-10">
           {/* Header */}

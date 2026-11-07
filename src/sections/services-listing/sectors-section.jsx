@@ -1,4 +1,3 @@
-import DecorativePattern from "@/components/common/decorative-pattern";
 import Container from "@/components/layout/container";
 import Image from "next/image";
 
@@ -7,12 +6,6 @@ export default function SectorsSection({ sectors }) {
 
   return (
     <section className="relative overflow-hidden bg-[var(--muted)] py-14 sm:py-16 md:py-20 lg:py-24">
-      <DecorativePattern
-        variant="trianglesOutlinedRight"
-        opacity={0.35}
-        className="pointer-events-none absolute right-0 top-0 "
-      />
-
       <Container>
         <div className="max-w-4xl">
           <p className="text-[13px] font-semibold uppercase tracking-[0.15em] text-[var(--brand-primary)] sm:text-sm md:text-[15px] lg:text-base">
@@ -24,7 +17,6 @@ export default function SectorsSection({ sectors }) {
             </p>
           )}
         </div>
-
         <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:mt-10 lg:grid-cols-4 lg:gap-5">
           {sectors.items.map((sector, i) => (
             <div

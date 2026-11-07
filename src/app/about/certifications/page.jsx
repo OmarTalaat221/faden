@@ -1,5 +1,4 @@
 ﻿import { requirePageVisible } from "@/lib/settings/data";
-import DecorativePattern from "@/components/common/decorative-pattern";
 import PageBanner from "@/components/common/page-banner";
 import { certificationsData } from "@/sections/about-certifications/data";
 import IntroSection from "@/sections/about-certifications/intro-section";
@@ -34,17 +33,6 @@ export default async function CertificationsPage() {
 
   return (
     <main className="relative w-full overflow-hidden bg-white">
-      {/* Decorative Patterns */}
-      <DecorativePattern
-        variant="trianglesOutlined"
-        // opacity={0.3}
-        className="top-[600px] left-0 h-auto"
-      />
-      <DecorativePattern
-        variant="trianglesOutlinedRight"
-        // opacity={0.3}
-        className="bottom-0 right-0 h-auto"
-      />
 
       {/* Page Banner */}
       <PageBanner

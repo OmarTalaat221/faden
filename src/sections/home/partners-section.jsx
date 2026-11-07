@@ -1,4 +1,3 @@
-import DecorativePattern from "@/components/common/decorative-pattern";
 import RevealImage from "@/components/common/reveal-image";
 import Container from "@/components/layout/container";
 import ButtonLink from "@/components/ui/button-link";
@@ -20,8 +19,6 @@ export default function PartnersSection({ partner }) {
       className="relative overflow-hidden bg-[#F9FAFB] py-16 sm:py-20 lg:py-24"
       aria-labelledby="partners-heading"
     >
-      <DecorativePattern variant="triangles" className="top-0 right-0" />
-
       <Container>
         {/* Header: eyebrow + subtitle + link out, like the other home bands */}
         <div className="relative z-10 flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between lg:gap-10">
@@ -36,7 +33,6 @@ export default function PartnersSection({ partner }) {
               {partner.subtitle}
             </h2>
           </div>
-
           <div className="shrink-0">
             <ButtonLink
               href="/partners"
@@ -47,7 +43,6 @@ export default function PartnersSection({ partner }) {
             </ButtonLink>
           </div>
         </div>
-
         <div
           className={
             hasImage
@@ -66,15 +61,12 @@ export default function PartnersSection({ partner }) {
                 loading="lazy"
               />
             </div>
-
             <h3 className="mt-5 text-lg font-semibold text-[var(--foreground)] sm:text-xl md:text-2xl lg:text-[26px]">
               {partner.title}
             </h3>
-
             <p className="mt-2 text-xs font-normal text-[var(--muted-foreground)] sm:text-[13px] lg:text-sm">
               {partner.badge}
             </p>
-
             <p className="mt-4 text-sm font-normal leading-[1.7] text-[var(--muted-foreground)] sm:text-[15px] md:text-base lg:text-[17px]">
               {partner.description}
             </p>

@@ -1,4 +1,3 @@
-import DecorativePattern from "@/components/common/decorative-pattern";
 import Container from "@/components/layout/container";
 import { getClientsPageMeta } from "@/lib/clients/data";
 
@@ -8,13 +7,6 @@ export default async function IntroSection() {
 
   return (
     <section className="relative overflow-hidden py-14 sm:py-16 md:py-20 lg:py-24">
-      {/* Decorative Pattern - Top Left */}
-      <DecorativePattern
-        variant="triangles"
-        // opacity={0.35}
-        className="left-0 top-0 h-auto "
-      />
-
       <Container className="relative z-10">
         <div className="max-w-4xl text-left">
           {/* Eyebrow - max 16px */}

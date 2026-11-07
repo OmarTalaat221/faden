@@ -1,4 +1,3 @@
-import DecorativePattern from "@/components/common/decorative-pattern";
 import RevealImage from "@/components/common/reveal-image";
 import Container from "@/components/layout/container";
 import Image from "next/image";
@@ -9,11 +8,6 @@ export default function DesignIntentSection({ designIntent }) {
 
   return (
     <section className="relative overflow-hidden bg-white py-10 sm:py-12 md:py-14">
-      <DecorativePattern
-        variant="trianglesRight"
-        className="pointer-events-none right-0 top-0 w-[260px] sm:w-[340px] lg:w-[420px] xl:w-[468px]"
-      />
-
       <Container className="relative z-10">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-[1.4fr_1fr] md:items-start md:gap-10">
           <div>

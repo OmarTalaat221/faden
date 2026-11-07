@@ -1,5 +1,4 @@
-﻿import DecorativePattern from "@/components/common/decorative-pattern";
-import Container from "@/components/layout/container";
+﻿import Container from "@/components/layout/container";
 import Image from "next/image";
 import { getPartners } from "./data";
 
@@ -13,8 +12,6 @@ export default async function PartnerIntroSection() {
 
   return (
     <section className="relative w-full overflow-hidden pt-12 pb-8 sm:pt-16 sm:pb-10 md:pt-20 md:pb-12 lg:pt-24 lg:pb-14">
-      <DecorativePattern variant="triangles" className="top-0 left-0" />
-
       <Container>
         <div className="relative z-10">
           {/* Eyebrow - max 16px */}
@@ -25,7 +22,6 @@ export default async function PartnerIntroSection() {
           <p className="mt-3 text-base font-normal text-[var(--muted-foreground)] sm:text-lg md:text-xl lg:text-[22px] xl:text-2xl">
             {intro.subtitle}
           </p>
-
           <div
             className={
               hasImage

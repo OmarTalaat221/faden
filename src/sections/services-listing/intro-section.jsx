@@ -1,4 +1,3 @@
-import DecorativePattern from "@/components/common/decorative-pattern";
 import Container from "@/components/layout/container";
 
 export default function IntroSection({ intro }) {
@@ -6,12 +5,6 @@ export default function IntroSection({ intro }) {
 
   return (
     <section className="relative overflow-hidden bg-white py-14 sm:py-16 md:py-20 lg:py-24">
-      <DecorativePattern
-        variant="trianglesOutlined"
-        // opacity={0.35}
-        className="pointer-events-none absolute left-0 top-0 "
-      />
-
       <Container>
         <div className="max-w-4xl">
           <p className="text-[13px] font-semibold uppercase tracking-[0.15em] text-[var(--brand-primary)] sm:text-sm md:text-[15px] lg:text-base">

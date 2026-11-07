@@ -1,4 +1,3 @@
-import DecorativePattern from "@/components/common/decorative-pattern";
 import Container from "@/components/layout/container";
 
 /**
@@ -10,12 +9,6 @@ export default function WhyChooseSection({ whyChoose }) {
 
   return (
     <section className="relative overflow-hidden bg-[#F9FAFB] py-14 sm:py-16 md:py-20 lg:py-24">
-      <DecorativePattern
-        variant="trianglesOutlined"
-        // opacity={0.35}
-        className="pointer-events-none absolute bottom-0 left-0 "
-      />
-
       <Container>
         <div className="max-w-4xl">
           <p className="text-[13px] font-semibold uppercase tracking-[0.15em] text-[var(--brand-primary)] sm:text-sm md:text-[15px] lg:text-base">
@@ -27,7 +20,6 @@ export default function WhyChooseSection({ whyChoose }) {
             </p>
           )}
         </div>
-
         <ul className="mt-8 grid grid-cols-1 gap-x-8 gap-y-3 md:grid-cols-2 md:gap-y-4">
           {whyChoose.items.map((item, i) => (
             <li

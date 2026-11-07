@@ -1,5 +1,4 @@
-﻿import DecorativePattern from "@/components/common/decorative-pattern";
-import Container from "@/components/layout/container";
+﻿import Container from "@/components/layout/container";
 
 export default function BulletsSection({ section, muted = false }) {
   const { title, subtitle, content } = section;
@@ -11,14 +10,6 @@ export default function BulletsSection({ section, muted = false }) {
         muted ? "bg-[var(--muted)]" : "bg-white"
       }`}
     >
-      {!muted && (
-        <DecorativePattern
-          variant="trianglesOutlinedRight"
-          // opacity={0.35 }
-          className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2"
-        />
-      )}
-
       <Container>
         <div className="max-w-3xl">
           <p className="text-[13px] font-semibold uppercase tracking-[0.15em] text-[var(--brand-primary)] sm:text-sm md:text-[15px] lg:text-base">
@@ -30,7 +21,6 @@ export default function BulletsSection({ section, muted = false }) {
             </p>
           )}
         </div>
-
         <ul className="mt-8 grid grid-cols-1 gap-x-8 gap-y-3 md:grid-cols-2 md:gap-y-4">
           {items.map((item, i) => (
             <li

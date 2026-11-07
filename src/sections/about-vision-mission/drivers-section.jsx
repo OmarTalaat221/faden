@@ -1,5 +1,4 @@
-﻿import DecorativePattern from "@/components/common/decorative-pattern";
-import Container from "@/components/layout/container";
+﻿import Container from "@/components/layout/container";
 import { getAboutVisionMission } from "./data";
 
 export default async function DriversSection() {
@@ -8,13 +7,6 @@ export default async function DriversSection() {
 
   return (
     <section className="relative w-full overflow-hidden bg-white py-12 sm:py-16 md:py-20 lg:py-24">
-      {/* Decorative Pattern - Top Right */}
-      <DecorativePattern
-        variant="trianglesRight"
-        // opacity={0.35}
-        className="top-0 right-0 "
-      />
-
       <Container>
         <div className="relative z-10">
           {/* Header */}

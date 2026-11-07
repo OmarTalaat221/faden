@@ -1,5 +1,4 @@
-﻿import DecorativePattern from "@/components/common/decorative-pattern";
-import RevealImage from "@/components/common/reveal-image";
+﻿import RevealImage from "@/components/common/reveal-image";
 import Container from "@/components/layout/container";
 import ButtonLink from "@/components/ui/button-link";
 import Image from "next/image";
@@ -11,18 +10,6 @@ export default function ProjectsSection({ projects = [] }) {
       className="relative overflow-hidden bg-white py-16 sm:py-20 lg:py-24"
       aria-labelledby="projects-heading"
     >
-      {/* Decorative pattern - top right */}
-      <DecorativePattern
-        variant="trianglesRight"
-        className="right-0 top-0 -z-0"
-      />
-
-      {/* Decorative pattern - bottom left */}
-      <DecorativePattern
-        variant="trianglesOutlined"
-        className="bottom-0 left-0 -z-0"
-      />
-
       <Container>
         {/* Header */}
         <div className="relative z-10 flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between lg:gap-10">
@@ -38,7 +25,6 @@ export default function ProjectsSection({ projects = [] }) {
               commitment to excellence at every stage.
             </h2>
           </div>
-
           <div className="shrink-0">
             <ButtonLink
               href="/projects"

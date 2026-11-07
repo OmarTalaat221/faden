@@ -1,5 +1,4 @@
-﻿import DecorativePattern from "@/components/common/decorative-pattern";
-import RevealImage from "@/components/common/reveal-image";
+﻿import RevealImage from "@/components/common/reveal-image";
 import Container from "@/components/layout/container";
 import Image from "next/image";
 import { getAboutOverview } from "./data";
@@ -20,13 +19,6 @@ export default async function OverviewIntro() {
 
   return (
     <section className="relative w-full overflow-hidden py-12 sm:py-16 md:py-20 lg:py-24">
-      {/* Decorative Pattern - Top Left */}
-      <DecorativePattern
-        variant="trianglesOutlined"
-        opacity={0.35}
-        className="top-0 left-0 "
-      />
-
       <Container>
         <div className="relative z-10 mx-auto">
           {/* Eyebrow - max 16px */}

@@ -1,6 +1,5 @@
 "use client";
 
-import DecorativePattern from "@/components/common/decorative-pattern";
 import Container from "@/components/layout/container";
 import ProjectCard from "@/sections/projects/project-card";
 import { Pagination } from "swiper/modules";
@@ -14,11 +13,6 @@ export default function MoreProjectsSection({ projects = [] }) {
 
   return (
     <section className="relative overflow-hidden bg-white py-10 sm:py-12 md:py-14 lg:py-16">
-      <DecorativePattern
-        variant="trianglesRight"
-        className="pointer-events-none right-0 top-0 w-[280px] sm:w-[380px] lg:w-[460px] xl:w-[512px]"
-      />
-
       <Container className="relative z-10">
         <p className="text-[13px] font-semibold uppercase tracking-[0.15em] text-[var(--brand-primary)] sm:text-sm md:text-[15px]">
           MORE PROJECTS
@@ -27,7 +21,6 @@ export default function MoreProjectsSection({ projects = [] }) {
           An overview of other notable developments within the company&apos;s
           portfolio.
         </p>
-
         <div className="mt-8">
           <Swiper
             modules={[Pagination]}
@@ -49,7 +42,6 @@ export default function MoreProjectsSection({ projects = [] }) {
           </Swiper>
         </div>
       </Container>
-
       <style jsx global>{`
         .swiper-pagination-bullet {
           background: #d1d5db;

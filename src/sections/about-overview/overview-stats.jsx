@@ -1,5 +1,4 @@
-﻿import DecorativePattern from "@/components/common/decorative-pattern";
-import ContentIcon from "@/components/common/content-icon";
+﻿import ContentIcon from "@/components/common/content-icon";
 import Container from "@/components/layout/container";
 import { getAboutOverview } from "./data";
 
@@ -9,12 +8,6 @@ export default async function OverviewStats() {
 
   return (
     <section className="relative w-full overflow-hidden bg-white pb-16 sm:pb-20 md:pb-24 lg:pb-28">
-      {/* Decorative Pattern - Bottom Right (FADEN Outline) */}
-      <DecorativePattern
-        variant="fadenOutline"
-        className="bottom-0 right-0 h-auto w-[220px] sm:w-[300px] md:w-[380px] lg:w-[440px]"
-      />
-
       <Container>
         <div className="relative z-10 mx-auto">
           <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4 lg:gap-5">

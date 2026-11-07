@@ -1,6 +1,5 @@
 "use client";
 
-import DecorativePattern from "@/components/common/decorative-pattern";
 import Container from "@/components/layout/container";
 import { useEffect, useMemo, useState } from "react";
 import ProjectCard from "./project-card";
@@ -111,21 +110,6 @@ export default function ProjectsGridSection({ projects: PROJECTS_ITEMS = [], cat
 
   return (
     <section className="relative py-10 sm:py-14 md:py-16 lg:py-20 overflow-hidden">
-      {/* Decorative Pattern - Top Left */}
-      <DecorativePattern variant="triangles" className="top-0 left-0" />
-
-      {/* Decorative Pattern - Middle Right */}
-      <DecorativePattern
-        variant="trianglesOutlinedRight"
-        className="top-1/2 right-0 -translate-y-1/2"
-      />
-
-      {/* Decorative Pattern - Bottom Left (above CTA) */}
-      <DecorativePattern
-        variant="trianglesOutlined"
-        className="bottom-0 left-0"
-      />
-
       <Container className="relative z-10">
         <div id="projects-grid-top" className="scroll-mt-24" />
 
@@ -143,7 +127,6 @@ export default function ProjectsGridSection({ projects: PROJECTS_ITEMS = [], cat
             <span className="font-semibold text-foreground">{totalCount}</span>{" "}
             results
           </p>
-
           <ProjectsControls
             sortValue={sortValue}
             onSortChange={setSortValue}

@@ -1,6 +1,5 @@
 "use client";
 
-import DecorativePattern from "@/components/common/decorative-pattern";
 import RevealImage from "@/components/common/reveal-image";
 import Container from "@/components/layout/container";
 import { cn } from "@/lib/utils";
@@ -133,16 +132,6 @@ export default function GalleryGridSection({ galleryList: GALLERY_LIST, galleryM
 
   return (
     <section className="relative overflow-hidden pb-16 sm:pb-20 md:pb-24">
-      <DecorativePattern
-        variant="trianglesOutlinedRight"
-        className="right-0 top-4 "
-      />
-
-      <DecorativePattern
-        variant="trianglesOutlined"
-        className="bottom-16 left-0 "
-      />
-
       <Container className="relative z-10">
         <div className="grid grid-cols-2 items-start gap-3 sm:gap-4 md:hidden">
           {mobileColumns.map((column, index) => (
@@ -154,7 +143,6 @@ export default function GalleryGridSection({ galleryList: GALLERY_LIST, galleryM
             />
           ))}
         </div>
-
         <div className="hidden grid-cols-3 items-start gap-3 md:grid lg:gap-4">
           {desktopColumns.map((column, index) => (
             <GalleryColumn
