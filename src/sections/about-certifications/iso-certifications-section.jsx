@@ -17,7 +17,7 @@ export default function IsoCertificationsSection() {
     activeIndex >= 0 ? isoCertifications.items[activeIndex] : null;
 
   return (
-    <section className="relative w-full bg-white py-8 pb-16 sm:py-10 sm:pb-20 md:py-12 md:pb-24 lg:py-14 lg:pb-28">
+    <section className="relative w-full bg-white py-6 pb-10 sm:py-7 sm:pb-14 md:py-8 md:pb-16 lg:py-10 lg:pb-18">
       <Container>
         <div className="relative z-10">
           {/* Eyebrow - max 16px */}

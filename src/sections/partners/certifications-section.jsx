@@ -17,7 +17,7 @@ export default function CertificationsSection() {
     activeIndex >= 0 ? certifications.items[activeIndex] : null;
 
   return (
-    <section className="relative w-full overflow-hidden bg-white py-10 pb-16 sm:py-12 sm:pb-20 md:py-14 md:pb-24 lg:py-16 lg:pb-28">
+    <section className="relative w-full overflow-hidden bg-white py-7 pb-10 sm:py-8 sm:pb-14 md:py-10 md:pb-16 lg:py-10 lg:pb-18">
       <Container>
         <div className="relative z-10">
           {/* Eyebrow - max 16px */}

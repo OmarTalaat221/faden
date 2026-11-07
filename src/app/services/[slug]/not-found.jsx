@@ -3,7 +3,7 @@ import Container from "@/components/layout/container";
 
 export default function ServiceNotFound() {
   return (
-    <section className="flex min-h-[70vh] items-center justify-center py-20">
+    <section className="flex min-h-[70vh] items-center justify-center py-14">
       <Container className="text-center">
         <p className="text-[13px] font-semibold uppercase tracking-[0.15em] text-[var(--brand-primary)]">
           404

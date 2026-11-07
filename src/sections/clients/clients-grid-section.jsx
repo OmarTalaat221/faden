@@ -5,7 +5,7 @@ import Image from "next/image";
 export default async function ClientsGridSection() {
   const CLIENTS_LIST = await getClientsList();
   return (
-    <section className="relative overflow-hidden pb-16 sm:pb-20 md:pb-24">
+    <section className="relative overflow-hidden pb-10 sm:pb-14 md:pb-16">
       <Container className="relative z-10">
         <div className="grid grid-cols-2 gap-x-6 gap-y-10 xs:grid-cols-3 sm:grid-cols-4 sm:gap-x-8 sm:gap-y-12 md:grid-cols-5 md:gap-x-10 md:gap-y-14 lg:grid-cols-6 lg:gap-x-12 lg:gap-y-16">
           {CLIENTS_LIST.map((client) => (

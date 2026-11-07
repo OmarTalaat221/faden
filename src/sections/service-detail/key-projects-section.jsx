@@ -12,7 +12,7 @@ export default function KeyProjectsSection({ projects = [] }) {
   if (!projects.length) return null;
 
   return (
-    <section className="relative overflow-hidden bg-white py-14 sm:py-16 md:py-20 lg:py-24">
+    <section className="relative overflow-hidden bg-white py-10 sm:py-10 md:py-14 lg:py-16">
       <Container>
         <div className="max-w-3xl">
           <p className="text-[13px] font-semibold uppercase tracking-[0.15em] text-[var(--brand-primary)] sm:text-sm md:text-[15px] lg:text-base">
@@ -33,7 +33,7 @@ export default function KeyProjectsSection({ projects = [] }) {
               640: { slidesPerView: 2, spaceBetween: 20 },
               1024: { slidesPerView: 3, spaceBetween: 24 },
             }}
-            className="!pb-12"
+            className="!pb-8"
           >
             {projects.map((project) => (
               <SwiperSlide key={project.id}>

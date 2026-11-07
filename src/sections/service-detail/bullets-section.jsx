@@ -6,7 +6,7 @@ export default function BulletsSection({ section, muted = false }) {
 
   return (
     <section
-      className={`relative overflow-hidden py-14 sm:py-16 md:py-20 lg:py-24 lg:pt-14 md:pt-10 sm:pt-8 pt-7 ${
+      className={`relative overflow-hidden py-10 sm:py-10 md:py-14 lg:py-16 lg:pt-10 md:pt-7 sm:pt-6 pt-5 ${
         muted ? "bg-[var(--muted)]" : "bg-white"
       }`}
     >

@@ -74,7 +74,7 @@ export default function OtherCertificationsSection() {
   };
 
   return (
-    <section className="relative w-full overflow-hidden bg-white py-8 sm:py-10 md:py-12">
+    <section className="relative w-full overflow-hidden bg-white py-6 sm:py-7 md:py-8">
       <Container>
         <div className="relative z-10">
           <p className="text-[11px] font-bold uppercase tracking-[0.03em] text-[var(--brand-primary)] sm:text-xs">

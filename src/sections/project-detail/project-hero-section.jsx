@@ -4,7 +4,7 @@ import { MapPin } from "lucide-react";
 
 export default function ProjectHeroSection({ project }) {
   return (
-    <section className="relative overflow-hidden bg-white pt-10 sm:pt-12 md:pt-14 lg:pt-16">
+    <section className="relative overflow-hidden bg-white pt-7 sm:pt-8 md:pt-10 lg:pt-10">
       <Container className="relative z-10">
         <div className="relative aspect-[16/9] w-full overflow-hidden rounded-lg sm:aspect-[16/8] md:aspect-[16/7]">
           <Image

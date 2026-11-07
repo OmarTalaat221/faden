@@ -109,7 +109,7 @@ export default function ProjectsGridSection({ projects: PROJECTS_ITEMS = [], cat
   };
 
   return (
-    <section className="relative py-10 sm:py-14 md:py-16 lg:py-20 overflow-hidden">
+    <section className="relative py-7 sm:py-10 md:py-10 lg:py-14 overflow-hidden">
       <Container className="relative z-10">
         <div id="projects-grid-top" className="scroll-mt-24" />
 
@@ -167,7 +167,7 @@ export default function ProjectsGridSection({ projects: PROJECTS_ITEMS = [], cat
             ))}
           </div>
         ) : (
-          <div className="mt-16 text-center py-16">
+          <div className="mt-16 text-center py-10">
             <p className="text-[16px] text-muted-foreground">
               No projects match your current filters.
             </p>

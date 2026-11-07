@@ -12,7 +12,7 @@ export default function ClientsSection({ clients = [] }) {
   return (
     <section
       id="clients"
-      className="relative overflow-hidden bg-white py-16 sm:py-20 lg:py-24"
+      className="relative overflow-hidden bg-white py-10 sm:py-14 lg:py-16"
       aria-labelledby="clients-heading"
     >
       <Container>

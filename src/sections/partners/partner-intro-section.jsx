@@ -11,7 +11,7 @@ export default async function PartnerIntroSection() {
   const hasImage = Boolean(intro.image);
 
   return (
-    <section className="relative w-full overflow-hidden pt-12 pb-8 sm:pt-16 sm:pb-10 md:pt-20 md:pb-12 lg:pt-24 lg:pb-14">
+    <section className="relative w-full overflow-hidden pt-8 pb-6 sm:pt-10 sm:pb-7 md:pt-14 md:pb-8 lg:pt-16 lg:pb-10">
       <Container>
         <div className="relative z-10">
           {/* Eyebrow - max 16px */}

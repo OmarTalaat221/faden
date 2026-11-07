@@ -12,7 +12,7 @@ export default function MoreProjectsSection({ projects = [] }) {
   if (!projects.length) return null;
 
   return (
-    <section className="relative overflow-hidden bg-white py-10 sm:py-12 md:py-14 lg:py-16">
+    <section className="relative overflow-hidden bg-white py-7 sm:py-8 md:py-10 lg:py-10">
       <Container className="relative z-10">
         <p className="text-[13px] font-semibold uppercase tracking-[0.15em] text-[var(--brand-primary)] sm:text-sm md:text-[15px]">
           MORE PROJECTS

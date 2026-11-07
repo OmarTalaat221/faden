@@ -103,7 +103,7 @@ export default function ProjectPhotosSection({ photos = [], title, caption }) {
   if (!photos.length) return null;
 
   return (
-    <section className="relative bg-white py-10 sm:py-12 md:py-14">
+    <section className="relative bg-white py-7 sm:py-8 md:py-10">
       <Container>
         <p className="text-[13px] font-semibold uppercase tracking-[0.15em] text-[var(--brand-primary)] sm:text-sm md:text-[15px]">
           PROJECT PHOTOS

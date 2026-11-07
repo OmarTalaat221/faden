@@ -5,7 +5,7 @@ export default function IntroSection({ galleryMeta }) {
   const { eyebrow, subtitle } = GALLERY_PAGE_META.intro;
 
   return (
-    <section className="py-10 sm:py-12 md:py-14">
+    <section className="py-7 sm:py-8 md:py-10">
       <Container>
         <div className="max-w-4xl text-left">
           {/* Eyebrow - max 16px */}

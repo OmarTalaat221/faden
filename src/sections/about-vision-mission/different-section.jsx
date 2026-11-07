@@ -16,7 +16,7 @@ export default function DifferentSection({ visionMissionData }) {
   };
 
   return (
-    <section className="relative w-full overflow-hidden bg-white py-12 sm:py-16 md:py-20 lg:py-24">
+    <section className="relative w-full overflow-hidden bg-white py-8 sm:py-10 md:py-14 lg:py-16">
       <Container>
         <div className="relative z-10">
           {/* Header */}

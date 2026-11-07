@@ -42,7 +42,7 @@ export default function ProcessSection({ section }) {
     "inline-flex shrink-0 items-center justify-center rounded-md border border-[var(--border)] bg-white px-5 py-3 text-sm font-medium text-[var(--foreground)] transition-colors hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] sm:px-6 sm:py-3.5 sm:text-base";
 
   return (
-    <section className="relative overflow-hidden bg-[var(--muted)] py-14 sm:py-16 md:py-20 lg:py-24">
+    <section className="relative overflow-hidden bg-[var(--muted)] py-10 sm:py-10 md:py-14 lg:py-16">
       <Container>
         <div className="max-w-3xl">
           <p className="text-[13px] font-semibold uppercase tracking-[0.15em] text-[var(--brand-primary)] sm:text-sm md:text-[15px] lg:text-base">

@@ -131,7 +131,7 @@ export default function GalleryGridSection({ galleryList: GALLERY_LIST, galleryM
   };
 
   return (
-    <section className="relative overflow-hidden pb-16 sm:pb-20 md:pb-24">
+    <section className="relative overflow-hidden pb-10 sm:pb-14 md:pb-16">
       <Container className="relative z-10">
         <div className="grid grid-cols-2 items-start gap-3 sm:gap-4 md:hidden">
           {mobileColumns.map((column, index) => (

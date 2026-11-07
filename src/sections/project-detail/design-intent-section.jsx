@@ -7,7 +7,7 @@ export default function DesignIntentSection({ designIntent }) {
   const { label, caption, paragraphs = [], image } = designIntent;
 
   return (
-    <section className="relative overflow-hidden bg-white py-10 sm:py-12 md:py-14">
+    <section className="relative overflow-hidden bg-white py-7 sm:py-8 md:py-10">
       <Container className="relative z-10">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-[1.4fr_1fr] md:items-start md:gap-10">
           <div>

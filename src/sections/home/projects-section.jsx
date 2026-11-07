@@ -7,7 +7,7 @@ export default function ProjectsSection({ projects = [] }) {
   return (
     <section
       id="projects"
-      className="relative overflow-hidden bg-white py-16 sm:py-20 lg:py-24"
+      className="relative overflow-hidden bg-white py-10 sm:py-14 lg:py-16"
       aria-labelledby="projects-heading"
     >
       <Container>

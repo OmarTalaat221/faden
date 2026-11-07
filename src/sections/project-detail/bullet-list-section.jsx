@@ -6,7 +6,7 @@ export default function BulletListSection({ data, columns = 1, muted = false }) 
 
   return (
     <section
-      className={`relative py-10 sm:py-12 md:py-14 ${
+      className={`relative py-7 sm:py-8 md:py-10 ${
         muted ? "bg-[var(--muted)]" : "bg-white"
       }`}
     >

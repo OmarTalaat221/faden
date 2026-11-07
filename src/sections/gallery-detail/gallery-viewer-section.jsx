@@ -312,7 +312,7 @@ export default function GalleryViewerSection({ galleryList: GALLERY_LIST }) {
   if (!displayedItem || total === 0) return null;
 
   return (
-    <section className="relative overflow-hidden py-10 sm:py-14 md:py-16">
+    <section className="relative overflow-hidden py-7 sm:py-10 md:py-10">
       <Container className="relative z-10">
         {/* Close button - back to grid */}
         <div className="mx-auto mb-4 flex max-w-4xl justify-end">

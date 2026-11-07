@@ -60,7 +60,7 @@ export default function ProjectInfoSection({ tabs }) {
   if (!current) return null;
 
   return (
-    <section className="relative bg-white pb-10 sm:pb-12 md:pb-14">
+    <section className="relative bg-white pb-7 sm:pb-8 md:pb-10">
       <Container>
         <div className="overflow-hidden rounded-lg border border-[var(--border)]">
           {hasComposition ? (

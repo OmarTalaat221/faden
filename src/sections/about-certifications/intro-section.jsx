@@ -5,7 +5,7 @@ export default function IntroSection() {
   const { intro } = certificationsData;
 
   return (
-    <section className="relative w-full bg-white py-10 sm:py-12 md:py-14 lg:py-16">
+    <section className="relative w-full bg-white py-7 sm:py-8 md:py-10 lg:py-10">
       <Container>
         <div className="relative z-10">
           {/* Eyebrow - max 16px */}

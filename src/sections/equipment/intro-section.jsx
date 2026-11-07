@@ -6,7 +6,7 @@ export default async function IntroSection() {
   const { eyebrow, subtitle, description } = EQUIPMENT_PAGE_META.intro;
 
   return (
-    <section className="relative overflow-hidden py-12 sm:py-14 md:py-16 lg:py-20">
+    <section className="relative overflow-hidden py-8 sm:py-10 md:py-10 lg:py-14">
       <Container className="relative z-10">
         <div className="max-w-5xl text-left">
           {/* Eyebrow - max 16px */}

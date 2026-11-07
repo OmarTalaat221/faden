@@ -7,7 +7,7 @@ export default function OverviewSection({ section }) {
   const paragraphs = content?.paragraphs || [];
 
   return (
-    <section className="relative overflow-hidden bg-white py-14 sm:py-16 md:py-20 lg:py-24">
+    <section className="relative overflow-hidden bg-white py-10 sm:py-10 md:py-14 lg:py-16">
       <Container>
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:items-start md:gap-12 lg:gap-16">
           <div>

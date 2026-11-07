@@ -4,7 +4,7 @@ export default function MapSection({ map }) {
   if (!map) return null;
 
   return (
-    <section className="relative overflow-hidden bg-white pb-14 sm:pb-16 md:pb-20 lg:pb-24">
+    <section className="relative overflow-hidden bg-white pb-10 sm:pb-10 md:pb-14 lg:pb-16">
       <Container>
         <div className="max-w-3xl">
           <p className="text-[13px] font-semibold uppercase tracking-[0.15em] text-[var(--brand-primary)] sm:text-sm md:text-[15px] lg:text-base">

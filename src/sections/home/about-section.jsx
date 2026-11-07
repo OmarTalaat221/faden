@@ -7,17 +7,17 @@ export default function AboutSection() {
     <section
       id="about"
       aria-labelledby="about-heading"
-      className="relative isolate scroll-mt-20 overflow-hidden bg-white pt-20 pb-0 sm:pt-24 lg:pt-32"
+      className="relative isolate scroll-mt-20 overflow-hidden bg-white pt-14 pb-0 sm:pt-16 lg:pt-32"
     >
 
       {/* FADEN outline — bottom-right */}
 
       <Container
         className="
-          grid items-center gap-8 pb-16
-          sm:gap-10 sm:pb-20
-          md:grid-cols-[1.1fr_0.9fr] md:gap-8 md:pb-24
-          lg:grid-cols-[1.15fr_0.85fr] lg:gap-16 lg:pb-28
+          grid items-center gap-8 pb-10
+          sm:gap-10 sm:pb-14
+          md:grid-cols-[1.1fr_0.9fr] md:gap-8 md:pb-16
+          lg:grid-cols-[1.15fr_0.85fr] lg:gap-16 lg:pb-18
           xl:gap-20
         "
       >

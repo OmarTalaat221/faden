@@ -8,7 +8,7 @@ export default function WhyChooseSection({ whyChoose }) {
   if (!whyChoose || !whyChoose.items?.length) return null;
 
   return (
-    <section className="relative overflow-hidden bg-[#F9FAFB] py-14 sm:py-16 md:py-20 lg:py-24">
+    <section className="relative overflow-hidden bg-[#F9FAFB] py-10 sm:py-10 md:py-14 lg:py-16">
       <Container>
         <div className="max-w-4xl">
           <p className="text-[13px] font-semibold uppercase tracking-[0.15em] text-[var(--brand-primary)] sm:text-sm md:text-[15px] lg:text-base">

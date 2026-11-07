@@ -14,7 +14,7 @@ export default function ServicesSection({ services = [] }) {
   return (
     <section
       id="services"
-      className="relative overflow-hidden bg-[#F9FAFB] py-16 sm:py-20 lg:py-24"
+      className="relative overflow-hidden bg-[#F9FAFB] py-10 sm:py-14 lg:py-16"
       aria-labelledby="services-heading"
     >
       <Container>
@@ -66,7 +66,7 @@ export default function ServicesSection({ services = [] }) {
                 spaceBetween: 28,
               },
             }}
-            className="!pb-12"
+            className="!pb-8"
           >
             {services.map((service, index) => (
               <SwiperSlide key={service.id}>

@@ -11,7 +11,7 @@ export default function EquipmentSection({ equipment = [] }) {
   return (
     <section
       id="equipment"
-      className="relative overflow-hidden bg-[#F9FAFB] py-16 sm:py-20 lg:py-24"
+      className="relative overflow-hidden bg-[#F9FAFB] py-10 sm:py-14 lg:py-16"
       aria-labelledby="equipment-heading"
     >
       <Container>

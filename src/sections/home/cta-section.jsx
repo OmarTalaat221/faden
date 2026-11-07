@@ -4,7 +4,7 @@ import ButtonLink from "@/components/ui/button-link";
 export default function CtaSection() {
   return (
     <section
-      className="relative isolate overflow-hidden py-16 text-white sm:py-20"
+      className="relative isolate overflow-hidden py-10 text-white sm:py-14"
       style={{
         backgroundImage:
           "linear-gradient(rgba(15, 15, 15, 0.62), rgba(15, 15, 15, 0.62)), url('/images/faden/start-project-section.webp')",

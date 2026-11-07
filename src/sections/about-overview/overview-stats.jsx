@@ -7,7 +7,7 @@ export default async function OverviewStats() {
   const { stats } = overviewData;
 
   return (
-    <section className="relative w-full overflow-hidden bg-white pb-16 sm:pb-20 md:pb-24 lg:pb-28">
+    <section className="relative w-full overflow-hidden bg-white pb-10 sm:pb-14 md:pb-16 lg:pb-18">
       <Container>
         <div className="relative z-10 mx-auto">
           <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4 lg:gap-5">
