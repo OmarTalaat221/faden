@@ -31,7 +31,7 @@ export default async function AchievementsSection() {
                   <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full sm:mb-4 sm:h-14 sm:w-14 lg:h-[60px] lg:w-[60px]">
                     <ContentIcon
                       name={card.icon}
-                      className="h-5 w-5 text-[var(--brand-primary)] sm:h-6 sm:w-6 lg:h-7 lg:w-7"
+                      className="h-7 w-7 text-[var(--brand-primary)] sm:h-8 sm:w-8 lg:h-10 lg:w-10"
                       strokeWidth={2}
                     />
                   </div>

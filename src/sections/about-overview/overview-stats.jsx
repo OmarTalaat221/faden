@@ -29,7 +29,7 @@ export default async function OverviewStats() {
                     {/* Icon - max 28px */}
                     <ContentIcon
                       name={stat.icon}
-                      className="h-5 w-5 text-[var(--brand-primary)] sm:h-6 sm:w-6 lg:h-7 lg:w-7"
+                      className="h-7 w-7 text-[var(--brand-primary)] sm:h-8 sm:w-8 lg:h-10 lg:w-10"
                       strokeWidth={2}
                     />
                   </div>
