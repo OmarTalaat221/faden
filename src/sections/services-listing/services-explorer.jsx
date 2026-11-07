@@ -103,26 +103,51 @@ function ServiceCard({ service, index, showPrivateNote, reduceMotion }) {
  * be drawn.
  */
 function BrushHighlight({ children, reduceMotion }) {
+  // The stroke and the white copy of the word are cut by the same expanding
+  // box and share one transition, so a letter turns from red to white at the
+  // exact moment the paint reaches it.
+  const sweep = {
+    initial: reduceMotion ? false : { clipPath: "inset(0 100% 0 0)" },
+    animate: { clipPath: "inset(0 0% 0 0)" },
+    transition: { duration: 0.9, ease: [0.645, 0.045, 0.355, 1], delay: 0.25 },
+  };
+
   return (
-    <span className="relative isolate inline-block px-[0.42em] py-[0.14em]">
+    <span className="relative isolate inline-block px-[0.55em] py-[0.12em] align-baseline">
       <motion.svg
         aria-hidden
         viewBox="0 0 300 80"
         preserveAspectRatio="none"
-        className="absolute inset-0 -z-10 h-full w-full"
-        // Painted on mount rather than on scroll: whileInView never fired
-        // for a heading that was already on screen when the page hydrated,
-        // which left the stroke clipped to nothing.
-        initial={reduceMotion ? false : { clipPath: "inset(0 100% 0 0)" }}
-        animate={{ clipPath: "inset(0 0% 0 0)" }}
-        transition={{ duration: 0.75, ease: [0.65, 0, 0.35, 1], delay: 0.2 }}
+        className="absolute inset-0 -z-10 h-full w-full -rotate-[0.8deg]"
+        {...sweep}
       >
+        {/* Hand-cut rather than a lens: the edges wander, the left end is
+            thinner than the right, and a lighter second pass sits inside the
+            way a wide marker leaves a darker rim. */}
         <path
-          d="M6,44 C34,20 86,10 152,11 C214,12 268,20 294,33 C298,46 293,61 282,68 C243,78 150,79 92,74 C55,70 18,64 5,56 Z"
+          d="M5,43 C16,27 44,18 84,13 C122,8 170,7 208,11 C242,14 274,21 293,31 C301,35 300,44 292,51 C277,62 238,70 192,74 C142,78 86,77 47,70 C24,66 8,57 5,50 Z"
           fill="var(--brand-primary)"
         />
+        <path
+          d="M22,40 C44,28 92,21 150,21 C206,21 256,27 282,36"
+          stroke="rgba(255,255,255,0.14)"
+          strokeWidth="6"
+          strokeLinecap="round"
+          fill="none"
+        />
       </motion.svg>
-      <span className="relative text-white">{children}</span>
+
+      {/* The word before the paint arrives. */}
+      <span className="relative text-[var(--brand-primary)]">{children}</span>
+
+      {/* The same word in white, revealed by the same sweep. */}
+      <motion.span
+        aria-hidden
+        className="absolute inset-0 px-[0.55em] py-[0.12em] text-white"
+        {...sweep}
+      >
+        {children}
+      </motion.span>
     </span>
   );
 }
