@@ -4,15 +4,9 @@
   --background: #ffffff;
 
   /* Page surfaces. The two alternate down the page; cards stay --background
-     (white) so they lift off them. Swap this pair to retheme the whole site:
-
-       cool grey    #f3f5f7 / #e9edf1   (lighter, barely-there)
-     > deeper cool  #eceef1 / #e1e5ea   (current — reads clearly as grey)
-       warm greige  #f3f1ee / #eae6e0   (warmer, more editorial)
-       stone        #eeebe7 / #e4dfd8   (warmest)
-       white        #ffffff / #F9FAFB   (what the site shipped with) */
-  --surface: #eceef1;
-  --surface-alt: #e1e5ea;
+     (white) so they lift off them. One pair retones the whole site. */
+  --surface: #eeebe7;
+  --surface-alt: #e4dfd8;
 
   --foreground: #202020;
   /* Was #f7f7f7, which now reads lighter than the page. Tracks the deeper

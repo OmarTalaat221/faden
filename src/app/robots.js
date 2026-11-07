@@ -4,9 +4,7 @@
       {
         userAgent: "*",
         allow: "/",
-        // /shades is the temporary shade-picker page; drop it from this
-        // list when that page is removed.
-        disallow: ["/api/", "/admin/", "/shades"],
+        disallow: ["/api/", "/admin/"],
       },
     ],
     sitemap: "https://www.fadensa.com/sitemap.xml",
