@@ -5,24 +5,27 @@ import { iconForTitle } from "@/lib/content-icons";
 import { cn } from "@/lib/utils";
 import { Plus } from "lucide-react";
 
+/**
+ * One row of the list. The rows share a single panel rather than each sitting
+ * in its own card, so the six read as one block instead of six floating boxes;
+ * the only thing that lifts off the panel is the row that is open.
+ */
 export default function AccordionItem({
   title,
   content,
   icon,
+  index,
   isOpen,
   onToggle,
 }) {
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-xl border bg-[var(--background)] transition-all duration-300",
-        isOpen
-          ? "border-[var(--brand-primary)]/40 shadow-[0_12px_32px_rgba(0,0,0,0.07)]"
-          : "border-[var(--border)] hover:border-[var(--brand-primary)]/40",
+        "group relative transition-colors duration-300",
+        isOpen ? "bg-[var(--brand-primary)]/[0.04]" : "hover:bg-[var(--muted)]/60",
       )}
     >
-      {/* A red rail marks the open item down its whole height, so the open one
-          is readable at a glance without tinting the row. */}
+      {/* A red rail marks the open row down its whole height. */}
       <span
         aria-hidden
         className={cn(
@@ -35,14 +38,14 @@ export default function AccordionItem({
         type="button"
         onClick={onToggle}
         aria-expanded={isOpen}
-        className="flex w-full items-center gap-3 px-4 py-3.5 text-left sm:gap-4 sm:px-5 sm:py-4 md:px-6"
+        className="flex w-full items-center gap-3 px-4 py-3 text-left sm:gap-4 sm:px-5 sm:py-3.5 md:px-6"
       >
         <span
           className={cn(
             "flex h-9 w-9 shrink-0 items-center justify-center rounded-lg transition-colors duration-300 sm:h-10 sm:w-10",
             isOpen
               ? "bg-[var(--brand-primary)] text-white"
-              : "bg-[var(--brand-primary)]/10 text-[var(--brand-primary)]",
+              : "bg-[var(--brand-primary)]/10 text-[var(--brand-primary)] group-hover:bg-[var(--brand-primary)]/20",
           )}
         >
           <ContentIcon
@@ -53,18 +56,35 @@ export default function AccordionItem({
         </span>
 
         {/* Title - max 20px */}
-        <span className="min-w-0 flex-1 text-sm font-medium text-[var(--foreground)] sm:text-base md:text-[17px] lg:text-lg xl:text-xl">
+        <span
+          className={cn(
+            "min-w-0 flex-1 text-sm transition-colors duration-300 sm:text-base md:text-[17px] lg:text-lg",
+            isOpen
+              ? "font-semibold text-[var(--brand-primary)]"
+              : "font-medium text-[var(--foreground)]",
+          )}
+        >
           {title}
         </span>
 
-        {/* A plus that turns into a minus: it says "opens" on a closed row more
-            plainly than a chevron does. */}
+        {/* The step number keeps the right edge from being empty on a closed
+            row, and swaps for the control once the row is the open one. */}
+        <span
+          aria-hidden
+          className={cn(
+            "hidden text-xs font-semibold tabular-nums transition-opacity duration-300 sm:block",
+            isOpen ? "opacity-0" : "text-[var(--muted-foreground)]/50",
+          )}
+        >
+          {String(index + 1).padStart(2, "0")}
+        </span>
+
         <Plus
           className={cn(
-            "h-4 w-4 shrink-0 transition-all duration-300 sm:h-5 sm:w-5",
+            "h-4 w-4 shrink-0 transition-all duration-300 sm:h-[18px] sm:w-[18px]",
             isOpen
               ? "rotate-45 text-[var(--brand-primary)]"
-              : "text-[var(--muted-foreground)]",
+              : "text-[var(--muted-foreground)] group-hover:text-[var(--brand-primary)]",
           )}
           strokeWidth={2}
         />

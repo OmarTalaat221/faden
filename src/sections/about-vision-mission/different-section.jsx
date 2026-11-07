@@ -31,14 +31,15 @@ export default function DifferentSection({ visionMissionData }) {
 
           {/* Content: Accordion + Image */}
           <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:gap-10">
-            {/* Accordion */}
-            <div className="flex flex-col gap-3 sm:gap-4">
+            {/* Accordion: one panel with divided rows, not six loose cards. */}
+            <div className="self-start divide-y divide-[var(--border)] overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--background)] shadow-[0_10px_30px_rgba(0,0,0,0.05)]">
               {different.items.map((item, i) => (
                 <AccordionItem
                   key={i}
                   title={item.title}
                   content={item.content}
                   icon={item.icon}
+                  index={i}
                   isOpen={openIndex === i}
                   onToggle={() => handleToggle(i)}
                 />
@@ -47,7 +48,7 @@ export default function DifferentSection({ visionMissionData }) {
 
             {/* Image */}
             <div className="">
-              <RevealImage className="relative aspect-[4/3] w-full overflow-hidden rounded-md md:aspect-auto md:h-full md:min-h-[440px]">
+              <RevealImage className="relative aspect-[4/3] w-full overflow-hidden rounded-xl shadow-[0_18px_50px_rgba(0,0,0,0.08)] md:aspect-auto md:h-full md:min-h-[440px]">
                 <Image
                   src={different.image}
                   alt={different.imageAlt}
