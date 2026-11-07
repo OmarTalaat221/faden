@@ -116,38 +116,40 @@ function ServicesBand({
       }
     >
       <Container>
-        {/* The heading runs the full width and the caption sits out to the
-            right, so the band has no dead half. */}
-        <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:gap-12">
-          <div className="min-w-0 flex-1">
-            <div className="flex items-center gap-3">
-              <span aria-hidden className="h-px w-8 bg-[var(--brand-primary)] sm:w-10" />
-              <p className="text-[13px] font-semibold uppercase tracking-[0.18em] text-[var(--brand-primary)] sm:text-sm md:text-[15px]">
-                {eyebrow}
-              </p>
-            </div>
-
-            {/* One sentence, two weights: the half before the dash is the
-                claim and carries the size, the half after it explains and
-                steps back. */}
-            <h2 className="mt-4 text-[26px] font-semibold leading-[1.12] tracking-[-0.02em] text-[var(--foreground)] sm:text-[34px] md:text-[42px] lg:text-[50px] xl:text-[58px]">
-              {headline.lead}
-              {headline.tail && (
-                <>
-                  {" "}
-                  <span className="font-light text-[var(--muted-foreground)]">
-                    {headline.tail}
-                  </span>
-                </>
-              )}
-            </h2>
-          </div>
-
-          {caption && (
-            <p className="shrink-0 border-t border-[var(--border)] pt-4 text-sm leading-relaxed text-[var(--muted-foreground)] sm:text-[15px] lg:w-[260px] xl:w-[300px]">
-              {caption}
+        {/* A meta rule across the top, then the sentence broken over two
+            columns: the claim on the left, what it means on the right. The
+            band is laid out differently from the others rather than simply
+            set larger. */}
+        <div className="flex items-center gap-4 border-b border-[var(--border)] pb-4">
+          <div className="flex items-center gap-3">
+            <span aria-hidden className="h-px w-8 bg-[var(--brand-primary)] sm:w-10" />
+            <p className="text-[13px] font-semibold uppercase tracking-[0.18em] text-[var(--brand-primary)] sm:text-sm">
+              {eyebrow}
             </p>
-          )}
+          </div>
+          <span aria-hidden className="hidden h-px flex-1 bg-[var(--border)] sm:block" />
+          <p className="ml-auto shrink-0 text-[12px] font-semibold uppercase tracking-[0.16em] text-[var(--muted-foreground)] tabular-nums sm:text-[13px] sm:ml-0">
+            {String(services.length).padStart(2, "0")} services
+          </p>
+        </div>
+
+        <div className="mt-6 grid gap-x-10 gap-y-3 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+          <h2 className="text-xl font-semibold leading-[1.2] tracking-[-0.01em] text-[var(--foreground)] sm:text-2xl md:text-[26px] lg:text-[30px]">
+            {headline.lead}
+          </h2>
+
+          <div>
+            {headline.tail && (
+              <p className="text-base font-light leading-relaxed text-[var(--muted-foreground)] sm:text-lg md:text-xl">
+                {headline.tail.replace(/^—\s*/, "")}
+              </p>
+            )}
+            {caption && (
+              <p className="mt-3 text-sm leading-relaxed text-[var(--muted-foreground)]/80 sm:text-[15px]">
+                {caption}
+              </p>
+            )}
+          </div>
         </div>
 
         <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 md:mt-10 lg:grid-cols-3 lg:gap-7">
