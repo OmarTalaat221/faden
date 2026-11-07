@@ -119,7 +119,9 @@ function ServicesBand({
           <p className="text-[13px] font-semibold uppercase tracking-[0.15em] text-[var(--brand-primary)] sm:text-sm md:text-[15px] lg:text-base">
             {eyebrow}
           </p>
-          <p className="mt-3 text-base font-normal text-[var(--muted-foreground)] sm:text-lg md:text-xl lg:text-[22px] xl:text-2xl">
+          {/* Set in the text colour, not the muted grey: grey on this warm
+              grey surface is the reason the line was being skipped. */}
+          <p className="mt-3 text-base font-medium leading-snug text-[var(--foreground)] sm:text-lg md:text-xl lg:text-[22px] xl:text-2xl">
             {subtitle}
           </p>
         </div>
