@@ -18,7 +18,7 @@ export const DEMO_SERVICES_INTRO = {
 };
 
 export const DEMO_SERVICES_CORE_HEADING = {
-  eyebrow: "Our Core Services",
+  eyebrow: "For Companies & Government",
   subtitle:
     "Five disciplines, delivered by one contractor — so nothing is lost between them.",
 };
