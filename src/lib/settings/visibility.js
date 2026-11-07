@@ -30,21 +30,34 @@ export const HIDEABLE_HOME_SECTIONS = [
   "gallery",
 ];
 
-function allOn(keys) {
-  return Object.fromEntries(keys.map((k) => [k, true]));
+// Switched off until the client turns them on. Saving the Visibility page in
+// the dashboard writes an explicit flag for every key, which then wins, so
+// this only decides what a site with no flags saved yet shows. Drop the
+// entries once the client has made the call.
+const OFF_BY_DEFAULT = {
+  pages: ["gallery", "equipment"],
+  // Their homepage bands link to those pages, so they go too.
+  homeSections: ["gallery", "equipment"],
+};
+
+function defaults(keys, off) {
+  return Object.fromEntries(keys.map((k) => [k, !off.includes(k)]));
 }
 
 /**
- * Reads the flags off a settings record. Anything not switched off explicitly
- * counts as on, so a record saved before this existed shows the whole site.
+ * Reads the flags off a settings record. A key the record says nothing about
+ * falls back to OFF_BY_DEFAULT above.
  */
 export function getVisibility(settings) {
   const stored = settings?.navigation?.visibility ?? {};
 
   return {
-    pages: { ...allOn(Object.keys(HIDEABLE_PAGES)), ...(stored.pages ?? {}) },
+    pages: {
+      ...defaults(Object.keys(HIDEABLE_PAGES), OFF_BY_DEFAULT.pages),
+      ...(stored.pages ?? {}),
+    },
     homeSections: {
-      ...allOn(HIDEABLE_HOME_SECTIONS),
+      ...defaults(HIDEABLE_HOME_SECTIONS, OFF_BY_DEFAULT.homeSections),
       ...(stored.homeSections ?? {}),
     },
   };
