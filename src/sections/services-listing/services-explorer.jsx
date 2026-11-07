@@ -104,6 +104,12 @@ function ServicesBand({
   tinted,
   reduceMotion,
 }) {
+  // The dash splits the claim from what it means; without one the whole line
+  // is simply the claim.
+  const at = (subtitle ?? "").indexOf("—");
+  const lead = at === -1 ? subtitle : subtitle.slice(0, at).trim();
+  const tail = at === -1 ? "" : subtitle.slice(at + 1).trim();
+
   if (!services.length) return null;
 
   return (
@@ -121,8 +127,19 @@ function ServicesBand({
           <p className="text-[12px] font-bold uppercase tracking-[0.2em] text-[var(--brand-primary)] sm:text-[13px]">
             {eyebrow}
           </p>
-          <p className="mt-2 text-lg font-semibold leading-snug text-[var(--foreground)] sm:text-xl md:text-[22px] lg:text-2xl">
-            {subtitle}
+          {/* The line is the heading here, so it is set like one: large and
+              bold, with the half after the dash picked out in brand red and
+              italic so the sentence has a turn the eye can follow. */}
+          <p className="mt-2 text-xl font-bold leading-[1.2] tracking-[-0.01em] text-[var(--foreground)] sm:text-2xl md:text-[28px] lg:text-[32px]">
+            {lead}
+            {tail && (
+              <>
+                {" "}
+                <span className="font-medium italic text-[var(--brand-primary)]">
+                  {tail}
+                </span>
+              </>
+            )}
           </p>
         </div>
 
