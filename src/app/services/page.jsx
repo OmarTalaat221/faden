@@ -1,7 +1,7 @@
 import PageBanner from "@/components/common/page-banner";
 import CtaSection from "@/components/common/cta-section";
 import IntroSection from "@/sections/services-listing/intro-section";
-import CoreServicesSection from "@/sections/services-listing/core-services-section";
+import ServicesExplorer from "@/sections/services-listing/services-explorer";
 import SectorsSection from "@/sections/services-listing/sectors-section";
 import { getAllServices, getServicesPageMeta } from "@/lib/services/data";
 
@@ -38,7 +38,7 @@ export default async function ServicesPage() {
 
       <IntroSection intro={meta.intro} />
 
-      <CoreServicesSection heading={meta.coreHeading} services={services} />
+      <ServicesExplorer heading={meta.coreHeading} services={services} />
 
       <SectorsSection sectors={meta.sectors} />
 

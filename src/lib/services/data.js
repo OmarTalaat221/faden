@@ -1,4 +1,5 @@
 import { apiGet } from "@/lib/api";
+import { withServicesDefaults } from "./meta-defaults";
 
 // ========================================
 // FETCH HELPERS (LIST + PAGE META)
@@ -11,7 +12,9 @@ export async function getAllServices() {
 }
 
 export async function getServicesPageMeta() {
-  return apiGet("/services/meta");
+  // The intro and the core heading have nowhere to live in services_meta yet,
+  // so demo copy fills them in; everything the API sends wins.
+  return withServicesDefaults(await apiGet("/services/meta"));
 }
 
 // ========================================

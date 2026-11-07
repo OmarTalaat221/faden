@@ -1,6 +1,11 @@
 import Container from "@/components/layout/container";
 import Image from "next/image";
 
+/**
+ * The sectors we build in. The titles used to appear only on hover, which
+ * hid the whole point of the block on a phone, where there is no hover at
+ * all; they now sit on a scrim and the hover is reserved for emphasis.
+ */
 export default function SectorsSection({ sectors }) {
   if (!sectors || !sectors.items?.length) return null;
 
@@ -21,28 +26,29 @@ export default function SectorsSection({ sectors }) {
           {sectors.items.map((sector, i) => (
             <div
               key={i}
-              className="group relative aspect-[4/3] w-full overflow-hidden rounded-lg"
+              className="group relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-[var(--foreground)]"
             >
-              {/* Image - visible by default */}
               <Image
                 src={sector.image}
                 alt={sector.title}
                 fill
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.08]"
               />
 
-              {/* Dark overlay - appears on hover only */}
-              <div
-                className="pointer-events-none absolute inset-0 bg-black/55 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                aria-hidden="true"
+              <span
+                aria-hidden
+                className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity duration-500 group-hover:from-black/90"
               />
 
-              {/* Title - appears on hover only */}
-              <div className="pointer-events-none absolute inset-0 flex items-center justify-center p-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100 sm:p-4">
-                <h3 className="text-center text-sm font-semibold leading-tight text-white sm:text-base md:text-lg lg:text-xl">
+              <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4">
+                <h3 className="text-[13px] font-semibold leading-tight text-white sm:text-sm md:text-base lg:text-[17px]">
                   {sector.title}
                 </h3>
+                <span
+                  aria-hidden
+                  className="mt-2 block h-px w-full origin-left scale-x-0 bg-[var(--brand-primary)] transition-transform duration-500 group-hover:scale-x-100"
+                />
               </div>
             </div>
           ))}
