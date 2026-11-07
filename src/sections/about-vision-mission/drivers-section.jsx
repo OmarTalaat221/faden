@@ -1,5 +1,53 @@
-﻿import Container from "@/components/layout/container";
+import ContentIcon from "@/components/common/content-icon";
+import Container from "@/components/layout/container";
+import { iconForTitle } from "@/lib/content-icons";
 import { getAboutVisionMission } from "./data";
+
+/**
+ * One card. The two in the top row are the headline pair, so they carry a
+ * larger icon and heading; the three below are read as a set.
+ */
+function DriverCard({ card, featured }) {
+  return (
+    <article
+      className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--background)] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--brand-primary)]/40 hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)] sm:p-6 md:p-7"
+    >
+      {/* The accent bar grows across the top on hover, so the whole card reads
+          as one target rather than the border alone changing colour. */}
+      <span
+        aria-hidden
+        className="absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 bg-[var(--brand-primary)] transition-transform duration-300 group-hover:scale-x-100"
+      />
+
+      <span
+        className={
+          featured
+            ? "flex h-12 w-12 items-center justify-center rounded-lg bg-[var(--brand-primary)]/10 text-[var(--brand-primary)] transition-colors duration-300 group-hover:bg-[var(--brand-primary)] group-hover:text-white sm:h-14 sm:w-14"
+            : "flex h-11 w-11 items-center justify-center rounded-lg bg-[var(--brand-primary)]/10 text-[var(--brand-primary)] transition-colors duration-300 group-hover:bg-[var(--brand-primary)] group-hover:text-white sm:h-12 sm:w-12"
+        }
+      >
+        <ContentIcon
+          name={iconForTitle(card.title, card.icon)}
+          className={featured ? "h-6 w-6 sm:h-7 sm:w-7" : "h-5 w-5 sm:h-6 sm:w-6"}
+          strokeWidth={1.75}
+        />
+      </span>
+
+      <h3
+        className={
+          featured
+            ? "mt-4 text-lg font-semibold text-[var(--foreground)] sm:text-xl md:text-[22px]"
+            : "mt-4 text-base font-semibold text-[var(--foreground)] sm:text-lg md:text-xl"
+        }
+      >
+        {card.title}
+      </h3>
+      <p className="mt-2 text-sm font-normal leading-[1.75] text-[var(--muted-foreground)] sm:text-[15px] lg:text-base">
+        {card.description}
+      </p>
+    </article>
+  );
+}
 
 export default async function DriversSection() {
   const visionMissionData = await getAboutVisionMission();
@@ -9,7 +57,6 @@ export default async function DriversSection() {
     <section className="relative w-full overflow-hidden bg-white py-8 sm:py-10 md:py-14 lg:py-16">
       <Container>
         <div className="relative z-10">
-          {/* Header */}
           {/* Eyebrow - max 16px */}
           <p className="text-[13px] font-semibold uppercase tracking-[0.15em] text-[var(--brand-primary)] sm:text-sm md:text-[15px] lg:text-base">
             {drivers.eyebrow}
@@ -19,41 +66,15 @@ export default async function DriversSection() {
             {drivers.subtitle}
           </p>
 
-          {/* Primary Row - 2 cards */}
           <div className="mt-8 grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 md:gap-6">
             {drivers.primary.map((card, i) => (
-              <div
-                key={i}
-                className="rounded-md border border-[var(--border)] bg-white px-5 py-6 transition-all duration-300 hover:border-[var(--brand-primary)] hover:shadow-lg sm:px-6 sm:py-7 md:px-7 md:py-8"
-              >
-                {/* Card Title - max 24px */}
-                <h3 className="text-lg font-semibold text-[var(--foreground)] sm:text-xl md:text-[22px] lg:text-2xl">
-                  {card.title}
-                </h3>
-                {/* Card Description - max 20px */}
-                <p className="mt-3 text-sm font-normal leading-relaxed text-[var(--muted-foreground)] sm:text-[15px] md:text-base lg:text-[18px] xl:text-xl">
-                  {card.description}
-                </p>
-              </div>
+              <DriverCard key={i} card={card} featured />
             ))}
           </div>
 
-          {/* Secondary Row - 3 cards */}
           <div className="mt-4 grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-3 md:gap-6">
             {drivers.secondary.map((card, i) => (
-              <div
-                key={i}
-                className="rounded-md border border-[var(--border)] bg-white px-5 py-6 transition-all duration-300 hover:border-[var(--brand-primary)] hover:shadow-lg sm:px-6 sm:py-7 md:px-7 md:py-8"
-              >
-                {/* Card Title - max 24px */}
-                <h3 className="text-lg font-semibold text-[var(--foreground)] sm:text-xl md:text-[22px] lg:text-2xl">
-                  {card.title}
-                </h3>
-                {/* Card Description - max 20px */}
-                <p className="mt-3 text-sm font-normal leading-relaxed text-[var(--muted-foreground)] sm:text-[15px] md:text-base lg:text-[18px] xl:text-xl">
-                  {card.description}
-                </p>
-              </div>
+              <DriverCard key={i} card={card} />
             ))}
           </div>
         </div>

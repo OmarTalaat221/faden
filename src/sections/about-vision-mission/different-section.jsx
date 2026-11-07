@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import RevealImage from "@/components/common/reveal-image";
 import Container from "@/components/layout/container";
@@ -38,6 +38,7 @@ export default function DifferentSection({ visionMissionData }) {
                   key={i}
                   title={item.title}
                   content={item.content}
+                  icon={item.icon}
                   isOpen={openIndex === i}
                   onToggle={() => handleToggle(i)}
                 />
