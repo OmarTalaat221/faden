@@ -95,13 +95,45 @@ function ServiceCard({ service, index, showPrivateNote, reduceMotion }) {
   );
 }
 
+
+/**
+ * A brush-stroke highlight behind a word: an uneven, hand-cut shape rather
+ * than a rectangle, with the word knocked out on top of it. It paints itself
+ * in from the left the first time it is scrolled to, the way the stroke would
+ * be drawn.
+ */
+function BrushHighlight({ children, reduceMotion }) {
+  return (
+    <span className="relative isolate inline-block px-[0.42em] py-[0.14em]">
+      <motion.svg
+        aria-hidden
+        viewBox="0 0 300 80"
+        preserveAspectRatio="none"
+        className="absolute inset-0 -z-10 h-full w-full"
+        // Painted on mount rather than on scroll: whileInView never fired
+        // for a heading that was already on screen when the page hydrated,
+        // which left the stroke clipped to nothing.
+        initial={reduceMotion ? false : { clipPath: "inset(0 100% 0 0)" }}
+        animate={{ clipPath: "inset(0 0% 0 0)" }}
+        transition={{ duration: 0.75, ease: [0.65, 0, 0.35, 1], delay: 0.2 }}
+      >
+        <path
+          d="M6,44 C34,20 86,10 152,11 C214,12 268,20 294,33 C298,46 293,61 282,68 C243,78 150,79 92,74 C55,70 18,64 5,56 Z"
+          fill="var(--brand-primary)"
+        />
+      </motion.svg>
+      <span className="relative text-white">{children}</span>
+    </span>
+  );
+}
+
 /** One audience, one band. */
 function ServicesBand({
   eyebrow,
   subtitle,
   services,
   showPrivateNote,
-  tinted,
+  vip,
   reduceMotion,
 }) {
   // "For Companies & Government" reads better with the preposition set
@@ -114,26 +146,48 @@ function ServicesBand({
   return (
     <section
       className={
-        tinted
-          ? "relative overflow-hidden bg-[var(--muted)] py-10 sm:py-10 md:py-14 lg:py-16"
-          : "relative overflow-hidden bg-white py-10 sm:py-10 md:py-14 lg:py-16"
+        vip
+          // Set on near-black while the private band stays on the page
+          // surface: the corporate list is the one that has to feel like a
+          // room you were shown into.
+          ? "relative overflow-hidden bg-[#141414] py-10 sm:py-10 md:py-14 lg:py-16"
+          : "relative overflow-hidden bg-[var(--muted)] py-10 sm:py-10 md:py-14 lg:py-16"
       }
     >
       <Container>
         <div className="max-w-4xl">
-          {/* The audience is the title, so it is set as one: large, bold and
-              in two colours — the preposition steps back, the audience takes
-              the brand red. */}
-          <h2 className="text-2xl font-bold leading-[1.1] tracking-[-0.02em] text-[var(--foreground)] sm:text-[30px] md:text-[36px] lg:text-[42px]">
+          {/* The audience is the title: the preposition steps back and the
+              audience itself sits on a brush stroke. */}
+          <h2
+            className={
+              vip
+                ? "text-2xl font-bold leading-[1.5] tracking-[-0.02em] text-white sm:text-[30px] md:text-[36px] lg:text-[42px]"
+                : "text-2xl font-bold leading-[1.5] tracking-[-0.02em] text-[var(--foreground)] sm:text-[30px] md:text-[36px] lg:text-[42px]"
+            }
+          >
             {titleLead && (
-              <span className="font-light text-[var(--muted-foreground)]">
+              <span
+                className={
+                  vip
+                    ? "font-light text-white/55"
+                    : "font-light text-[var(--muted-foreground)]"
+                }
+              >
                 {titleLead}{" "}
               </span>
             )}
-            <span className="text-[var(--brand-primary)]">{titleMain}</span>
+            <BrushHighlight reduceMotion={reduceMotion}>
+              {titleMain}
+            </BrushHighlight>
           </h2>
 
-          <p className="mt-3 max-w-3xl text-sm font-normal leading-relaxed text-[var(--muted-foreground)] sm:text-[15px] md:text-base lg:text-[17px]">
+          <p
+            className={
+              vip
+                ? "mt-4 max-w-3xl text-sm font-normal leading-relaxed text-white/70 sm:text-[15px] md:text-base lg:text-[17px]"
+                : "mt-4 max-w-3xl text-sm font-normal leading-relaxed text-[var(--muted-foreground)] sm:text-[15px] md:text-base lg:text-[17px]"
+            }
+          >
             {subtitle}
           </p>
         </div>
@@ -177,11 +231,11 @@ export default function ServicesExplorer({ heading, services = [] }) {
         subtitle={heading?.subtitle}
         services={corporate}
         showPrivateNote
+        vip
         reduceMotion={reduceMotion}
       />
 
       <ServicesBand
-        tinted
         eyebrow="For Private Clients"
         subtitle="The same senior team, on a house — villas, palaces and private estates, handled end to end."
         services={individual}
