@@ -1,7 +1,7 @@
 "use client";
 
 import Container from "@/components/layout/container";
-import { AUDIENCES, audiencesOf, servicesFor } from "@/lib/services/audience";
+import { audiencesOf, servicesFor } from "@/lib/services/audience";
 import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
@@ -98,8 +98,7 @@ function ServiceCard({ service, index, showPrivateNote, reduceMotion }) {
 /** One audience, one band. */
 function ServicesBand({
   eyebrow,
-  headline,
-  caption,
+  subtitle,
   services,
   showPrivateNote,
   tinted,
@@ -116,40 +115,13 @@ function ServicesBand({
       }
     >
       <Container>
-        {/* A meta rule across the top, then the sentence broken over two
-            columns: the claim on the left, what it means on the right. The
-            band is laid out differently from the others rather than simply
-            set larger. */}
-        <div className="flex items-center gap-4 border-b border-[var(--border)] pb-4">
-          <div className="flex items-center gap-3">
-            <span aria-hidden className="h-px w-8 bg-[var(--brand-primary)] sm:w-10" />
-            <p className="text-[13px] font-semibold uppercase tracking-[0.18em] text-[var(--brand-primary)] sm:text-sm">
-              {eyebrow}
-            </p>
-          </div>
-          <span aria-hidden className="hidden h-px flex-1 bg-[var(--border)] sm:block" />
-          <p className="ml-auto shrink-0 text-[12px] font-semibold uppercase tracking-[0.16em] text-[var(--muted-foreground)] tabular-nums sm:text-[13px] sm:ml-0">
-            {String(services.length).padStart(2, "0")} services
+        <div className="max-w-4xl">
+          <p className="text-[13px] font-semibold uppercase tracking-[0.15em] text-[var(--brand-primary)] sm:text-sm md:text-[15px] lg:text-base">
+            {eyebrow}
           </p>
-        </div>
-
-        <div className="mt-6 grid gap-x-10 gap-y-3 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
-          <h2 className="text-xl font-semibold leading-[1.2] tracking-[-0.01em] text-[var(--foreground)] sm:text-2xl md:text-[26px] lg:text-[30px]">
-            {headline.lead}
-          </h2>
-
-          <div>
-            {headline.tail && (
-              <p className="text-base font-light leading-relaxed text-[var(--muted-foreground)] sm:text-lg md:text-xl">
-                {headline.tail.replace(/^—\s*/, "")}
-              </p>
-            )}
-            {caption && (
-              <p className="mt-3 text-sm leading-relaxed text-[var(--muted-foreground)]/80 sm:text-[15px]">
-                {caption}
-              </p>
-            )}
-          </div>
+          <p className="mt-3 text-base font-normal text-[var(--muted-foreground)] sm:text-lg md:text-xl lg:text-[22px] xl:text-2xl">
+            {subtitle}
+          </p>
         </div>
 
         <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 md:mt-10 lg:grid-cols-3 lg:gap-7">
@@ -170,13 +142,6 @@ function ServicesBand({
   );
 }
 
-/** Splits a subtitle on its dash so the two halves can be set differently. */
-function splitHeadline(text = "") {
-  const at = text.indexOf("—");
-  if (at === -1) return { lead: text, tail: "" };
-  return { lead: text.slice(0, at).trim(), tail: text.slice(at).trim() };
-}
-
 export default function ServicesExplorer({ heading, services = [] }) {
   const reduceMotion = useReducedMotion();
 
@@ -189,16 +154,13 @@ export default function ServicesExplorer({ heading, services = [] }) {
     [services],
   );
 
-  const corporateCaption = AUDIENCES.find((a) => a.key === "corporate")?.caption;
-
   if (!services.length) return null;
 
   return (
     <>
       <ServicesBand
         eyebrow="For Companies & Government"
-        headline={splitHeadline(heading?.subtitle)}
-        caption={corporateCaption}
+        subtitle={heading?.subtitle}
         services={corporate}
         showPrivateNote
         reduceMotion={reduceMotion}
@@ -207,10 +169,7 @@ export default function ServicesExplorer({ heading, services = [] }) {
       <ServicesBand
         tinted
         eyebrow="For Private Clients"
-        headline={splitHeadline(
-          "The same senior team, on a house — villas, palaces and private estates, handled end to end.",
-        )}
-        caption={`${individual.length} of our ${services.length} services are the ones a private owner commissions; the rest are works only a company or a public body can take on.`}
+        subtitle="The same senior team, on a house — villas, palaces and private estates, handled end to end."
         services={individual}
         reduceMotion={reduceMotion}
       />
