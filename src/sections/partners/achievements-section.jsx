@@ -1,8 +1,8 @@
 ﻿import Container from "@/components/layout/container";
-import { getAboutPartners } from "./data";
+import { getPartners } from "./data";
 
 export default async function AchievementsSection() {
-  const partnersData = await getAboutPartners();
+  const partnersData = await getPartners();
   const { achievements } = partnersData;
 
   return (

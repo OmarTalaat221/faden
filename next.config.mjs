@@ -10,6 +10,14 @@ const nextConfig = {
     minimumCacheTTL: 60 * 60 * 24 * 30,
     deviceSizes: [640, 750, 828, 1080, 1200, 1440, 1920],
   },
+  // Partners moved out of the About menu to its own top-level page; keep the
+  // old URL working for anything already linking to it.
+  async redirects() {
+    return [
+      { source: "/about/partners", destination: "/partners", permanent: true },
+    ];
+  },
+
   compress: true,
   poweredByHeader: false,
   reactStrictMode: true,

@@ -11,6 +11,7 @@ import { getProjects } from "@/lib/projects/data";
 import { getAllServices } from "@/lib/services/data";
 import { getClientsList } from "@/lib/clients/data";
 import { getEquipmentList } from "@/lib/equipment/data";
+import { getPartners } from "@/sections/partners/data";
 
 /**
  * Picks `ids` out of `rows`, in the order they were chosen. Any id with no
@@ -35,15 +36,23 @@ function pick(section, rows, ids) {
 }
 
 export async function getHomeContent() {
-  const [features, gallery, projects, servicesResponse, clients, equipment] =
-    await Promise.all([
-      apiGet("/home-features"),
-      getGalleryList(),
-      getProjects(),
-      getAllServices(),
-      getClientsList(),
-      getEquipmentList(),
-    ]);
+  const [
+    features,
+    gallery,
+    projects,
+    servicesResponse,
+    clients,
+    equipment,
+    partners,
+  ] = await Promise.all([
+    apiGet("/home-features"),
+    getGalleryList(),
+    getProjects(),
+    getAllServices(),
+    getClientsList(),
+    getEquipmentList(),
+    getPartners(),
+  ]);
 
   const services = servicesResponse?.items ?? [];
 
@@ -75,5 +84,9 @@ export async function getHomeContent() {
       id: e.id,
       name: e.name,
     })),
+
+    // The homepage shows the same partner record as /partners — there is one
+    // partner, so there is nothing to pick.
+    partner: partners.intro,
   };
 }

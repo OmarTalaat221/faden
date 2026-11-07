@@ -34,6 +34,12 @@
       priority: 0.6,
     },
     {
+      url: `${baseUrl}/partners`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    {
       url: `${baseUrl}/#contact`,
       lastModified,
       changeFrequency: "monthly",

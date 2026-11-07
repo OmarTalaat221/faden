@@ -12,7 +12,6 @@ const aboutSubItems = [
   { label: "Company Overview", href: "/about/overview" },
   { label: "Our Vision & Mission", href: "/about/vision-mission" },
   { label: "Leadership Messages", href: "/about/leadership" },
-  { label: "Our Partners", href: "/about/partners" },
   { label: "Our Certifications", href: "/about/certifications" },
 ];
 
@@ -22,6 +21,7 @@ const navItems = [
   { label: "Services", href: "/services" },
   { label: "Projects", href: "/projects" },
   { label: "Clients", href: "/clients" },
+  { label: "Partners", href: "/partners" },
 ];
 
 // Pages that have NO Hero/PageBanner — Header should be WHITE from the start

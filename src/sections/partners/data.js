@@ -93,6 +93,6 @@ export const partnersData = {
 
 import { apiGet } from "@/lib/api";
 
-export async function getAboutPartners() {
+export async function getPartners() {
   return apiGet("/about/partners");
 }

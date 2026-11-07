@@ -4,6 +4,7 @@ import CtaSection from "./cta-section";
 import EquipmentSection from "./equipment-section";
 import GallerySection from "./gallery-section";
 import HeroSection from "./hero-section";
+import PartnersSection from "./partners-section";
 import ProjectsSection from "./projects-section";
 import ServicesSection from "./services-section";
 import StatsOverlap from "./stats-overlap";
@@ -18,6 +19,7 @@ export default async function HomePage() {
     services: home.services.map((s) => s.title),
     clients: home.clients.map((c) => c.name),
     equipment: home.equipment.map((e) => e.name),
+    partner: home.partner?.title,
   });
 
   return (
@@ -29,6 +31,7 @@ export default async function HomePage() {
         <ServicesSection services={home.services} />
         <ProjectsSection projects={home.projects} />
         <CtaSection />
+        <PartnersSection partner={home.partner} />
         <ClientsSection clients={home.clients} />
         <EquipmentSection equipment={home.equipment} />
         <GallerySection gallery={home.gallery} />
