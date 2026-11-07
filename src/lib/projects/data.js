@@ -5,6 +5,12 @@ import { apiGet } from "@/lib/api";
 // than costing a request on every page load.
 export const PROJECTS_PARTNERSHIP_TYPES = ["Faden Only", "With Global Energy"];
 
+// The values above are the enum the API validates against, so they stay as
+// they are; only what the filter shows carries the partner's full name.
+export const PROJECTS_PARTNERSHIP_LABELS = {
+  "With Global Energy": "With Global Energy SAE",
+};
+
 export const PROJECTS_STATUS_OPTIONS = ["Finished", "In Progress"];
 
 export const PROJECTS_COUNTRIES = ["Saudi Arabia", "Egypt"];

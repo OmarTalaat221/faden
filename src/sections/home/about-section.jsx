@@ -55,7 +55,7 @@ export default function AboutSection() {
             <p>
               In 2024, FADEN partnered with{" "}
               <strong className="font-semibold text-brand-primary">
-                Global Energy for Investment and Industry
+                Global Energy SAE
               </strong>{" "}
               to drive innovation and sustainability in the construction sector
               across Saudi Arabia and Egypt.

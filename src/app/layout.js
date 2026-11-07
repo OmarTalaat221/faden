@@ -1,4 +1,5 @@
 ﻿import Footer from "@/components/layout/footer";
+import GlobalEnergyLinks from "@/components/common/global-energy-links";
 import WhatsAppButton from "@/components/common/whatsapp-button";
 import Header from "@/components/layout/header";
 import { getSettings } from "@/lib/settings/data";
@@ -168,6 +169,7 @@ export default async function RootLayout({ children }) {
         <Header socialLinks={settings.socialLinks} hiddenRoutes={hidden} />
         {children}
         <Footer />
+        <GlobalEnergyLinks />
         <WhatsAppButton
           number={settings.footer.contact.whatsapp || settings.footer.contact.phone}
           message="Hello FADEN, I'd like to know more about your services."

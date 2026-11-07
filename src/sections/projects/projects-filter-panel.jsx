@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { ChevronDown, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
+  PROJECTS_PARTNERSHIP_LABELS,
   PROJECTS_PARTNERSHIP_TYPES,
   PROJECTS_COUNTRIES,
 } from "@/lib/projects/data";
@@ -302,7 +303,7 @@ export default function ProjectsFilterPanel({
                         className="sr-only"
                       />
                       <span className="text-[13px] sm:text-[14px] text-foreground">
-                        {type}
+                        {PROJECTS_PARTNERSHIP_LABELS[type] ?? type}
                       </span>
                     </label>
                   );

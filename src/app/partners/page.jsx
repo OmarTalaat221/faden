@@ -9,7 +9,7 @@ import PartnerProjectsSection from "@/sections/partners/projects-section";
 export const metadata = {
   title: "Partners",
   description:
-    "Building success together with our strategic partners. Discover FADEN's partnership with Global Energy for Investment & Industry and our joint achievements, projects, and certifications.",
+    "Building success together with our strategic partners. Discover FADEN's partnership with Global Energy SAE and our joint achievements, projects, and certifications.",
   alternates: {
     canonical: "/partners",
   },

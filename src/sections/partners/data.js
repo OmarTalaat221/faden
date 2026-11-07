@@ -10,11 +10,11 @@ export const partnersData = {
     eyebrow: "PARTNERS",
     subtitle: "Building success together with our strategic partners.",
     logo: "/images/faden/partner-global-energy.webp",
-    logoAlt: "Global Energy for Investment & Industry",
+    logoAlt: "Global Energy SAE",
     badge: "Strategic Partner \u2014 2024",
-    title: "Global Energy for Investment & Industry",
+    title: "Global Energy SAE",
     description:
-      "In 2024, Faden entered a strategic partnership with Global Energy for Investment and Industry to revolutionize the construction sector in Saudi Arabia and Egypt. The collaboration aims to deliver engineering excellence, sustainable infrastructure, and integrated project solutions.",
+      "In 2024, Faden entered a strategic partnership with Global Energy SAE to revolutionize the construction sector in Saudi Arabia and Egypt. The collaboration aims to deliver engineering excellence, sustainable infrastructure, and integrated project solutions.",
     bullets: [
       "Founded in 2010 with expertise in engineering, MEP, and power projects.",
       "Executed over 85 large-scale projects with more than 1,800 professionals.",
@@ -49,7 +49,7 @@ export const partnersData = {
   projects: {
     eyebrow: "JOINT PROJECTS",
     subtitle:
-      "Projects by Faden and Global Energy, showcasing excellence in infrastructure, power, and water.",
+      "Projects by Faden and Global Energy SAE, showcasing excellence in infrastructure, power, and water.",
     items: [
       {
         image: "/images/faden/partner-project-1.webp",
@@ -69,7 +69,7 @@ export const partnersData = {
     ],
   },
   certifications: {
-    eyebrow: "GLOBAL ENERGY'S INTERNATIONAL ISO CERTIFICATIONS",
+    eyebrow: "GLOBAL ENERGY SAE'S INTERNATIONAL ISO CERTIFICATIONS",
     subtitle:
       "International certifications reflecting our commitment to excellence.",
     items: [
