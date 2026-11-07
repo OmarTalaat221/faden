@@ -116,30 +116,35 @@ function ServicesBand({
       }
     >
       <Container>
-        <div className="max-w-3xl">
-          <div className="flex items-center gap-3">
-            <span aria-hidden className="h-px w-8 bg-[var(--brand-primary)] sm:w-10" />
-            <p className="text-[13px] font-semibold uppercase tracking-[0.18em] text-[var(--brand-primary)] sm:text-sm md:text-[15px]">
-              {eyebrow}
-            </p>
+        {/* The heading runs the full width and the caption sits out to the
+            right, so the band has no dead half. */}
+        <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:gap-12">
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-3">
+              <span aria-hidden className="h-px w-8 bg-[var(--brand-primary)] sm:w-10" />
+              <p className="text-[13px] font-semibold uppercase tracking-[0.18em] text-[var(--brand-primary)] sm:text-sm md:text-[15px]">
+                {eyebrow}
+              </p>
+            </div>
+
+            {/* One sentence, two weights: the half before the dash is the
+                claim and carries the size, the half after it explains and
+                steps back. */}
+            <h2 className="mt-4 text-[26px] font-semibold leading-[1.12] tracking-[-0.02em] text-[var(--foreground)] sm:text-[34px] md:text-[42px] lg:text-[50px] xl:text-[58px]">
+              {headline.lead}
+              {headline.tail && (
+                <>
+                  {" "}
+                  <span className="font-light text-[var(--muted-foreground)]">
+                    {headline.tail}
+                  </span>
+                </>
+              )}
+            </h2>
           </div>
 
-          {/* The heading reads as one sentence with a turn in it: the half
-              after the dash is set lighter so the first half carries. */}
-          <h2 className="mt-3 text-xl font-semibold leading-[1.25] text-[var(--foreground)] sm:text-2xl md:text-[28px] lg:text-[32px]">
-            {headline.lead}
-            {headline.tail && (
-              <>
-                {" "}
-                <span className="font-normal text-[var(--muted-foreground)]">
-                  {headline.tail}
-                </span>
-              </>
-            )}
-          </h2>
-
           {caption && (
-            <p className="mt-3 text-sm leading-relaxed text-[var(--muted-foreground)] sm:text-[15px]">
+            <p className="shrink-0 border-t border-[var(--border)] pt-4 text-sm leading-relaxed text-[var(--muted-foreground)] sm:text-[15px] lg:w-[260px] xl:w-[300px]">
               {caption}
             </p>
           )}
