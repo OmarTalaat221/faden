@@ -93,6 +93,24 @@ export const partnersData = {
 
 import { apiGet } from "@/lib/api";
 
+// Demo photo for the partner, shown until a real one is uploaded in the
+// dashboard (Partners -> Partner Intro -> Photo). An uploaded photo always
+// wins; delete this constant and the fallback below once one is set.
+const DEMO_PARTNER_IMAGE = "/images/faden/partner-project-3.webp";
+
+/**
+ * The partner record, used by /partners and by the Partners band on the
+ * homepage, so the photo is resolved once here rather than in each section.
+ */
 export async function getPartners() {
-  return apiGet("/about/partners");
+  const data = await apiGet("/about/partners");
+
+  return {
+    ...data,
+    intro: {
+      ...data.intro,
+      image: data.intro.image || DEMO_PARTNER_IMAGE,
+      imageAlt: data.intro.imageAlt || data.intro.title,
+    },
+  };
 }
