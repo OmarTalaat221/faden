@@ -17,7 +17,7 @@ export default function ContactSection({ info, form }) {
         <div className="overflow-hidden rounded-xl bg-white shadow-[0_4px_24px_rgba(0,0,0,0.06)] ring-1 ring-black/5">
           <div className="grid grid-cols-1 md:grid-cols-5">
             {/* Info: 2/5 on md+ with subtle bg */}
-            <div className="bg-[#F5F7FA] p-6 sm:p-7 md:col-span-2 md:p-8 lg:p-10">
+            <div className="bg-[var(--muted)] p-6 sm:p-7 md:col-span-2 md:p-8 lg:p-10">
               <ContactInfo info={info} />
             </div>
 

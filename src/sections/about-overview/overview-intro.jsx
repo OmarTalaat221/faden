@@ -55,7 +55,7 @@ export default async function OverviewIntro() {
           </div>
 
           {/* Quote Box - max 24px */}
-          <div className="mt-10 rounded-md border-l-4 border-[var(--brand-primary)] bg-[#f7f7f7] px-5 py-5 sm:px-7 sm:py-6 md:px-8 md:py-7">
+          <div className="mt-10 rounded-md border-l-4 border-[var(--brand-primary)] bg-[var(--background)] px-5 py-5 sm:px-7 sm:py-6 md:px-8 md:py-7">
             <p className="text-base font-normal italic leading-relaxed text-[var(--foreground)] sm:text-lg md:text-xl lg:text-[22px] xl:text-2xl">
               &ldquo;{intro.quote}&rdquo;
             </p>

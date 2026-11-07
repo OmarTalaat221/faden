@@ -136,15 +136,16 @@
   display: none;
 }
 
-/* The sections still carry `bg-white` / `bg-[#F9FAFB]` from when the page was
-   white. Rather than rewrite 28 components while the surface colour is still
-   under review, both are remapped to the tokens above here — one place to
-   change. A card's own `bg-white` is untouched, so cards stay white.
+/* The pages and sections still carry `bg-white` / `bg-[#F9FAFB]` from when the
+   site was white. Rather than rewrite 30-odd components, all of them are
+   remapped to the tokens above here — one place to change. A card's own
+   `bg-white` is untouched, so cards stay white.
 
    These rules sit outside @layer deliberately: unlayered CSS beats layered
    CSS, so Tailwind's utilities layer would otherwise win no matter how
    specific the selector is. */
-section.bg-white {
+section.bg-white,
+main.bg-white {
   background-color: var(--surface);
 }
 
