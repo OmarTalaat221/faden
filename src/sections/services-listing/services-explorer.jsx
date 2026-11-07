@@ -115,13 +115,13 @@ function ServicesBand({
       }
     >
       <Container>
-        <div className="max-w-4xl">
-          <p className="text-[13px] font-semibold uppercase tracking-[0.15em] text-[var(--brand-primary)] sm:text-sm md:text-[15px] lg:text-base">
+        {/* A red rail down the side of the heading block: the same two
+            lines, but marked instead of floating on the surface. */}
+        <div className="max-w-4xl border-l-[3px] border-[var(--brand-primary)] pl-4 sm:pl-5 md:pl-6">
+          <p className="text-[12px] font-bold uppercase tracking-[0.2em] text-[var(--brand-primary)] sm:text-[13px]">
             {eyebrow}
           </p>
-          {/* Set in the text colour, not the muted grey: grey on this warm
-              grey surface is the reason the line was being skipped. */}
-          <p className="mt-3 text-base font-medium leading-snug text-[var(--foreground)] sm:text-lg md:text-xl lg:text-[22px] xl:text-2xl">
+          <p className="mt-2 text-lg font-semibold leading-snug text-[var(--foreground)] sm:text-xl md:text-[22px] lg:text-2xl">
             {subtitle}
           </p>
         </div>
