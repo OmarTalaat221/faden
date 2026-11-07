@@ -7,12 +7,10 @@ import ProjectsControls from "./projects-controls";
 import ProjectsFilterPanel from "./projects-filter-panel";
 import ProjectsMobileChips from "./projects-mobile-chips";
 import ProjectsPagination from "./projects-pagination";
-import ProjectsCountryToggle from "./projects-country-toggle";
 
 const EMPTY_FILTERS = {
   categories: [],
   partnershipTypes: [],
-  countries: [],
   withoutImages: false,
 };
 
@@ -33,7 +31,6 @@ export default function ProjectsGridSection({ projects: PROJECTS_ITEMS = [], cat
   const activeFiltersCount =
     filters.categories.length +
     filters.partnershipTypes.length +
-    filters.countries.length +
     (filters.withoutImages ? 1 : 0);
 
   const filteredProjects = useMemo(() => {
@@ -47,10 +44,6 @@ export default function ProjectsGridSection({ projects: PROJECTS_ITEMS = [], cat
       items = items.filter((p) =>
         filters.partnershipTypes.includes(p.partnershipType),
       );
-    }
-
-    if (filters.countries.length > 0) {
-      items = items.filter((p) => filters.countries.includes(p.country));
     }
 
     if (filters.withoutImages) {
@@ -91,12 +84,6 @@ export default function ProjectsGridSection({ projects: PROJECTS_ITEMS = [], cat
   const totalCount = PROJECTS_ITEMS.length;
   const shownCount = filteredProjects.length;
 
-  const selectedCountry = filters.countries.length === 1 ? filters.countries[0] : null;
-
-  const handleCountryChange = (country) => {
-    setFilters((prev) => ({ ...prev, countries: country ? [country] : [] }));
-  };
-
   const handlePageChange = (newPage) => {
     setPage(newPage);
     // Scroll to top of section smoothly
@@ -112,11 +99,6 @@ export default function ProjectsGridSection({ projects: PROJECTS_ITEMS = [], cat
     <section className="relative py-7 sm:py-10 md:py-10 lg:py-14 overflow-hidden">
       <Container className="relative z-10">
         <div id="projects-grid-top" className="scroll-mt-24" />
-
-        {/* Country split - the primary entry point into the grid */}
-        <div className="mb-6 sm:mb-8">
-          <ProjectsCountryToggle value={selectedCountry} onChange={handleCountryChange} />
-        </div>
 
         {/* Top bar: Results counter + Controls (desktop/tablet only) */}
         <div className="hidden md:flex flex-wrap items-center justify-between gap-3 sm:gap-4">

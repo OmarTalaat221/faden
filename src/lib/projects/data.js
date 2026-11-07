@@ -13,8 +13,6 @@ export const PROJECTS_PARTNERSHIP_LABELS = {
 
 export const PROJECTS_STATUS_OPTIONS = ["Finished", "In Progress"];
 
-export const PROJECTS_COUNTRIES = ["Saudi Arabia", "Egypt"];
-
 export const SORT_OPTIONS = [
   { value: "default", label: "Default Sorting" },
   { value: "name-asc", label: "Name (A - Z)" },
