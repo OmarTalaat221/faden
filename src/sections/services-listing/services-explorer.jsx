@@ -147,10 +147,7 @@ function ServicesBand({
     <section
       className={
         vip
-          // Set on near-black while the private band stays on the page
-          // surface: the corporate list is the one that has to feel like a
-          // room you were shown into.
-          ? "relative overflow-hidden bg-[#141414] py-10 sm:py-10 md:py-14 lg:py-16"
+          ? "relative overflow-hidden bg-white py-10 sm:py-10 md:py-14 lg:py-16"
           : "relative overflow-hidden bg-[var(--muted)] py-10 sm:py-10 md:py-14 lg:py-16"
       }
     >
@@ -159,20 +156,10 @@ function ServicesBand({
           {/* The audience is the title: the preposition steps back and the
               audience itself sits on a brush stroke. */}
           <h2
-            className={
-              vip
-                ? "text-2xl font-bold leading-[1.5] tracking-[-0.02em] text-white sm:text-[30px] md:text-[36px] lg:text-[42px]"
-                : "text-2xl font-bold leading-[1.5] tracking-[-0.02em] text-[var(--foreground)] sm:text-[30px] md:text-[36px] lg:text-[42px]"
-            }
+            className="text-2xl font-bold leading-[1.5] tracking-[-0.02em] text-[var(--foreground)] sm:text-[30px] md:text-[36px] lg:text-[42px]"
           >
             {titleLead && (
-              <span
-                className={
-                  vip
-                    ? "font-light text-white/55"
-                    : "font-light text-[var(--muted-foreground)]"
-                }
-              >
+              <span className="font-light text-[var(--muted-foreground)]">
                 {titleLead}{" "}
               </span>
             )}
@@ -182,11 +169,7 @@ function ServicesBand({
           </h2>
 
           <p
-            className={
-              vip
-                ? "mt-4 max-w-3xl text-sm font-normal leading-relaxed text-white/70 sm:text-[15px] md:text-base lg:text-[17px]"
-                : "mt-4 max-w-3xl text-sm font-normal leading-relaxed text-[var(--muted-foreground)] sm:text-[15px] md:text-base lg:text-[17px]"
-            }
+            className="mt-4 max-w-3xl text-sm font-normal leading-relaxed text-[var(--muted-foreground)] sm:text-[15px] md:text-base lg:text-[17px]"
           >
             {subtitle}
           </p>
