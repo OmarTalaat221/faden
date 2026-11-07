@@ -1,4 +1,5 @@
 ﻿import Footer from "@/components/layout/footer";
+import WhatsAppButton from "@/components/common/whatsapp-button";
 import Header from "@/components/layout/header";
 import { getSettings } from "@/lib/settings/data";
 import { Inter } from "next/font/google";
@@ -165,6 +166,10 @@ export default async function RootLayout({ children }) {
         <Header socialLinks={settings.socialLinks} />
         {children}
         <Footer />
+        <WhatsAppButton
+          number={settings.footer.contact.whatsapp || settings.footer.contact.phone}
+          message="Hello FADEN, I'd like to know more about your services."
+        />
       </body>
     </html>
   );
