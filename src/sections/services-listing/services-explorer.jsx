@@ -104,11 +104,10 @@ function ServicesBand({
   tinted,
   reduceMotion,
 }) {
-  // The dash splits the claim from what it means; without one the whole line
-  // is simply the claim.
-  const at = (subtitle ?? "").indexOf("—");
-  const lead = at === -1 ? subtitle : subtitle.slice(0, at).trim();
-  const tail = at === -1 ? "" : subtitle.slice(at + 1).trim();
+  // "For Companies & Government" reads better with the preposition set
+  // apart from the audience it names; an eyebrow without one stays whole.
+  const titleLead = /^for\s/i.test(eyebrow ?? "") ? eyebrow.slice(0, 3) : "";
+  const titleMain = titleLead ? eyebrow.slice(4) : eyebrow;
 
   if (!services.length) return null;
 
@@ -121,25 +120,21 @@ function ServicesBand({
       }
     >
       <Container>
-        {/* A red rail down the side of the heading block: the same two
-            lines, but marked instead of floating on the surface. */}
-        <div className="max-w-4xl border-l-[3px] border-[var(--brand-primary)] pl-4 sm:pl-5 md:pl-6">
-          <p className="text-[12px] font-bold uppercase tracking-[0.2em] text-[var(--brand-primary)] sm:text-[13px]">
-            {eyebrow}
-          </p>
-          {/* The line is the heading here, so it is set like one: large and
-              bold, with the half after the dash picked out in brand red and
-              italic so the sentence has a turn the eye can follow. */}
-          <p className="mt-2 text-xl font-bold leading-[1.2] tracking-[-0.01em] text-[var(--foreground)] sm:text-2xl md:text-[28px] lg:text-[32px]">
-            {lead}
-            {tail && (
-              <>
-                {" "}
-                <span className="font-medium italic text-[var(--brand-primary)]">
-                  {tail}
-                </span>
-              </>
+        <div className="max-w-4xl">
+          {/* The audience is the title, so it is set as one: large, bold and
+              in two colours — the preposition steps back, the audience takes
+              the brand red. */}
+          <h2 className="text-2xl font-bold leading-[1.1] tracking-[-0.02em] text-[var(--foreground)] sm:text-[30px] md:text-[36px] lg:text-[42px]">
+            {titleLead && (
+              <span className="font-light text-[var(--muted-foreground)]">
+                {titleLead}{" "}
+              </span>
             )}
+            <span className="text-[var(--brand-primary)]">{titleMain}</span>
+          </h2>
+
+          <p className="mt-3 max-w-3xl text-sm font-normal leading-relaxed text-[var(--muted-foreground)] sm:text-[15px] md:text-base lg:text-[17px]">
+            {subtitle}
           </p>
         </div>
 
