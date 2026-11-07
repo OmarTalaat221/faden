@@ -1,8 +1,21 @@
-﻿export default function sitemap() {
+﻿import { getSiteVisibility } from "@/lib/settings/data";
+import { HIDEABLE_PAGES } from "@/lib/settings/visibility";
+
+// Reads the visibility flags from the API, so it is built per request rather
+// than frozen at build time.
+export const dynamic = "force-dynamic";
+
+export default async function sitemap() {
   const baseUrl = "https://www.fadensa.com";
   const lastModified = new Date();
 
-  return [
+  // A page switched off in the dashboard 404s, so it must not be listed.
+  const visibility = await getSiteVisibility();
+  const hidden = Object.entries(HIDEABLE_PAGES)
+    .filter(([key]) => visibility.pages[key] === false)
+    .map(([, route]) => `${baseUrl}${route}`);
+
+  const entries = [
     {
       url: baseUrl,
       lastModified,
@@ -46,4 +59,6 @@
       priority: 0.7,
     },
   ];
+
+  return entries.filter((e) => !hidden.includes(e.url));
 }

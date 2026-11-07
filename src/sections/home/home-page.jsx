@@ -20,21 +20,25 @@ export default async function HomePage() {
     clients: home.clients.map((c) => c.name),
     equipment: home.equipment.map((e) => e.name),
     partner: home.partner?.title,
+    hiddenSections: Object.keys(home.sections).filter((k) => !home.sections[k]),
   });
+
+  // Sections switched off in the dashboard are not rendered at all.
+  const on = home.sections;
 
   return (
     <>
       <main>
         <HeroSection />
-        <StatsOverlap />
-        <AboutSection />
-        <ServicesSection services={home.services} />
-        <ProjectsSection projects={home.projects} />
-        <CtaSection />
-        <PartnersSection partner={home.partner} />
-        <ClientsSection clients={home.clients} />
-        <EquipmentSection equipment={home.equipment} />
-        <GallerySection gallery={home.gallery} />
+        {on.stats && <StatsOverlap />}
+        {on.about && <AboutSection />}
+        {on.services && <ServicesSection services={home.services} />}
+        {on.projects && <ProjectsSection projects={home.projects} />}
+        {on.cta && <CtaSection />}
+        {on.partners && <PartnersSection partner={home.partner} />}
+        {on.clients && <ClientsSection clients={home.clients} />}
+        {on.equipment && <EquipmentSection equipment={home.equipment} />}
+        {on.gallery && <GallerySection gallery={home.gallery} />}
       </main>
     </>
   );

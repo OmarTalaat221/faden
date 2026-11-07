@@ -1,3 +1,4 @@
+import { requirePageVisible } from "@/lib/settings/data";
 import GalleryPage from "@/sections/gallery/gallery-page";
 import { getGalleryList, getGalleryPageMeta } from "@/lib/gallery/data";
 
@@ -24,6 +25,8 @@ export const metadata = {
 };
 
 export default async function Page() {
+  await requirePageVisible("gallery");
+
   const [galleryList, galleryMeta] = await Promise.all([
     getGalleryList(),
     getGalleryPageMeta(),

@@ -175,7 +175,7 @@ function DesktopNavItem({ item, pathname, isSticky }) {
 }
 
 // ============ Header Content ============
-function HeaderContent({ variant, open, setOpen, pathname }) {
+function HeaderContent({ variant, open, setOpen, pathname, items }) {
   const isSticky = variant === "sticky";
 
   return (
@@ -190,7 +190,7 @@ function HeaderContent({ variant, open, setOpen, pathname }) {
         aria-label="Main navigation"
         className="hidden items-center gap-10 lg:flex"
       >
-        {navItems.map((item) => (
+        {items.map((item) => (
           <DesktopNavItem
             key={item.label}
             item={item}
@@ -311,9 +311,33 @@ function MobileNavItem({ item, pathname, setOpen }) {
   );
 }
 
-export default function Header({ socialLinks: socialLinksProp = [] }) {
+export default function Header({
+  socialLinks: socialLinksProp = [],
+  hiddenRoutes = [],
+}) {
   // Only links whose icon we actually have a component for.
   const socialLinks = socialLinksProp.filter((s) => SOCIAL_ICONS[s.icon]);
+
+  // Pages switched off in the dashboard drop out of the menu, including out
+  // of the About group, which disappears once all of its pages are off.
+  const items = hiddenRoutes.length
+    ? navItems
+        .map((item) =>
+          item.children
+            ? {
+                ...item,
+                children: item.children.filter(
+                  (c) => !hiddenRoutes.includes(c.href),
+                ),
+              }
+            : item,
+        )
+        .filter(
+          (item) =>
+            !hiddenRoutes.includes(item.href) &&
+            (!item.children || item.children.length > 0),
+        )
+    : navItems;
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
@@ -357,6 +381,7 @@ export default function Header({ socialLinks: socialLinksProp = [] }) {
             open={open}
             setOpen={setOpen}
             pathname={pathname}
+            items={items}
           />
         </header>
 
@@ -392,7 +417,7 @@ export default function Header({ socialLinks: socialLinksProp = [] }) {
 
           <nav className="flex flex-1 flex-col overflow-y-auto px-6 py-6">
             <ul className="flex flex-col gap-1">
-              {navItems.map((item) => (
+              {items.map((item) => (
                 <li key={item.label}>
                   <MobileNavItem
                     item={item}
@@ -450,6 +475,7 @@ export default function Header({ socialLinks: socialLinksProp = [] }) {
           open={open}
           setOpen={setOpen}
           pathname={pathname}
+          items={items}
         />
       </header>
 
@@ -464,6 +490,7 @@ export default function Header({ socialLinks: socialLinksProp = [] }) {
           open={open}
           setOpen={setOpen}
           pathname={pathname}
+          items={items}
         />
       </header>
 
@@ -497,7 +524,7 @@ export default function Header({ socialLinks: socialLinksProp = [] }) {
 
         <nav className="flex flex-1 flex-col overflow-y-auto px-6 py-6">
           <ul className="flex flex-col gap-1">
-            {navItems.map((item) => (
+            {items.map((item) => (
               <li key={item.label}>
                 <MobileNavItem
                   item={item}

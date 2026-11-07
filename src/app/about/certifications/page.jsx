@@ -1,4 +1,5 @@
-﻿import DecorativePattern from "@/components/common/decorative-pattern";
+﻿import { requirePageVisible } from "@/lib/settings/data";
+import DecorativePattern from "@/components/common/decorative-pattern";
 import PageBanner from "@/components/common/page-banner";
 import { certificationsData } from "@/sections/about-certifications/data";
 import IntroSection from "@/sections/about-certifications/intro-section";
@@ -26,7 +27,9 @@ export const metadata = {
   },
 };
 
-export default function CertificationsPage() {
+export default async function CertificationsPage() {
+  await requirePageVisible("certifications");
+
   const { banner } = certificationsData;
 
   return (

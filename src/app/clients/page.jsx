@@ -1,3 +1,4 @@
+import { requirePageVisible } from "@/lib/settings/data";
 import ClientsPage from "@/sections/clients/clients-page";
 
 export const metadata = {
@@ -22,6 +23,8 @@ export const metadata = {
   },
 };
 
-export default function Page() {
+export default async function Page() {
+  await requirePageVisible("clients");
+
   return <ClientsPage />;
 }

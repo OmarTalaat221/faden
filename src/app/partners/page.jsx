@@ -1,4 +1,5 @@
-﻿import PageBanner from "@/components/common/page-banner";
+﻿import { requirePageVisible } from "@/lib/settings/data";
+import PageBanner from "@/components/common/page-banner";
 import { getPartners } from "@/sections/partners/data";
 import AchievementsSection from "@/sections/partners/achievements-section";
 import CertificationsSection from "@/sections/partners/certifications-section";
@@ -22,6 +23,8 @@ export const metadata = {
 };
 
 export default async function PartnersPage() {
+  await requirePageVisible("partners");
+
   const partnersData = await getPartners();
 
   return (

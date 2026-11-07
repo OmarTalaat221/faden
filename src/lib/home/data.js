@@ -12,6 +12,8 @@ import { getAllServices } from "@/lib/services/data";
 import { getClientsList } from "@/lib/clients/data";
 import { getEquipmentList } from "@/lib/equipment/data";
 import { getPartners } from "@/sections/partners/data";
+import { getSettings } from "@/lib/settings/data";
+import { getVisibility } from "@/lib/settings/visibility";
 
 /**
  * Picks `ids` out of `rows`, in the order they were chosen. Any id with no
@@ -44,6 +46,7 @@ export async function getHomeContent() {
     clients,
     equipment,
     partners,
+    settings,
   ] = await Promise.all([
     apiGet("/home-features"),
     getGalleryList(),
@@ -52,6 +55,7 @@ export async function getHomeContent() {
     getClientsList(),
     getEquipmentList(),
     getPartners(),
+    getSettings(),
   ]);
 
   const services = servicesResponse?.items ?? [];
@@ -88,5 +92,8 @@ export async function getHomeContent() {
     // The homepage shows the same partner record as /partners — there is one
     // partner, so there is nothing to pick.
     partner: partners.intro,
+
+    // Which sections are switched on, set in the dashboard under Visibility.
+    sections: getVisibility(settings).homeSections,
   };
 }

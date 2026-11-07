@@ -1,3 +1,4 @@
+import { requirePageVisible } from "@/lib/settings/data";
 import EquipmentPage from "@/sections/equipment/equipment-page";
 
 export const metadata = {
@@ -24,6 +25,8 @@ export const metadata = {
   },
 };
 
-export default function Page() {
+export default async function Page() {
+  await requirePageVisible("equipment");
+
   return <EquipmentPage />;
 }

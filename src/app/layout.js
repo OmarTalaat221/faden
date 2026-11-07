@@ -2,6 +2,7 @@
 import WhatsAppButton from "@/components/common/whatsapp-button";
 import Header from "@/components/layout/header";
 import { getSettings } from "@/lib/settings/data";
+import { getVisibility, hiddenRoutes } from "@/lib/settings/visibility";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -140,6 +141,7 @@ function buildOrganizationSchema(settings) {
 export default async function RootLayout({ children }) {
   const settings = await getSettings();
   const organizationSchema = buildOrganizationSchema(settings);
+  const hidden = hiddenRoutes(getVisibility(settings));
   return (
     <html lang="en" dir="ltr" className={inter.variable}>
       <head>
@@ -163,7 +165,7 @@ export default async function RootLayout({ children }) {
         />
       </head>
       <body className="font-sans antialiased">
-        <Header socialLinks={settings.socialLinks} />
+        <Header socialLinks={settings.socialLinks} hiddenRoutes={hidden} />
         {children}
         <Footer />
         <WhatsAppButton
