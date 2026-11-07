@@ -49,7 +49,7 @@ export default async function OverviewIntro() {
             }
           >
             {/* Paragraphs - max 20px */}
-            <div className="min-w-0 space-y-5 text-sm leading-[1.85] text-black sm:text-[15px] md:text-base lg:text-[18px] xl:text-xl">
+            <div className="min-w-0 space-y-4 text-sm leading-[1.75] text-black sm:text-[15px] md:text-[15px] lg:text-base xl:text-[17px]">
               {intro.paragraphs.map((p, i) => (
                 <p key={i}>
                   {toParts(p).map((part, j) =>
