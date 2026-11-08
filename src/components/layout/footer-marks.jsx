@@ -61,8 +61,11 @@ export default function FooterMarks() {
       <motion.div
         {...wipe(0.25)}
         // The same width as the FADEN mark above it, with the artwork's own
-        // proportions kept.
-        className="relative mt-7 aspect-[2078/1518] w-[150px] sm:mt-8 sm:w-[170px] lg:w-[186px]"
+        // proportions kept. The file is the official black PNG with its
+        // transparent margin trimmed off — the mark was drawn inside a wide
+        // empty frame, so at a matched box it rendered visibly smaller than
+        // FADEN's and sat further away than the spacing said.
+        className="relative mt-4 aspect-[1554/1046] w-[150px] sm:w-[170px] lg:w-[186px]"
       >
         <Image
           src="/images/faden/vision-2030.png"
