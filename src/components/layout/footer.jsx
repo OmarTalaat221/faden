@@ -1,5 +1,6 @@
 import FadenLogo from "@/components/common/faden-logo";
 import Container from "@/components/layout/container";
+import Vision2030Strip from "@/components/layout/vision-2030-strip";
 import { getSettings, telHref } from "@/lib/settings/data";
 import { Mail, MapPin, Phone } from "lucide-react";
 
@@ -166,6 +167,10 @@ export default async function Footer() {
             })}
           </div>
         </div>
+      </Container>
+
+      <Container>
+        <Vision2030Strip />
       </Container>
 
       {/* Copyright Bar */}
