@@ -81,6 +81,7 @@ export default async function Footer() {
             height={125}
             className="w-[150px] sm:w-[170px] lg:w-[186px]"
           />
+          <Vision2030Strip />
         </div>
 
         {/* Quick Links */}
@@ -167,10 +168,6 @@ export default async function Footer() {
             })}
           </div>
         </div>
-      </Container>
-
-      <Container>
-        <Vision2030Strip />
       </Container>
 
       {/* Copyright Bar */}
