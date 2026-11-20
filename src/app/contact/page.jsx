@@ -1,6 +1,7 @@
 import PageBanner from "@/components/common/page-banner";
 import ContactSection from "@/sections/contact/contact-section";
 import MapSection from "@/sections/contact/map-section";
+import PartnerContactSection from "@/sections/contact/partner-contact-section";
 import { getContactPageData } from "@/lib/contact/data";
 
 export const metadata = {
@@ -21,6 +22,8 @@ export default async function ContactPage() {
       />
 
       <ContactSection info={data.info} form={data.form} />
+
+      <PartnerContactSection />
 
       <MapSection map={data.map} />
     </>
