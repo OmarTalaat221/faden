@@ -1,7 +1,8 @@
+"use client";
+
 import ContentIcon from "@/components/common/content-icon";
 import Container from "@/components/layout/container";
 import { iconForTitle } from "@/lib/content-icons";
-import { getAboutVisionMission } from "./data";
 
 /**
  * One card. The two in the top row are the headline pair, so they carry a
@@ -49,9 +50,8 @@ function DriverCard({ card, featured }) {
   );
 }
 
-export default async function DriversSection() {
-  const visionMissionData = await getAboutVisionMission();
-  const { drivers } = visionMissionData;
+export default function DriversSection({ drivers }) {
+  if (!drivers) return null;
 
   return (
     <section data-preview-anchor="drivers" className="relative w-full overflow-hidden bg-white py-8 sm:py-10 md:py-14 lg:py-16">

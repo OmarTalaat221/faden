@@ -1,10 +1,10 @@
-﻿import Container from "@/components/layout/container";
-import Image from "next/image";
-import { getPartners } from "./data";
+"use client";
 
-export default async function PartnerIntroSection() {
-  const partnersData = await getPartners();
-  const { intro } = partnersData;
+import Container from "@/components/layout/container";
+import Image from "next/image";
+
+export default function PartnerIntroSection({ intro }) {
+  if (!intro) return null;
 
   // The partner photo is optional: without one the copy runs the full width
   // instead of leaving an empty column.

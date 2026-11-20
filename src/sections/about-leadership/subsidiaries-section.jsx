@@ -1,10 +1,10 @@
-﻿import Image from "next/image";
-import Container from "@/components/layout/container";
-import { getAboutLeadership } from "./data";
+"use client";
 
-export default async function SubsidiariesSection() {
-  const leadershipData = await getAboutLeadership();
-  const { subsidiaries } = leadershipData;
+import Image from "next/image";
+import Container from "@/components/layout/container";
+
+export default function SubsidiariesSection({ subsidiaries }) {
+  if (!subsidiaries) return null;
 
   return (
     <section data-preview-anchor="subsidiaries" className="relative w-full bg-white pb-10 sm:pb-14 md:pb-16 lg:pb-18">

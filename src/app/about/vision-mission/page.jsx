@@ -25,7 +25,7 @@ export default async function VisionMissionPage() {
   return (
     <main className="min-h-screen bg-white">
       <PageBanner {...visionMissionData.banner} />
-      <DriversSection />
+      <DriversSection drivers={visionMissionData.drivers} />
       <DifferentSection visionMissionData={visionMissionData} />
     </main>
   );

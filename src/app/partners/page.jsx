@@ -30,8 +30,8 @@ export default async function PartnersPage() {
   return (
     <main className="min-h-screen">
       <PageBanner {...partnersData.banner} />
-      <PartnerIntroSection />
-      <AchievementsSection />
+      <PartnerIntroSection intro={partnersData.intro} />
+      <AchievementsSection achievements={partnersData.achievements} />
       <PartnerProjectsSection partnersData={partnersData} />
       <CertificationsSection />
     </main>

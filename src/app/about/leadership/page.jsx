@@ -25,8 +25,8 @@ export default async function LeadershipPage() {
   return (
     <main className="min-h-screen bg-white">
       <PageBanner {...leadershipData.banner} />
-      <MessagesSection />
-      <SubsidiariesSection />
+      <MessagesSection messages={leadershipData.messages} />
+      <SubsidiariesSection subsidiaries={leadershipData.subsidiaries} />
     </main>
   );
 }

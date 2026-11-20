@@ -1,10 +1,10 @@
-﻿import Container from "@/components/layout/container";
-import { getAboutLeadership } from "./data";
+"use client";
+
+import Container from "@/components/layout/container";
 import LeaderCard from "./leader-card";
 
-export default async function MessagesSection() {
-  const leadershipData = await getAboutLeadership();
-  const { messages } = leadershipData;
+export default function MessagesSection({ messages }) {
+  if (!messages) return null;
 
   return (
     <section data-preview-anchor="leaders" className="relative w-full overflow-hidden bg-white py-8 sm:py-10 md:py-14 lg:py-16">

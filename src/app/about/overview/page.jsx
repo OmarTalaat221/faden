@@ -33,8 +33,8 @@ export default async function CompanyOverviewPage() {
   return (
     <main className="min-h-screen">
       <PageBanner {...overviewData.banner} />
-      <OverviewIntro />
-      <OverviewStats />
+      <OverviewIntro intro={overviewData.intro} />
+      <OverviewStats stats={overviewData.stats} />
       <WhyChooseSection whyChoose={servicesMeta.whyChoose} />
     </main>
   );

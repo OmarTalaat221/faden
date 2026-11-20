@@ -1,8 +1,9 @@
-﻿import RevealImage from "@/components/common/reveal-image";
+"use client";
+
+import RevealImage from "@/components/common/reveal-image";
 import Container from "@/components/layout/container";
 import Image from "next/image";
 import DownloadButton from "@/components/common/download-button";
-import { getAboutOverview } from "./data";
 
 // A paragraph is either rich text (parts, some highlighted) as authored in
 // the original static copy, or a plain string as the dashboard stores it.
@@ -11,9 +12,9 @@ function toParts(paragraph) {
   return paragraph?.parts ?? [];
 }
 
-export default async function OverviewIntro() {
-  const overviewData = await getAboutOverview();
-  const { intro } = overviewData;
+export default function OverviewIntro({ intro }) {
+  if (!intro) return null;
+
   const companyProfile = intro.companyProfile;
 
   // Without a photo the copy runs the full width rather than leaving a gap.

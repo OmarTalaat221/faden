@@ -1,10 +1,10 @@
-﻿import ContentIcon from "@/components/common/content-icon";
-import Container from "@/components/layout/container";
-import { getPartners } from "./data";
+"use client";
 
-export default async function AchievementsSection() {
-  const partnersData = await getPartners();
-  const { achievements } = partnersData;
+import ContentIcon from "@/components/common/content-icon";
+import Container from "@/components/layout/container";
+
+export default function AchievementsSection({ achievements }) {
+  if (!achievements) return null;
 
   return (
     <section data-preview-anchor="achievements" className="relative w-full bg-white py-7 sm:py-8 md:py-10 lg:py-10">

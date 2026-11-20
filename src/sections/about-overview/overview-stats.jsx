@@ -1,10 +1,10 @@
-﻿import ContentIcon from "@/components/common/content-icon";
-import Container from "@/components/layout/container";
-import { getAboutOverview } from "./data";
+"use client";
 
-export default async function OverviewStats() {
-  const overviewData = await getAboutOverview();
-  const { stats } = overviewData;
+import ContentIcon from "@/components/common/content-icon";
+import Container from "@/components/layout/container";
+
+export default function OverviewStats({ stats }) {
+  if (!stats) return null;
 
   return (
     <section data-preview-anchor="stats" className="relative w-full overflow-hidden bg-white pb-10 sm:pb-14 md:pb-16 lg:pb-18">
