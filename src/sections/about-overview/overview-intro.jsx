@@ -20,7 +20,7 @@ export default async function OverviewIntro() {
   const hasImage = Boolean(intro.image);
 
   return (
-    <section className="relative w-full overflow-hidden py-8 sm:py-10 md:py-14 lg:py-16">
+    <section data-preview-anchor="intro" className="relative w-full overflow-hidden py-8 sm:py-10 md:py-14 lg:py-16">
       <Container>
         <div className="relative z-10 mx-auto">
           {/* Eyebrow - max 16px */}

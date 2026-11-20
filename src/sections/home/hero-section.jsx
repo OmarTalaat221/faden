@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function HeroSection() {
   return (
-    <section
+    <section data-preview-anchor="hero"
       id="home"
       className="relative isolate h-screen min-h-[640px] w-full bg-brand-secondary text-white"
     >

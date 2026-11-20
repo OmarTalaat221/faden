@@ -3,7 +3,7 @@ import { stats } from "./data";
 
 export default function StatsOverlap() {
   return (
-    <div className="relative z-30 -mt-[30px] xs:-mt-[42px] sm:-mt-[48px] md:-mt-[54px] lg:-mt-[60px]">
+    <div data-preview-anchor="stats" className="relative z-30 -mt-[30px] xs:-mt-[42px] sm:-mt-[48px] md:-mt-[54px] lg:-mt-[60px]">
       <Container>
         <div className="grid grid-cols-4 overflow-hidden rounded-[6px] border border-white/30 bg-white/[0.51] shadow-[0_20px_50px_rgba(0,0,0,0.18)] backdrop-blur-md">
           {stats.map((stat, index) => (

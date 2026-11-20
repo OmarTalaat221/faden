@@ -9,7 +9,7 @@ export default async function HeavyEquipmentSection() {
   const { eyebrow, subtitle } = EQUIPMENT_PAGE_META.heavy;
 
   return (
-    <section className="relative overflow-hidden pb-10 sm:pb-14 md:pb-16 lg:pb-18">
+    <section data-preview-anchor="items" className="relative overflow-hidden pb-10 sm:pb-14 md:pb-16 lg:pb-18">
       <Container className="relative z-10">
         {/* Header */}
         <div className="max-w-3xl text-left">

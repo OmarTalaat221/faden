@@ -8,7 +8,7 @@ export default function GallerySection({ gallery = [] }) {
   const slot = (i) => gallery[i] ?? {};
 
   return (
-    <section
+    <section data-preview-anchor="gallery"
       id="gallery"
       className="relative overflow-hidden bg-white py-10 sm:py-14 lg:py-16"
       aria-labelledby="gallery-heading"

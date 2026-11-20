@@ -12,7 +12,7 @@ export default function PartnerProjectsSection({ partnersData }) {
   const { projects } = partnersData;
 
   return (
-    <section className="relative w-full bg-white py-7 sm:py-8 md:py-10 lg:py-10">
+    <section data-preview-anchor="partnerProjects" className="relative w-full bg-white py-7 sm:py-8 md:py-10 lg:py-10">
       <Container>
         <div className="relative z-10">
           {/* Eyebrow - max 16px */}

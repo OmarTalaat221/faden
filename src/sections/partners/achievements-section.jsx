@@ -7,7 +7,7 @@ export default async function AchievementsSection() {
   const { achievements } = partnersData;
 
   return (
-    <section className="relative w-full bg-white py-7 sm:py-8 md:py-10 lg:py-10">
+    <section data-preview-anchor="achievements" className="relative w-full bg-white py-7 sm:py-8 md:py-10 lg:py-10">
       <Container>
         <div className="relative z-10">
           {/* Eyebrow - max 16px */}

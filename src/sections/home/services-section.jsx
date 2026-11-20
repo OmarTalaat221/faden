@@ -12,7 +12,7 @@ import "swiper/css/pagination";
 
 export default function ServicesSection({ services = [] }) {
   return (
-    <section
+    <section data-preview-anchor="services"
       id="services"
       className="relative overflow-hidden bg-[#F9FAFB] py-10 sm:py-14 lg:py-16"
       aria-labelledby="services-heading"

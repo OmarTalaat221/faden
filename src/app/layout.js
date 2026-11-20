@@ -8,6 +8,7 @@ import { getVisibility, hiddenRoutes } from "@/lib/settings/visibility";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import ChromeGate from "@/components/layout/chrome-gate";
+import PreviewAnchors from "@/components/preview/preview-anchors";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -179,6 +180,7 @@ export default async function RootLayout({ children }) {
           <Footer />
         </ChromeGate>
         <GlobalEnergyLinks />
+        <PreviewAnchors />
         <ChromeGate>
           <WhatsAppButton
             number={settings.footer.contact.whatsapp || settings.footer.contact.phone}

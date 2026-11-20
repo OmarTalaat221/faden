@@ -10,7 +10,7 @@ import "swiper/css";
 
 export default function ClientsSection({ clients = [] }) {
   return (
-    <section
+    <section data-preview-anchor="clients"
       id="clients"
       className="relative overflow-hidden bg-white py-10 sm:py-14 lg:py-16"
       aria-labelledby="clients-heading"

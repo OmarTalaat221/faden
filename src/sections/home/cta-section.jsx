@@ -3,7 +3,7 @@ import ButtonLink from "@/components/ui/button-link";
 
 export default function CtaSection() {
   return (
-    <section
+    <section data-preview-anchor="cta"
       className="relative isolate overflow-hidden py-10 text-white sm:py-14"
       style={{
         backgroundImage:

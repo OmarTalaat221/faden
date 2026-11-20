@@ -7,7 +7,7 @@ export default async function SubsidiariesSection() {
   const { subsidiaries } = leadershipData;
 
   return (
-    <section className="relative w-full bg-white pb-10 sm:pb-14 md:pb-16 lg:pb-18">
+    <section data-preview-anchor="subsidiaries" className="relative w-full bg-white pb-10 sm:pb-14 md:pb-16 lg:pb-18">
       <Container>
         <div className="relative z-10">
           {/* Eyebrow - max 16px */}

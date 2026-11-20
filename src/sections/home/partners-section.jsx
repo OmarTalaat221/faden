@@ -54,7 +54,7 @@ export default function PartnersSection({ partner }) {
   });
 
   return (
-    <section
+    <section data-preview-anchor="partners"
       id="partners"
       className="relative overflow-hidden bg-[#F9FAFB] py-10 sm:py-14 lg:py-16"
       aria-labelledby="partners-heading"

@@ -9,7 +9,7 @@ import "swiper/css";
 
 export default function EquipmentSection({ equipment = [] }) {
   return (
-    <section
+    <section data-preview-anchor="equipment"
       id="equipment"
       className="relative overflow-hidden bg-[#F9FAFB] py-10 sm:py-14 lg:py-16"
       aria-labelledby="equipment-heading"

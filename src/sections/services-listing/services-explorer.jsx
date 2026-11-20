@@ -169,7 +169,7 @@ function ServicesBand({
   if (!services.length) return null;
 
   return (
-    <section
+    <section data-preview-anchor="items"
       className={
         vip
           ? "relative overflow-hidden bg-white py-10 sm:py-10 md:py-14 lg:py-16"

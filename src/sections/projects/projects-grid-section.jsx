@@ -122,7 +122,7 @@ export default function ProjectsGridSection({ projects: PROJECTS_ITEMS = [], cat
   };
 
   return (
-    <section className="relative py-7 sm:py-10 md:py-10 lg:py-14 overflow-hidden">
+    <section data-preview-anchor="grid" className="relative py-7 sm:py-10 md:py-10 lg:py-14 overflow-hidden">
       <Container className="relative z-10">
         <div id="projects-grid-top" className="scroll-mt-24" />
 

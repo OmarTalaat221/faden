@@ -12,7 +12,7 @@ export default function IntroSection({ intro }) {
   const highlights = intro.highlights ?? [];
 
   return (
-    <section className="relative overflow-hidden bg-white py-10 sm:py-10 md:py-14 lg:py-16">
+    <section data-preview-anchor="intro" className="relative overflow-hidden bg-white py-10 sm:py-10 md:py-14 lg:py-16">
       <Container>
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-14">
           <div>

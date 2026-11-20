@@ -43,7 +43,7 @@ export default function PartnerContactSection({ logo }) {
   });
 
   return (
-    <section className="relative overflow-hidden bg-white pb-10 sm:pb-10 md:pb-14 lg:pb-16">
+    <section data-preview-anchor="partnerContact" className="relative overflow-hidden bg-white pb-10 sm:pb-10 md:pb-14 lg:pb-16">
       <Container>
         <div
           ref={ref}

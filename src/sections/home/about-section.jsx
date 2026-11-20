@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function AboutSection() {
   return (
-    <section
+    <section data-preview-anchor="about"
       id="about"
       aria-labelledby="about-heading"
       className="relative isolate scroll-mt-20 overflow-hidden bg-white pt-14 pb-0 sm:pt-16 lg:pt-32"

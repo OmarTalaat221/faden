@@ -54,7 +54,7 @@ export default async function DriversSection() {
   const { drivers } = visionMissionData;
 
   return (
-    <section className="relative w-full overflow-hidden bg-white py-8 sm:py-10 md:py-14 lg:py-16">
+    <section data-preview-anchor="drivers" className="relative w-full overflow-hidden bg-white py-8 sm:py-10 md:py-14 lg:py-16">
       <Container>
         <div className="relative z-10">
           {/* Eyebrow - max 16px */}
