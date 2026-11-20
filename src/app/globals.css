@@ -152,3 +152,21 @@ main.bg-white {
 section[class*="F9FAFB"] {
   background-color: var(--surface-alt);
 }
+
+/* The block a dashboard field writes, marked for a moment when that field is
+   clicked into. Drawn as a ring rather than a fill, so the words underneath
+   stay exactly as they will look on the page. */
+.preview-anchor-lit {
+  position: relative;
+  border-radius: 6px;
+  box-shadow:
+    0 0 0 2px var(--brand-primary),
+    0 0 0 8px color-mix(in srgb, var(--brand-primary) 18%, transparent);
+  transition: box-shadow 0.35s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preview-anchor-lit {
+    transition: none;
+  }
+}

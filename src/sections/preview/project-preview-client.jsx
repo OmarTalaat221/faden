@@ -8,7 +8,12 @@ import OverviewSection from "@/sections/project-detail/overview-section";
 import ProjectHeroSection from "@/sections/project-detail/project-hero-section";
 import ProjectInfoSection from "@/sections/project-detail/project-info-section";
 import ProjectPhotosSection from "@/sections/project-detail/project-photos-section";
-import { PREVIEW_MESSAGE, PREVIEW_READY } from "@/lib/preview/bridge";
+import {
+  ANCHOR_ATTRIBUTE,
+  PREVIEW_FOCUS,
+  PREVIEW_MESSAGE,
+  PREVIEW_READY,
+} from "@/lib/preview/bridge";
 
 /**
  * A project page drawn from whatever the dashboard last sent, rather than
@@ -19,13 +24,45 @@ import { PREVIEW_MESSAGE, PREVIEW_READY } from "@/lib/preview/bridge";
  * which belong to other records and are not being edited, and the contact
  * band under them, which is the same on every page.
  */
+/**
+ * Scrolls to the block a field writes and marks it for a moment, so the
+ * answer to "where does this end up?" is the page itself pointing at it.
+ */
+function showAnchor(anchor) {
+  if (!anchor) return;
+  const target = document.querySelector(`[${ANCHOR_ATTRIBUTE}="${anchor}"]`);
+  if (!target) return;
+
+  target.scrollIntoView({ behavior: "smooth", block: "center" });
+
+  // Clear whatever was lit before rather than relying on its own timer: moving
+  // between fields quickly cancels that timer, and the old block stayed lit.
+  for (const lit of document.querySelectorAll(".preview-anchor-lit")) {
+    lit.classList.remove("preview-anchor-lit");
+  }
+
+  target.classList.add("preview-anchor-lit");
+  window.clearTimeout(showAnchor.timer);
+  showAnchor.timer = window.setTimeout(() => {
+    target.classList.remove("preview-anchor-lit");
+  }, 1600);
+}
+
 export default function ProjectPreviewClient() {
   const [project, setProject] = useState(null);
 
   useEffect(() => {
     function onMessage(event) {
-      if (event.data?.type !== PREVIEW_MESSAGE) return;
-      setProject(event.data.project ?? null);
+      if (event.data?.type === PREVIEW_MESSAGE) {
+        setProject(event.data.project ?? null);
+        return;
+      }
+
+      if (event.data?.type === PREVIEW_FOCUS) {
+        // A frame later: a draft usually arrives with the focus, and the
+        // block being scrolled to may not be on the page until it is drawn.
+        requestAnimationFrame(() => showAnchor(event.data.anchor));
+      }
     }
 
     window.addEventListener("message", onMessage);
@@ -60,17 +97,33 @@ export default function ProjectPreviewClient() {
         Preview — not live
       </div>
 
-      <ProjectHeroSection project={project} />
-      <OverviewSection overview={detail.overview} />
-      <ProjectInfoSection tabs={detail.infoTabs} />
-      <DesignIntentSection designIntent={detail.designIntent} />
-      <BulletListSection data={detail.amenitiesFeatures} columns={2} muted />
-      <BulletListSection data={detail.keyAchievements} columns={1} />
-      <ProjectPhotosSection
-        photos={detail.photos}
-        title={project.title}
-        caption={detail.photosCaption}
-      />
+      {/* One marked block per card in the editor. The names are the editor's
+          own, so a field asks for the block it writes by the same word. */}
+      <div data-preview-anchor="hero">
+        <ProjectHeroSection project={project} />
+      </div>
+      <div data-preview-anchor="overview">
+        <OverviewSection overview={detail.overview} />
+      </div>
+      <div data-preview-anchor="infoTabs">
+        <ProjectInfoSection tabs={detail.infoTabs} />
+      </div>
+      <div data-preview-anchor="designIntent">
+        <DesignIntentSection designIntent={detail.designIntent} />
+      </div>
+      <div data-preview-anchor="amenities">
+        <BulletListSection data={detail.amenitiesFeatures} columns={2} muted />
+      </div>
+      <div data-preview-anchor="achievements">
+        <BulletListSection data={detail.keyAchievements} columns={1} />
+      </div>
+      <div data-preview-anchor="photos">
+        <ProjectPhotosSection
+          photos={detail.photos}
+          title={project.title}
+          caption={detail.photosCaption}
+        />
+      </div>
     </main>
   );
 }

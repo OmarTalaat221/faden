@@ -19,3 +19,11 @@
 
 export const PREVIEW_MESSAGE = "faden:preview:draft";
 export const PREVIEW_READY = "faden:preview:ready";
+
+// Sent when a field in the dashboard is clicked into, so the preview can go
+// to the part of the page that field writes. The client is looking at a form
+// of boxes and a page of words, and nothing in either says which is which.
+export const PREVIEW_FOCUS = "faden:preview:focus";
+
+// The attribute the preview marks a block with, so a field can name it.
+export const ANCHOR_ATTRIBUTE = "data-preview-anchor";
