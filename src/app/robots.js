@@ -4,7 +4,7 @@
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/admin/"],
+        disallow: ["/api/", "/admin/", "/preview/"],
       },
     ],
     sitemap: "https://www.fadensa.com/sitemap.xml",

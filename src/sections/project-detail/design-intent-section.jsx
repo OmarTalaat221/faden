@@ -1,3 +1,5 @@
+"use client";
+
 import RevealImage from "@/components/common/reveal-image";
 import Container from "@/components/layout/container";
 import Image from "next/image";

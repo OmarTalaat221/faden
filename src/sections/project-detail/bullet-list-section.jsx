@@ -1,3 +1,5 @@
+"use client";
+
 import Container from "@/components/layout/container";
 
 export default function BulletListSection({ data, columns = 1, muted = false }) {

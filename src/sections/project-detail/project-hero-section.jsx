@@ -1,3 +1,5 @@
+"use client";
+
 import Container from "@/components/layout/container";
 import Image from "next/image";
 import { MapPin } from "lucide-react";

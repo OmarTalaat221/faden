@@ -7,6 +7,7 @@ import { siteImage } from "@/lib/site-images";
 import { getVisibility, hiddenRoutes } from "@/lib/settings/visibility";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import ChromeGate from "@/components/layout/chrome-gate";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -170,14 +171,20 @@ export default async function RootLayout({ children }) {
         />
       </head>
       <body className="font-sans antialiased">
-        <Header socialLinks={settings.socialLinks} hiddenRoutes={hidden} />
+        <ChromeGate>
+          <Header socialLinks={settings.socialLinks} hiddenRoutes={hidden} />
+        </ChromeGate>
         {children}
-        <Footer />
+        <ChromeGate>
+          <Footer />
+        </ChromeGate>
         <GlobalEnergyLinks />
-        <WhatsAppButton
-          number={settings.footer.contact.whatsapp || settings.footer.contact.phone}
-          message="Hello FADEN, I'd like to know more about your services."
-        />
+        <ChromeGate>
+          <WhatsAppButton
+            number={settings.footer.contact.whatsapp || settings.footer.contact.phone}
+            message="Hello FADEN, I'd like to know more about your services."
+          />
+        </ChromeGate>
       </body>
     </html>
   );
