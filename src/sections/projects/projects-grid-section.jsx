@@ -7,6 +7,8 @@ import ProjectsControls from "./projects-controls";
 import ProjectsFilterPanel from "./projects-filter-panel";
 import ProjectsMobileChips from "./projects-mobile-chips";
 import ProjectsPagination from "./projects-pagination";
+import ProjectsAudienceToggle from "./projects-audience-toggle";
+import { projectsFor } from "@/lib/projects/audience";
 
 const EMPTY_FILTERS = {
   categories: [],
@@ -21,11 +23,13 @@ export default function ProjectsGridSection({ projects: PROJECTS_ITEMS = [], cat
   const [filters, setFilters] = useState(EMPTY_FILTERS);
   const [filterOpen, setFilterOpen] = useState(false);
   const [page, setPage] = useState(1);
+  // null means everyone: the portfolio opens on the whole record.
+  const [audience, setAudience] = useState(null);
 
   // Reset to page 1 when filters/sort change
   useEffect(() => {
     setPage(1);
-  }, [filters, sortValue]);
+  }, [filters, sortValue, audience]);
 
   // Count of active filters (for badge on Filter button)
   const activeFiltersCount =
@@ -34,7 +38,7 @@ export default function ProjectsGridSection({ projects: PROJECTS_ITEMS = [], cat
     (filters.withoutImages ? 1 : 0);
 
   const filteredProjects = useMemo(() => {
-    let items = [...PROJECTS_ITEMS];
+    let items = projectsFor([...PROJECTS_ITEMS], audience);
 
     if (filters.categories.length > 0) {
       items = items.filter((p) => filters.categories.includes(p.service.slug));
@@ -67,7 +71,7 @@ export default function ProjectsGridSection({ projects: PROJECTS_ITEMS = [], cat
       default:
         return items.sort((a, b) => a.order - b.order);
     }
-  }, [sortValue, filters]);
+  }, [sortValue, filters, audience, PROJECTS_ITEMS]);
 
   // Pagination
   const totalPages = Math.max(
@@ -99,6 +103,11 @@ export default function ProjectsGridSection({ projects: PROJECTS_ITEMS = [], cat
     <section className="relative py-7 sm:py-10 md:py-10 lg:py-14 overflow-hidden">
       <Container className="relative z-10">
         <div id="projects-grid-top" className="scroll-mt-24" />
+
+        {/* Who the work was for — the split the portfolio opens on */}
+        <div className="mb-6 sm:mb-8">
+          <ProjectsAudienceToggle value={audience} onChange={setAudience} />
+        </div>
 
         {/* Top bar: Results counter + Controls (desktop/tablet only) */}
         <div className="hidden md:flex flex-wrap items-center justify-between gap-3 sm:gap-4">
