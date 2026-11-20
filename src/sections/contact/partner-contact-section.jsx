@@ -14,7 +14,7 @@ import { useEffect, useRef, useState } from "react";
  * to FADEN: putting two sets of numbers in one column would leave them
  * guessing which to use.
  */
-export default function PartnerContactSection() {
+export default function PartnerContactSection({ logo }) {
   const partner = DEMO_PARTNER_CONTACT;
   const reduceMotion = useReducedMotion();
   const ref = useRef(null);
@@ -55,16 +55,18 @@ export default function PartnerContactSection() {
               <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--muted-foreground)]/70">
                 Our partner
               </p>
-              <div className="inline-flex h-[72px] items-center justify-center rounded-[4px] border border-black/[0.08] bg-white px-4 py-3 sm:h-[84px] sm:px-5">
-                <Image
-                  src={partner.logo}
-                  alt={partner.name}
-                  width={240}
-                  height={96}
-                  loading="lazy"
-                  className="h-auto max-h-full w-auto max-w-full object-contain sm:max-w-[200px]"
-                />
-              </div>
+              {logo && (
+                <div className="inline-flex h-[72px] items-center justify-center rounded-[4px] border border-black/[0.08] bg-white px-4 py-3 sm:h-[84px] sm:px-5">
+                  <Image
+                    src={logo}
+                    alt={partner.name}
+                    width={240}
+                    height={96}
+                    loading="lazy"
+                    className="h-auto max-h-full w-auto max-w-full object-contain sm:max-w-[200px]"
+                  />
+                </div>
+              )}
 
               <p className="mt-4 text-sm leading-[1.7] text-[var(--muted-foreground)] sm:text-[15px]">
                 {partner.caption}

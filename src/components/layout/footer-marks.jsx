@@ -19,7 +19,7 @@ import { useEffect, useRef, useState } from "react";
  * whileInView: a wrapper that starts fully clipped reports no intersection, so
  * whileInView never fired and the marks stayed invisible.
  */
-export default function FooterMarks() {
+export default function FooterMarks({ visionMark }) {
   const reduceMotion = useReducedMotion();
   const ref = useRef(null);
   const [shown, setShown] = useState(false);
@@ -58,26 +58,28 @@ export default function FooterMarks() {
         />
       </motion.div>
 
-      <motion.div
-        {...wipe(0.25)}
-        // The same width as the FADEN mark above it, with the artwork's own
-        // proportions kept. The file is the official black PNG with its
-        // transparent margin trimmed off — the mark was drawn inside a wide
-        // empty frame, so at a matched box it rendered visibly smaller than
-        // FADEN's and sat further away than the spacing said.
-        className="relative mt-4 aspect-[1554/1046] w-[150px] sm:w-[170px] lg:w-[186px]"
-      >
-        <Image
-          src="/images/faden/vision-2030.png"
-          alt="Saudi Vision 2030"
-          fill
-          sizes="186px"
-          // Loaded up front: a clipped wrapper never triggers lazy loading, so
-          // the mark would arrive blank.
-          priority
-          className="object-contain object-left"
-        />
-      </motion.div>
+      {visionMark && (
+        <motion.div
+          {...wipe(0.25)}
+          // The same width as the FADEN mark above it, with the artwork's own
+          // proportions kept. The file is the official black PNG with its
+          // transparent margin trimmed off — the mark was drawn inside a wide
+          // empty frame, so at a matched box it rendered visibly smaller than
+          // FADEN's and sat further away than the spacing said.
+          className="relative mt-4 aspect-[1554/1046] w-[150px] sm:w-[170px] lg:w-[186px]"
+        >
+          <Image
+            src={visionMark}
+            alt="Saudi Vision 2030"
+            fill
+            sizes="186px"
+            // Loaded up front: a clipped wrapper never triggers lazy loading, so
+            // the mark would arrive blank.
+            priority
+            className="object-contain object-left"
+          />
+        </motion.div>
+      )}
     </div>
   );
 }

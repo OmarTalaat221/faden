@@ -1,5 +1,6 @@
 ﻿import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { siteImage } from "@/lib/site-images";
 
 /**
  * PageBanner - Reusable banner for inner pages
@@ -9,15 +10,18 @@ import { cn } from "@/lib/utils";
  *
  * @param {string} title - Main title (centered, large white) - max 72px
  * @param {string} subtitle - Small text below title (#C9C7C6) - max 24px
- * @param {string} backgroundImage - Path to bg image
+ * @param {string} backgroundImage - Path to bg image. Left out, the
+ *   default set in the dashboard (Site Settings -> Images) is used.
  * @param {string} className
  */
-export default function PageBanner({
+export default async function PageBanner({
   title,
   subtitle,
-  backgroundImage = "/images/faden/image-05.jpg",
+  backgroundImage,
   className,
 }) {
+  const background = backgroundImage || (await siteImage("pageBanner"));
+
   return (
     <section
       className={cn("relative isolate w-full overflow-hidden", className)}
@@ -27,7 +31,7 @@ export default function PageBanner({
       <div className="relative h-[340px] w-full sm:h-[400px] md:h-[460px] lg:h-[500px] xl:h-[520px]">
         {/* Background Image */}
         <Image
-          src={backgroundImage}
+          src={background}
           alt=""
           fill
           priority

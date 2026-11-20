@@ -6,13 +6,14 @@
 // (they used to show two different phone numbers).
 
 import { notFound } from "next/navigation";
+import { cache } from "react";
 
 import { apiGet } from "@/lib/api";
 import { getVisibility } from "./visibility";
 
-export async function getSettings() {
-  return apiGet("/settings");
-}
+// Cached for the render: the footer, the layout and several pages all read
+// settings, and with caching off each call was its own round trip.
+export const getSettings = cache(async () => apiGet("/settings"));
 
 /** The visibility flags on their own, for pages that need nothing else. */
 export async function getSiteVisibility() {

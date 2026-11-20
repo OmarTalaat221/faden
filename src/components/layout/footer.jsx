@@ -1,6 +1,7 @@
 import Container from "@/components/layout/container";
 import FooterMarks from "@/components/layout/footer-marks";
 import { getSettings, telHref } from "@/lib/settings/data";
+import { siteImage } from "@/lib/site-images";
 import { Mail, MapPin, Phone } from "lucide-react";
 
 const quickLinks = [
@@ -75,7 +76,7 @@ export default async function Footer() {
       <Container className="grid gap-10 pb-8 sm:grid-cols-2 sm:gap-12 lg:grid-cols-[1.15fr_1fr_1.15fr_0.9fr] lg:gap-14 lg:pb-10">
         {/* Logo Column */}
         <div className="sm:col-span-2 lg:col-span-1">
-          <FooterMarks />
+          <FooterMarks visionMark={await siteImage("visionMark")} />
         </div>
 
         {/* Quick Links */}

@@ -4,6 +4,7 @@ import CtaSection from "@/components/common/cta-section";
 import SectionRenderer from "@/sections/service-detail/section-renderer";
 import KeyProjectsSection from "@/sections/service-detail/key-projects-section";
 import { getServiceBySlug, getAllServiceSlugs } from "@/lib/services/data";
+import { siteImage } from "@/lib/site-images";
 
 export async function generateStaticParams() {
   const slugs = await getAllServiceSlugs();
@@ -47,7 +48,7 @@ export default async function ServiceDetailPage({ params }) {
       <PageBanner
         title={service.name}
         subtitle={service.bannerSubtitle || service.description}
-        backgroundImage={service.bannerImage || "/images/faden/our-services-banner.webp"}
+        backgroundImage={service.bannerImage || (await siteImage("servicesBanner"))}
       />
 
       {beforeProjects.map((section) => (

@@ -3,6 +3,7 @@ import GlobalEnergyLinks from "@/components/common/global-energy-links";
 import WhatsAppButton from "@/components/common/whatsapp-button";
 import Header from "@/components/layout/header";
 import { getSettings } from "@/lib/settings/data";
+import { siteImage } from "@/lib/site-images";
 import { getVisibility, hiddenRoutes } from "@/lib/settings/visibility";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -143,13 +144,16 @@ export default async function RootLayout({ children }) {
   const settings = await getSettings();
   const organizationSchema = buildOrganizationSchema(settings);
   const hidden = hiddenRoutes(getVisibility(settings));
+  // Preloaded because it is the banner on most inner pages, and it is
+  // whatever the dashboard has set rather than a fixed file.
+  const pageBanner = await siteImage("pageBanner");
   return (
     <html lang="en" dir="ltr" className={inter.variable}>
       <head>
         <link
           rel="preload"
           as="image"
-          href="/images/faden/image-05.jpg"
+          href={pageBanner}
           fetchPriority="high"
         />
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />

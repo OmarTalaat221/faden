@@ -3,6 +3,7 @@ import ContactSection from "@/sections/contact/contact-section";
 import MapSection from "@/sections/contact/map-section";
 import PartnerContactSection from "@/sections/contact/partner-contact-section";
 import { getContactPageData } from "@/lib/contact/data";
+import { siteImage } from "@/lib/site-images";
 
 export const metadata = {
   title: "Contact Us",
@@ -23,7 +24,7 @@ export default async function ContactPage() {
 
       <ContactSection info={data.info} form={data.form} />
 
-      <PartnerContactSection />
+      <PartnerContactSection logo={await siteImage("partnerLogo")} />
 
       <MapSection map={data.map} />
     </>

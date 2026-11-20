@@ -15,7 +15,6 @@ export const DEMO_PARTNER_CONTACT = {
   name: "Global Energy SAE",
   caption:
     "The partner on joint work in the Kingdom. For anything FADEN is delivering, the details above reach the project team directly.",
-  logo: "/images/faden/partner-global-energy.webp",
   website: "https://globalenergy-eg.com/",
   websiteLabel: "globalenergy-eg.com",
   items: [

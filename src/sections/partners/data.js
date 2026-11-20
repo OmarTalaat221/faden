@@ -92,22 +92,14 @@ export const partnersData = {
 };
 
 import { apiGet } from "@/lib/api";
+import { siteImage } from "@/lib/site-images";
 
-// Demo photo for the partner, shown until a real one is uploaded in the
-// dashboard (Partners -> Partner Intro -> Photo). An uploaded photo always
-// wins; delete this constant and the fallback below once one is set.
-// A landmark build rather than one of the three partner snapshots: the
-// section has one photo and it carries the whole band, so it has to be the
-// strongest image in the library.
-const DEMO_PARTNER_IMAGE = "/images/faden/projects-section-1.webp";
-
-// The partner logo saved in the dashboard is a square badge: the mark sits
-// above a small wordmark inside a wide white margin, so at logo size the
-// words are unreadable and the tile is mostly empty. The partner's own
-// horizontal lockup is used instead until a wide, trimmed logo is uploaded
-// (Partners -> Partner Intro -> Logo). Delete this constant and the line
-// below once one is.
-const DEMO_PARTNER_LOGO = "/images/faden/partner-global-energy.webp";
+// The partner's photo falls back to the one set in Site Settings -> Images
+// until one is uploaded here (Partners -> Partner Intro -> Photo).
+//
+// The logo always comes from Site Settings rather than from this record: the
+// one saved against the partner is a square badge whose wordmark cannot be
+// read at logo size. Set a wide, trimmed logo in Site Settings -> Images.
 
 /**
  * The partner record, used by /partners and by the Partners band on the
@@ -120,8 +112,8 @@ export async function getPartners() {
     ...data,
     intro: {
       ...data.intro,
-      logo: DEMO_PARTNER_LOGO,
-      image: data.intro.image || DEMO_PARTNER_IMAGE,
+      logo: await siteImage("partnerLogo"),
+      image: data.intro.image || (await siteImage("partnerPhoto")),
       imageAlt: data.intro.imageAlt || data.intro.title,
     },
   };

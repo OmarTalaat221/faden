@@ -1,18 +1,21 @@
 ﻿import Container from "@/components/layout/container";
 import ButtonLink from "@/components/ui/button-link";
+import { siteImage } from "@/lib/site-images";
 
-export default function CtaSection({
+export default async function CtaSection({
   title = "Ready to Start Your Project?",
   subtitle = "Contact us today for a personalized consultation, and let's bring your construction vision to life.",
-  backgroundImage = "/images/faden/start-project-section.webp",
+  backgroundImage,
   primaryButton = { label: "Contact Us", href: "#contact" },
   secondaryButton = { label: "View Projects", href: "#projects" },
 }) {
+  const background = backgroundImage || (await siteImage("ctaBackground"));
+
   return (
     <section
       className="relative isolate overflow-hidden py-10 text-white sm:py-14"
       style={{
-        backgroundImage: `linear-gradient(rgba(15, 15, 15, 0.62), rgba(15, 15, 15, 0.62)), url('${backgroundImage}')`,
+        backgroundImage: `linear-gradient(rgba(15, 15, 15, 0.62), rgba(15, 15, 15, 0.62)), url('${background}')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
