@@ -1,6 +1,8 @@
 ﻿import RevealImage from "@/components/common/reveal-image";
 import Container from "@/components/layout/container";
 import Image from "next/image";
+import DownloadButton from "@/components/common/download-button";
+import { siteDocument } from "@/lib/site-images";
 import { getAboutOverview } from "./data";
 
 // A paragraph is either rich text (parts, some highlighted) as authored in
@@ -11,7 +13,10 @@ function toParts(paragraph) {
 }
 
 export default async function OverviewIntro() {
-  const overviewData = await getAboutOverview();
+  const [overviewData, companyProfile] = await Promise.all([
+    getAboutOverview(),
+    siteDocument("companyProfile"),
+  ]);
   const { intro } = overviewData;
 
   // Without a photo the copy runs the full width rather than leaving a gap.
@@ -58,6 +63,16 @@ export default async function OverviewIntro() {
                   )}
                 </p>
               ))}
+              {/* The profile sits with the copy rather than in a band of its
+                  own: someone who has just read who the company is is the
+                  person who wants the full document. */}
+              {companyProfile && (
+                <div className="pt-2">
+                  <DownloadButton href={companyProfile}>
+                    Download the company profile
+                  </DownloadButton>
+                </div>
+              )}
             </div>
 
             {hasImage && (

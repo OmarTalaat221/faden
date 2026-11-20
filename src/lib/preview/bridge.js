@@ -2,24 +2,20 @@
 //
 // The dashboard posts the record it is editing into the preview iframe on
 // every keystroke; the preview answers once it is ready, so the dashboard
-// knows when to start. Nothing here reaches the network or storage: a message
-// only changes what is drawn on the person's own screen.
+// knows when to start.
+//
+// Any origin may post. That is deliberate: the dashboard moves between a
+// developer's machine, a preview deployment and its own domain, and an
+// allowlist that has to be kept in step with all three fails closed at the
+// worst moment - on the day it is deployed - with no way for anyone but a
+// developer to fix it. Accepting a message is safe because it does nothing
+// but change what is drawn on that one person's screen: it is never saved,
+// never sent anywhere, and holds nothing the sender did not already have.
+//
+// The one thing a stranger could do is frame this page, feed it invented
+// copy and photograph the result as if it were the real site. The badge the
+// preview draws over itself is what answers that, and it is why the badge is
+// not optional and not removable from the dashboard's side.
 
 export const PREVIEW_MESSAGE = "faden:preview:draft";
 export const PREVIEW_READY = "faden:preview:ready";
-
-// Origins allowed to drive a preview. The dashboard runs on its own host, so
-// it has to be named; same-origin is always allowed for local testing.
-const CONFIGURED = (process.env.NEXT_PUBLIC_PREVIEW_ORIGINS || "")
-  .split(",")
-  .map((origin) => origin.trim())
-  .filter(Boolean);
-
-const LOCAL = ["http://localhost:5173", "http://localhost:5174"];
-
-export function isAllowedOrigin(origin) {
-  if (typeof window !== "undefined" && origin === window.location.origin) {
-    return true;
-  }
-  return CONFIGURED.includes(origin) || LOCAL.includes(origin);
-}

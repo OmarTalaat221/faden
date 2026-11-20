@@ -95,3 +95,38 @@ export async function siteImage(key) {
 
   return FALLBACKS[key] ?? null;
 }
+
+// Files, rather than pictures: things a visitor downloads. Same idea and the
+// same JSON column, under branding.documents.
+//
+// The company profile ships in /public for now. The API's upload endpoint
+// accepts images only, so a PDF cannot be uploaded from the dashboard until
+// it accepts documents too - see docs/BACKEND-REQUESTS.md.
+export const SITE_DOCUMENTS = [
+  {
+    key: "companyProfile",
+    label: "Company profile (PDF)",
+    hint: "Offered as a download on the About page. Clear it and the button disappears.",
+    fallback: "/docs/faden-company-profile-2026.pdf",
+    optional: true,
+  },
+];
+
+const DOCUMENT_FALLBACKS = Object.fromEntries(
+  SITE_DOCUMENTS.map((doc) => [doc.key, doc.fallback]),
+);
+
+/** One downloadable file by key, or null when it has been cleared. */
+export async function siteDocument(key) {
+  const settings = await getSettings();
+  const saved = settings?.branding?.documents?.[key];
+
+  if (typeof saved === "string") {
+    const trimmed = saved.trim();
+    if (trimmed) return trimmed;
+    const entry = SITE_DOCUMENTS.find((doc) => doc.key === key);
+    if (entry?.optional) return null;
+  }
+
+  return DOCUMENT_FALLBACKS[key] ?? null;
+}
