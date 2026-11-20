@@ -1,12 +1,12 @@
+"use client";
+
 import Container from "@/components/layout/container";
-import { getEquipmentList, getEquipmentPageMeta } from "@/lib/equipment/data";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
-export default async function HeavyEquipmentSection() {
-  const EQUIPMENT_LIST = await getEquipmentList();
-  const EQUIPMENT_PAGE_META = await getEquipmentPageMeta();
-  const { eyebrow, subtitle } = EQUIPMENT_PAGE_META.heavy;
+export default function HeavyEquipmentSection({ equipment = [], heavy = {} }) {
+  const EQUIPMENT_LIST = equipment;
+  const { eyebrow, subtitle } = heavy;
 
   return (
     <section data-preview-anchor="items" className="relative overflow-hidden pb-10 sm:pb-14 md:pb-16 lg:pb-18">

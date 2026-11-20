@@ -1,9 +1,9 @@
-import Container from "@/components/layout/container";
-import { getEquipmentPageMeta } from "@/lib/equipment/data";
+"use client";
 
-export default async function IntroSection() {
-  const EQUIPMENT_PAGE_META = await getEquipmentPageMeta();
-  const { eyebrow, subtitle, description } = EQUIPMENT_PAGE_META.intro;
+import Container from "@/components/layout/container";
+
+export default function IntroSection({ intro = {} }) {
+  const { eyebrow, subtitle, description } = intro;
 
   return (
     <section data-preview-anchor="intro" className="relative overflow-hidden py-8 sm:py-10 md:py-10 lg:py-14">

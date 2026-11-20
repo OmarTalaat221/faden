@@ -1,7 +1,7 @@
 import HeavyEquipmentSection from "./heavy-equipment-section";
 import IntroSection from "./intro-section";
 
-export default function EquipmentPage() {
+export default function EquipmentPage({ equipment = [], meta = {} }) {
   return (
     <>
       {/* <PageBanner
@@ -10,9 +10,9 @@ export default function EquipmentPage() {
         backgroundImage="/images/faden/clients-banner.webp"
       /> */}
 
-      <IntroSection />
+      <IntroSection intro={meta.intro} />
 
-      <HeavyEquipmentSection />
+      <HeavyEquipmentSection equipment={equipment} heavy={meta.heavy} />
     </>
   );
 }

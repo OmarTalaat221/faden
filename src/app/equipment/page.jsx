@@ -1,5 +1,9 @@
 import { requirePageVisible } from "@/lib/settings/data";
 import EquipmentPage from "@/sections/equipment/equipment-page";
+import {
+  getEquipmentList,
+  getEquipmentPageMeta,
+} from "@/lib/equipment/data";
 
 export const metadata = {
   title: "Our Equipment",
@@ -28,5 +32,10 @@ export const metadata = {
 export default async function Page() {
   await requirePageVisible("equipment");
 
-  return <EquipmentPage />;
+  const [equipment, meta] = await Promise.all([
+    getEquipmentList(),
+    getEquipmentPageMeta(),
+  ]);
+
+  return <EquipmentPage equipment={equipment} meta={meta} />;
 }

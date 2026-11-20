@@ -1,9 +1,10 @@
+"use client";
+
 import Container from "@/components/layout/container";
-import { getClientsList } from "@/lib/clients/data";
 import Image from "next/image";
 
-export default async function ClientsGridSection() {
-  const CLIENTS_LIST = await getClientsList();
+export default function ClientsGridSection({ clients = [] }) {
+  const CLIENTS_LIST = clients;
   return (
     <section data-preview-anchor="items" className="relative overflow-hidden pb-10 sm:pb-14 md:pb-16">
       <Container className="relative z-10">
