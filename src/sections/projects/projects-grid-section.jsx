@@ -8,7 +8,7 @@ import ProjectsFilterPanel from "./projects-filter-panel";
 import ProjectsMobileChips from "./projects-mobile-chips";
 import ProjectsPagination from "./projects-pagination";
 import ProjectsAudienceToggle from "./projects-audience-toggle";
-import { projectsFor } from "@/lib/projects/audience";
+import { AUDIENCES, projectsFor } from "@/lib/projects/audience";
 import { copyForAudience } from "@/lib/projects/audience-copy";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
@@ -89,8 +89,26 @@ export default function ProjectsGridSection({ projects: PROJECTS_ITEMS = [], cat
     startIdx + ITEMS_PER_PAGE,
   );
 
-  const totalCount = PROJECTS_ITEMS.length;
+  // What each tab is worth before any filter narrows it. These are the
+  // numbers the rail prints, so the header does not need a results row of
+  // its own until a filter is actually on.
+  const audienceCounts = useMemo(
+    () => ({
+      all: PROJECTS_ITEMS.length,
+      ...Object.fromEntries(
+        AUDIENCES.map((a) => [
+          a.key,
+          projectsFor(PROJECTS_ITEMS, a.key).length,
+        ]),
+      ),
+    }),
+    [PROJECTS_ITEMS],
+  );
+
+  const audienceTotal = audienceCounts[audience ?? "all"] ?? PROJECTS_ITEMS.length;
   const shownCount = filteredProjects.length;
+  // Only worth saying once a filter has cut into the tab's own count.
+  const narrowed = shownCount !== audienceTotal;
 
   const handlePageChange = (newPage) => {
     setPage(newPage);
@@ -108,45 +126,57 @@ export default function ProjectsGridSection({ projects: PROJECTS_ITEMS = [], cat
       <Container className="relative z-10">
         <div id="projects-grid-top" className="scroll-mt-24" />
 
-        {/* Who the work was for: the split the portfolio opens on, and the
-            line that answers for whoever picked it. */}
-        <div className="mb-6 sm:mb-8">
-          <ProjectsAudienceToggle value={audience} onChange={setAudience} />
-
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.div
-              key={audience ?? "all"}
-              initial={reduceMotion ? false : { opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={reduceMotion ? undefined : { opacity: 0, y: -6 }}
-              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-5 max-w-2xl"
-            >
-              <h2 className="text-base font-semibold text-foreground sm:text-lg md:text-xl">
-                {audienceCopy.title}
-              </h2>
-              <p className="mt-1.5 text-[13px] leading-relaxed text-muted-foreground sm:text-sm md:text-[15px]">
-                {audienceCopy.body}
-              </p>
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-        {/* Top bar: Results counter + Controls (desktop/tablet only) */}
-        <div className="hidden md:flex flex-wrap items-center justify-between gap-3 sm:gap-4">
-          <p className="text-[13px] sm:text-[14px] text-muted-foreground">
-            Showing{" "}
-            <span className="font-semibold text-foreground">{shownCount}</span>{" "}
-            of{" "}
-            <span className="font-semibold text-foreground">{totalCount}</span>{" "}
-            results
-          </p>
-          <ProjectsControls
-            sortValue={sortValue}
-            onSortChange={setSortValue}
-            onFilterClick={() => setFilterOpen(true)}
-            activeFiltersCount={activeFiltersCount}
+        {/* Who the work was for: the rail the portfolio opens on, the line
+            that answers for whoever picked it, and the controls beside it.
+            Copy on the left, controls on the right of the same row, so the
+            header is two bands instead of four and the right half of the
+            page is not left empty. */}
+        <div className="mb-7 sm:mb-9">
+          <ProjectsAudienceToggle
+            value={audience}
+            onChange={setAudience}
+            counts={audienceCounts}
           />
+
+          <div className="mt-6 flex flex-col gap-5 md:flex-row md:items-start md:justify-between md:gap-12">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={audience ?? "all"}
+                initial={reduceMotion ? false : { opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={reduceMotion ? undefined : { opacity: 0, y: -6 }}
+                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                className="md:max-w-[36rem]"
+              >
+                <h2 className="text-[20px] font-semibold leading-[1.15] tracking-[-0.02em] text-foreground sm:text-[23px] md:text-[26px]">
+                  {audienceCopy.title}
+                </h2>
+                <p className="mt-2.5 text-[13px] leading-relaxed text-muted-foreground sm:text-[14px] md:text-[15px]">
+                  {audienceCopy.body}
+                </p>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Aligned to the top of the copy rather than its last line, so
+                a longer or shorter paragraph never shifts the buttons. */}
+            <div className="hidden shrink-0 md:flex md:flex-col md:items-end md:gap-2.5">
+              <ProjectsControls
+                sortValue={sortValue}
+                onSortChange={setSortValue}
+                onFilterClick={() => setFilterOpen(true)}
+                activeFiltersCount={activeFiltersCount}
+              />
+              {narrowed && (
+                <p className="text-[12px] text-muted-foreground">
+                  Showing{" "}
+                  <span className="font-semibold text-foreground">
+                    {shownCount}
+                  </span>{" "}
+                  of {audienceTotal}
+                </p>
+              )}
+            </div>
+          </div>
         </div>
 
         {/* Mobile: chips + sort */}
@@ -154,14 +184,21 @@ export default function ProjectsGridSection({ projects: PROJECTS_ITEMS = [], cat
           <ProjectsMobileChips filters={filters} onChange={setFilters} categories={categories} />
           <div className="flex items-center justify-between gap-3">
             <p className="text-[13px] text-muted-foreground">
-              <span className="font-semibold text-foreground">
-                {shownCount}
-              </span>{" "}
-              of{" "}
-              <span className="font-semibold text-foreground">
-                {totalCount}
-              </span>{" "}
-              results
+              {narrowed ? (
+                <>
+                  <span className="font-semibold text-foreground">
+                    {shownCount}
+                  </span>{" "}
+                  of {audienceTotal} results
+                </>
+              ) : (
+                <>
+                  <span className="font-semibold text-foreground">
+                    {audienceTotal}
+                  </span>{" "}
+                  results
+                </>
+              )}
             </p>
             <ProjectsControls
               sortValue={sortValue}

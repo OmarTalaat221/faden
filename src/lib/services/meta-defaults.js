@@ -8,11 +8,11 @@ export const DEMO_SERVICES_INTRO = {
   subtitle:
     "From the first drawing to the final handover, one team answers for the whole build.",
   paragraph:
-    "Forty-eight years across Saudi Arabia and Egypt, more than a thousand professionals on site, and a record that runs from landmark towers and hospitals to private residences and national infrastructure. Whether the brief is a master plan or a single exceptional home, it is led by the same senior team, held to the same standard, under one contract and one point of accountability.",
+    "Forty-eight years across the Kingdom, more than a thousand professionals on site, and a record that runs from landmark towers and hospitals to private residences and national infrastructure. Whether the brief is a master plan or a single exceptional home, it is led by the same senior team, held to the same standard, under one contract and one point of accountability.",
   highlights: [
     "Established 1976",
     "1,000+ professionals",
-    "Riyadh · Cairo",
+    "Across the Kingdom",
     "One point of accountability",
   ],
 };

@@ -19,19 +19,43 @@ const UPLOADS_ORIGIN = API_URL.replace(/\/api$/, "");
 // off, together with the dynamic export in src/app/layout.js.
 const FETCH_OPTIONS = { cache: "no-store" };
 
-/**
- * Rewrites every "/uploads/..." path in a fetched payload to an absolute URL
- * on the API host, so components can render `src` as-is no matter whether an
- * image was shipped with the site or uploaded from the dashboard.
- */
-function resolveUploads(value) {
-  if (typeof value === "string") {
-    return value.startsWith("/uploads/") ? UPLOADS_ORIGIN + value : value;
+// The site no longer presents Egypt as a market, but some copy saved in the
+// dashboard still names it alongside Saudi Arabia. Only the conjunction forms
+// are rewritten, so nothing else in a sentence moves. This is a stopgap: once
+// the strings are edited in the dashboard, delete EGYPT_PAIRINGS and the
+// branch that uses it.
+const EGYPT_PAIRINGS = [
+  [/Saudi Arabia and Egypt/g, "Saudi Arabia"],
+  [/Egypt and Saudi Arabia/g, "Saudi Arabia"],
+  [/KSA and Egypt/g, "KSA"],
+  [/Egypt and KSA/g, "KSA"],
+  [/the Kingdom and Egypt/g, "the Kingdom"],
+];
+
+function dropEgypt(text) {
+  let out = text;
+  for (const [pattern, replacement] of EGYPT_PAIRINGS) {
+    out = out.replace(pattern, replacement);
   }
-  if (Array.isArray(value)) return value.map(resolveUploads);
+  return out;
+}
+
+/**
+ * Walks a fetched payload once and fixes up every string in it: "/uploads/..."
+ * paths become absolute URLs on the API host, so components can render `src`
+ * as-is whether an image shipped with the site or was uploaded from the
+ * dashboard, and copy that still pairs Egypt with Saudi Arabia loses the pair.
+ */
+function normalizeStrings(value) {
+  if (typeof value === "string") {
+    return value.startsWith("/uploads/")
+      ? UPLOADS_ORIGIN + value
+      : dropEgypt(value);
+  }
+  if (Array.isArray(value)) return value.map(normalizeStrings);
   if (value && typeof value === "object") {
     const out = {};
-    for (const [k, v] of Object.entries(value)) out[k] = resolveUploads(v);
+    for (const [k, v] of Object.entries(value)) out[k] = normalizeStrings(v);
     return out;
   }
   return value;
@@ -73,5 +97,5 @@ export async function apiGet(path) {
   }
 
   console.log(`[api] GET ${path} -> ${res.status} ${describe(data)} (${ms}ms)`);
-  return resolveUploads(data);
+  return normalizeStrings(data);
 }

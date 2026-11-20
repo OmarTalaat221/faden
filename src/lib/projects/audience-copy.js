@@ -9,7 +9,7 @@
 export const AUDIENCE_COPY = {
   all: {
     title: "The full record",
-    body: "Towers, schools, hospitals, treatment plants, road networks and private residences, across the Kingdom and Egypt.",
+    body: "Towers, schools, hospitals, treatment plants, road networks and private residences, built across the Kingdom.",
   },
   corporate: {
     title: "For companies and government",

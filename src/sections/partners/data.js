@@ -14,7 +14,7 @@ export const partnersData = {
     badge: "Strategic Partner \u2014 2024",
     title: "Global Energy SAE",
     description:
-      "In 2024, Faden entered a strategic partnership with Global Energy SAE to revolutionize the construction sector in Saudi Arabia and Egypt. The collaboration aims to deliver engineering excellence, sustainable infrastructure, and integrated project solutions.",
+      "In 2024, Faden entered a strategic partnership with Global Energy SAE to revolutionize the construction sector in Saudi Arabia. The collaboration aims to deliver engineering excellence, sustainable infrastructure, and integrated project solutions.",
     bullets: [
       "Founded in 2010 with expertise in engineering, MEP, and power projects.",
       "Executed over 85 large-scale projects with more than 1,800 professionals.",

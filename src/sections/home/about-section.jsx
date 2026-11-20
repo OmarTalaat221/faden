@@ -57,8 +57,7 @@ export default function AboutSection() {
               <strong className="font-semibold text-brand-primary">
                 Global Energy SAE
               </strong>{" "}
-              to drive innovation and sustainability in the construction sector
-              across Saudi Arabia and Egypt.
+              to drive innovation and sustainability in the construction sector.
             </p>
             <p>
               Building excellence since 1976 — Innovating today, shaping

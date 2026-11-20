@@ -16,7 +16,7 @@ export const metadata = {
   openGraph: {
     title: "Partners | FADEN Contracting",
     description:
-      "Building success together with our trusted partners. Strategic partnerships driving excellence in construction across Saudi Arabia and Egypt.",
+      "Building success together with our trusted partners. Strategic partnerships driving excellence in construction across Saudi Arabia.",
     url: "/partners",
     type: "website",
   },
