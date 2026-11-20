@@ -25,11 +25,11 @@ const FETCH_OPTIONS = { cache: "no-store" };
 // the strings are edited in the dashboard, delete EGYPT_PAIRINGS and the
 // branch that uses it.
 const EGYPT_PAIRINGS = [
-  [/Saudi Arabia and Egypt/g, "Saudi Arabia"],
-  [/Egypt and Saudi Arabia/g, "Saudi Arabia"],
-  [/KSA and Egypt/g, "KSA"],
-  [/Egypt and KSA/g, "KSA"],
-  [/the Kingdom and Egypt/g, "the Kingdom"],
+  [/Saudi Arabia and Egypt/g, "Saudi Arabia"],
+  [/Egypt and Saudi Arabia/g, "Saudi Arabia"],
+  [/KSA and Egypt/g, "KSA"],
+  [/Egypt and KSA/g, "KSA"],
+  [/the Kingdom and Egypt/g, "the Kingdom"],
 ];
 
 function dropEgypt(text) {
