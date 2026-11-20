@@ -92,14 +92,17 @@ export const partnersData = {
 };
 
 import { apiGet } from "@/lib/api";
-import { siteImage } from "@/lib/site-images";
 
-// The partner's photo falls back to the one set in Site Settings -> Images
-// until one is uploaded here (Partners -> Partner Intro -> Photo).
+// What the site shows until something is uploaded on the Partners page.
 //
-// The logo always comes from Site Settings rather than from this record: the
-// one saved against the partner is a square badge whose wordmark cannot be
-// read at logo size. Set a wide, trimmed logo in Site Settings -> Images.
+// The photo: a landmark build rather than one of the three partner snapshots,
+// because the band has one picture and it carries the whole section.
+//
+// The logo: the partner's wide lockup. The one saved against the partner is a
+// square badge whose wordmark cannot be read at logo size, so the Partners
+// page asks for a wide, trimmed one and this stands in until there is one.
+const DEMO_PARTNER_IMAGE = "/images/faden/projects-section-1.webp";
+const DEMO_PARTNER_LOGO = "/images/faden/partner-global-energy.webp";
 
 /**
  * The partner record, used by /partners and by the Partners band on the
@@ -112,8 +115,8 @@ export async function getPartners() {
     ...data,
     intro: {
       ...data.intro,
-      logo: await siteImage("partnerLogo"),
-      image: data.intro.image || (await siteImage("partnerPhoto")),
+      logo: data.intro.logo || DEMO_PARTNER_LOGO,
+      image: data.intro.image || DEMO_PARTNER_IMAGE,
       imageAlt: data.intro.imageAlt || data.intro.title,
     },
   };

@@ -24,9 +24,18 @@ export const DEMO_SERVICES_CORE_HEADING = {
 };
 
 /** The page meta with the demo copy filled in where the API has nothing. */
+// Shown behind the title of a service that has no banner of its own. Stored
+// on the Services page record (banner.fallbackImage), editable from the
+// Services page settings, and this file stands in until one is set.
+export const DEMO_SERVICE_BANNER = "/images/faden/our-services-banner.webp";
+
 export function withServicesDefaults(meta) {
   return {
     ...meta,
+    banner: {
+      ...(meta?.banner ?? {}),
+      fallbackImage: meta?.banner?.fallbackImage || DEMO_SERVICE_BANNER,
+    },
     intro: { ...DEMO_SERVICES_INTRO, ...(meta?.intro ?? {}) },
     coreHeading: { ...DEMO_SERVICES_CORE_HEADING, ...(meta?.coreHeading ?? {}) },
   };

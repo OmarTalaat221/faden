@@ -128,10 +128,11 @@ so anything that is not an image is rejected.
 
 Two things need this.
 
-**The company profile PDF.** The About page now offers it as a download. It
-ships in the site's `public/docs/` folder because it could not be uploaded.
-The dashboard shows the field as a plain text box with a note saying only
-pictures can be uploaded.
+**The company profile PDF.** The About page now offers it as a download, and
+it is stored on the About record (`about_overview.intro.companyProfile`, a
+JSON column, so no migration). It ships in the site's `public/docs/` folder
+and stands in until one is set. The dashboard shows the field on the About
+page as a plain text box, with a note saying only pictures can be uploaded.
 
 **Everything in item 4 below.**
 
@@ -140,8 +141,8 @@ limit — the current profile is 4.4 MB), or add a second route such as
 `POST /api/dashboard/uploads/document`. Either is fine; the dashboard will be
 pointed at whichever you pick.
 
-**Then delete.** Site: the `/public/docs` fallback in `SITE_DOCUMENTS`
-(`src/lib/site-images.js`). Dashboard: the note in the Images and files tab,
+**Then delete.** Site: `DEMO_COMPANY_PROFILE` in
+`src/sections/about-overview/data.js`. Dashboard: the note on the About page,
 and the text box becomes an upload field.
 
 ---
@@ -170,7 +171,7 @@ never again:
    paths inside `detail`), `services` (`img`, `bannerImage`,
    `ctaBackgroundImage`, and inside `sections`), `gallery`, `equipment`,
    `clients`, `about_overview`, `about_partners`, `about_leadership`,
-   `settings.branding.images`.
+   `services_meta.banner`, `settings.branding.images`.
 2. For each distinct `/images/faden/...` path, read the file from the site
    repo's `public` folder and POST it to the upload endpoint.
 3. Rewrite the record with the `/uploads/media/...` URL that comes back.

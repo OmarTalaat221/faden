@@ -2,7 +2,6 @@
 import Container from "@/components/layout/container";
 import Image from "next/image";
 import DownloadButton from "@/components/common/download-button";
-import { siteDocument } from "@/lib/site-images";
 import { getAboutOverview } from "./data";
 
 // A paragraph is either rich text (parts, some highlighted) as authored in
@@ -13,11 +12,9 @@ function toParts(paragraph) {
 }
 
 export default async function OverviewIntro() {
-  const [overviewData, companyProfile] = await Promise.all([
-    getAboutOverview(),
-    siteDocument("companyProfile"),
-  ]);
+  const overviewData = await getAboutOverview();
   const { intro } = overviewData;
+  const companyProfile = intro.companyProfile;
 
   // Without a photo the copy runs the full width rather than leaving a gap.
   const hasImage = Boolean(intro.image);

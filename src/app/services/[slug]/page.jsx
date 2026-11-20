@@ -3,8 +3,11 @@ import PageBanner from "@/components/common/page-banner";
 import CtaSection from "@/components/common/cta-section";
 import SectionRenderer from "@/sections/service-detail/section-renderer";
 import KeyProjectsSection from "@/sections/service-detail/key-projects-section";
-import { getServiceBySlug, getAllServiceSlugs } from "@/lib/services/data";
-import { siteImage } from "@/lib/site-images";
+import {
+  getServiceBySlug,
+  getAllServiceSlugs,
+  getServicesPageMeta,
+} from "@/lib/services/data";
 
 export async function generateStaticParams() {
   const slugs = await getAllServiceSlugs();
@@ -32,7 +35,12 @@ export async function generateMetadata({ params }) {
 
 export default async function ServiceDetailPage({ params }) {
   const { slug } = await params;
-  const service = await getServiceBySlug(slug);
+  // The Services page record carries the banner a service falls back to when
+  // it has none of its own.
+  const [service, servicesMeta] = await Promise.all([
+    getServiceBySlug(slug),
+    getServicesPageMeta(),
+  ]);
 
   if (!service) notFound();
 
@@ -48,7 +56,7 @@ export default async function ServiceDetailPage({ params }) {
       <PageBanner
         title={service.name}
         subtitle={service.bannerSubtitle || service.description}
-        backgroundImage={service.bannerImage || (await siteImage("servicesBanner"))}
+        backgroundImage={service.bannerImage || servicesMeta.banner.fallbackImage}
       />
 
       {beforeProjects.map((section) => (

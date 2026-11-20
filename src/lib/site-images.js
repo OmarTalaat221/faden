@@ -1,5 +1,10 @@
-// The images the site used to hardcode, in one place, each replaceable from
-// the dashboard.
+// The pictures that are the same wherever you are on the site, each
+// replaceable from Site Settings.
+//
+// Only site-wide pictures belong here. Anything that belongs to one page or
+// one record - a service's banner, the About photo, the partner's logo -
+// lives with that record instead, so the person changing it goes to the page
+// they are changing.
 //
 // They are stored under `branding.images` on Site Settings. That column is
 // JSON and the API deep-merges whatever it is sent, so a new key needs no
@@ -27,30 +32,6 @@ export const SITE_IMAGES = [
     label: "Call to action background",
     hint: "The 'Ready to start your project?' band at the foot of most pages.",
     fallback: "/images/faden/start-project-section.webp",
-  },
-  {
-    key: "servicesBanner",
-    label: "Service page banner",
-    hint: "Behind the title on a service that has no banner of its own.",
-    fallback: "/images/faden/our-services-banner.webp",
-  },
-  {
-    key: "partnerLogo",
-    label: "Partner logo",
-    hint: "Shown beside FADEN's own mark on the homepage and the contact page.",
-    fallback: "/images/faden/partner-global-energy.webp",
-  },
-  {
-    key: "partnerPhoto",
-    label: "Partner photo",
-    hint: "The photo in the Partners band, used until one is uploaded on the Partners page.",
-    fallback: "/images/faden/projects-section-1.webp",
-  },
-  {
-    key: "aboutOverview",
-    label: "About overview photo",
-    hint: "Used until one is uploaded on the About page.",
-    fallback: "/images/faden/about-us-section.webp",
   },
   {
     key: "visionMark",
@@ -96,37 +77,3 @@ export async function siteImage(key) {
   return FALLBACKS[key] ?? null;
 }
 
-// Files, rather than pictures: things a visitor downloads. Same idea and the
-// same JSON column, under branding.documents.
-//
-// The company profile ships in /public for now. The API's upload endpoint
-// accepts images only, so a PDF cannot be uploaded from the dashboard until
-// it accepts documents too - see docs/BACKEND-REQUESTS.md.
-export const SITE_DOCUMENTS = [
-  {
-    key: "companyProfile",
-    label: "Company profile (PDF)",
-    hint: "Offered as a download on the About page. Clear it and the button disappears.",
-    fallback: "/docs/faden-company-profile-2026.pdf",
-    optional: true,
-  },
-];
-
-const DOCUMENT_FALLBACKS = Object.fromEntries(
-  SITE_DOCUMENTS.map((doc) => [doc.key, doc.fallback]),
-);
-
-/** One downloadable file by key, or null when it has been cleared. */
-export async function siteDocument(key) {
-  const settings = await getSettings();
-  const saved = settings?.branding?.documents?.[key];
-
-  if (typeof saved === "string") {
-    const trimmed = saved.trim();
-    if (trimmed) return trimmed;
-    const entry = SITE_DOCUMENTS.find((doc) => doc.key === key);
-    if (entry?.optional) return null;
-  }
-
-  return DOCUMENT_FALLBACKS[key] ?? null;
-}
