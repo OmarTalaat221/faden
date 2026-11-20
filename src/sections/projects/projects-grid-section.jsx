@@ -9,6 +9,8 @@ import ProjectsMobileChips from "./projects-mobile-chips";
 import ProjectsPagination from "./projects-pagination";
 import ProjectsAudienceToggle from "./projects-audience-toggle";
 import { projectsFor } from "@/lib/projects/audience";
+import { copyForAudience } from "@/lib/projects/audience-copy";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
 const EMPTY_FILTERS = {
   categories: [],
@@ -25,6 +27,8 @@ export default function ProjectsGridSection({ projects: PROJECTS_ITEMS = [], cat
   const [page, setPage] = useState(1);
   // null means everyone: the portfolio opens on the whole record.
   const [audience, setAudience] = useState(null);
+  const reduceMotion = useReducedMotion();
+  const audienceCopy = copyForAudience(audience);
 
   // Reset to page 1 when filters/sort change
   useEffect(() => {
@@ -104,9 +108,28 @@ export default function ProjectsGridSection({ projects: PROJECTS_ITEMS = [], cat
       <Container className="relative z-10">
         <div id="projects-grid-top" className="scroll-mt-24" />
 
-        {/* Who the work was for — the split the portfolio opens on */}
+        {/* Who the work was for: the split the portfolio opens on, and the
+            line that answers for whoever picked it. */}
         <div className="mb-6 sm:mb-8">
           <ProjectsAudienceToggle value={audience} onChange={setAudience} />
+
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={audience ?? "all"}
+              initial={reduceMotion ? false : { opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={reduceMotion ? undefined : { opacity: 0, y: -6 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-5 max-w-2xl"
+            >
+              <h2 className="text-base font-semibold text-foreground sm:text-lg md:text-xl">
+                {audienceCopy.title}
+              </h2>
+              <p className="mt-1.5 text-[13px] leading-relaxed text-muted-foreground sm:text-sm md:text-[15px]">
+                {audienceCopy.body}
+              </p>
+            </motion.div>
+          </AnimatePresence>
         </div>
 
         {/* Top bar: Results counter + Controls (desktop/tablet only) */}
