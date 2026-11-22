@@ -3,26 +3,30 @@
 import Container from "@/components/layout/container";
 import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
+import { useState } from "react";
 
 /**
  * The markets FADEN builds in.
  *
- * This sat directly under the service cards and was built the same way: a
- * dark tile, a photo behind it, the name in white on a scrim, the same
- * rounded corner. Two bands with the same anatomy read as one long gallery,
- * and a visitor stopped being able to tell which was which.
+ * This was a grid of photo tiles sitting directly under the service cards,
+ * which are also a grid of photo tiles. Lightening it and moving the name
+ * out of the image was not enough: both were still the same layout family,
+ * and a visitor read the page as one long gallery either way.
  *
- * Every one of those signals is inverted here. The services are the page's
- * destinations, so they stay photo-led and dark with the name inside the
- * image. A sector is a label with a picture beside it, nothing to click, so
- * it is text-led and light, with the name under the photo in the page's own
- * ink. Nothing has been taken away; the two just no longer look like the
- * same thing twice.
+ * So the family changes, not the skin. The services are a grid of cards you
+ * click into. A sector is a market we work in, with nothing behind it, and
+ * that is a list. It is read as a list, down the right, with one large frame
+ * on the left showing whichever name you are on.
+ *
+ * The photographs end up larger than they were, not smaller.
  */
 export default function SectorsSection({ sectors }) {
   const reduceMotion = useReducedMotion();
+  const [active, setActive] = useState(0);
 
   if (!sectors || !sectors.items?.length) return null;
+
+  const items = sectors.items;
 
   return (
     <section
@@ -41,49 +45,99 @@ export default function SectorsSection({ sectors }) {
           )}
         </div>
 
-        <ul className="mt-8 grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 sm:gap-x-6 md:mt-10 lg:grid-cols-4 lg:gap-x-8">
-          {sectors.items.map((sector, i) => (
-            <motion.li
-              key={sector.title ?? i}
-              initial={reduceMotion ? false : { opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{
-                duration: 0.5,
-                delay: reduceMotion ? 0 : i * 0.05,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-              className="group"
-            >
-              {/* Wider than it is tall, and squared off, so it cannot be
-                  mistaken for a service card at a glance. */}
-              <div className="relative aspect-[3/2] w-full overflow-hidden rounded-[4px] bg-[var(--foreground)]/5">
-                {sector.image && (
-                  <Image
-                    src={sector.image}
-                    alt={sector.title}
-                    fill
-                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
-                  />
-                )}
-              </div>
+        <div className="mt-8 grid gap-8 md:mt-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] lg:items-start lg:gap-14">
+          {/* The frame, on screens wide enough to show it beside the list.
+              It follows whichever name is being read. */}
+          <div className="hidden lg:block lg:sticky lg:top-28">
+            <div className="relative aspect-square w-full overflow-hidden rounded-[4px] bg-[var(--foreground)]/5">
+              {/* All of them are drawn, stacked, and only the opacity moves.
+                  Mounting one at a time left the frame empty for as long as
+                  the next photograph took to arrive, which on a hover list is
+                  every time the reader moves. */}
+              {items.map((sector, i) => (
+                <motion.div
+                  key={sector.title ?? i}
+                  aria-hidden={i !== active}
+                  initial={false}
+                  animate={{ opacity: i === active ? 1 : 0 }}
+                  transition={{
+                    duration: reduceMotion ? 0 : 0.4,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="absolute inset-0"
+                >
+                  {sector.image && (
+                    <Image
+                      src={sector.image}
+                      alt={i === active ? sector.title : ""}
+                      fill
+                      sizes="(min-width: 1024px) 40vw, 100vw"
+                      className="object-cover"
+                    />
+                  )}
+                </motion.div>
+              ))}
+            </div>
+          </div>
 
-              {/* The name sits on the page, in the page's ink, under a rule
-                  that draws itself on hover. */}
-              <span
-                aria-hidden
-                className="mt-4 block h-px w-full bg-[var(--foreground)]/12"
-              >
-                <span className="block h-px w-full origin-left scale-x-0 bg-[var(--brand-primary)] transition-transform duration-500 ease-out group-hover:scale-x-100" />
-              </span>
+          {/* The list itself. Rows, not tiles. */}
+          <ul className="border-t border-[var(--foreground)]/12">
+            {items.map((sector, i) => {
+              const isActive = i === active;
 
-              <h3 className="mt-3 text-[13px] font-semibold leading-snug tracking-[-0.01em] text-[var(--foreground)] sm:text-sm md:text-[15px] lg:text-base">
-                {sector.title}
-              </h3>
-            </motion.li>
-          ))}
-        </ul>
+              return (
+                <li key={sector.title ?? i}>
+                  <button
+                    type="button"
+                    // Reading a name is what selects it. These lead nowhere,
+                    // so a click has nothing to do and the button exists to
+                    // make the list reachable by keyboard.
+                    onMouseEnter={() => setActive(i)}
+                    onFocus={() => setActive(i)}
+                    aria-current={isActive ? "true" : undefined}
+                    className="group relative flex w-full items-center gap-4 border-b border-[var(--foreground)]/12 py-4 text-left sm:gap-5 sm:py-5"
+                  >
+                    {/* The thumbnail carries the list on phones, where there
+                        is no hover and the frame beside it is not drawn. */}
+                    <span className="relative h-14 w-16 shrink-0 overflow-hidden rounded-[4px] bg-[var(--foreground)]/5 sm:h-16 sm:w-20 lg:hidden">
+                      {sector.image && (
+                        <Image
+                          src={sector.image}
+                          alt=""
+                          fill
+                          sizes="80px"
+                          className="object-cover"
+                        />
+                      )}
+                    </span>
+
+                    <span
+                      className={[
+                        "min-w-0 flex-1 text-[15px] font-semibold leading-snug tracking-[-0.01em] transition-colors duration-300 sm:text-[17px] md:text-[19px] lg:text-xl",
+                        // Only where the frame is drawn: on a phone there
+                        // is nothing for the mark to point at, and a red row
+                        // with no reason reads as an error.
+                        isActive
+                          ? "text-[var(--foreground)] lg:text-[var(--brand-primary)]"
+                          : "text-[var(--foreground)]",
+                      ].join(" ")}
+                    >
+                      {sector.title}
+                    </span>
+
+                    <span
+                      aria-hidden
+                      className={[
+                        "absolute inset-x-0 bottom-[-1px] h-px origin-left bg-[var(--brand-primary)] transition-transform duration-500 ease-out",
+                        isActive ? "scale-x-0 lg:scale-x-100" : "scale-x-0",
+                      ].join(" ")}
+                    />
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </Container>
     </section>
   );
