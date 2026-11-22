@@ -1,24 +1,22 @@
 "use client";
 
 import Container from "@/components/layout/container";
-import { audiencesOf, servicesFor } from "@/lib/services/audience";
 import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo } from "react";
 
 /**
- * The catalogue, split by who it is for. A company and a private owner do not
- * want to read the same list, so each gets a band of its own instead of
- * sharing one behind a switch.
+ * The catalogue. One list: everything FADEN does, for whoever is asking.
  *
- * The two are not symmetric on purpose: a company can commission anything a
- * private client can, so the corporate band is the whole catalogue, while the
- * private band is the subset we take on for individual owners.
+ * It was split into a band for companies and a band for private clients. The
+ * split stays on the projects page, where a visitor is scanning a long list
+ * and narrowing it genuinely helps; five services are a short enough list to
+ * read whole, and splitting them only made a private client wonder what they
+ * were not being shown.
  */
 
-function ServiceCard({ service, index, showPrivateNote, reduceMotion }) {
+function ServiceCard({ service, index, reduceMotion }) {
   return (
     <motion.div
       initial={reduceMotion ? false : { opacity: 0, y: 28 }}
@@ -49,12 +47,6 @@ function ServiceCard({ service, index, showPrivateNote, reduceMotion }) {
             className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent"
           />
         </div>
-
-        {showPrivateNote && (
-          <span className="absolute left-4 top-4 rounded-full bg-black/35 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white/80 backdrop-blur-sm sm:left-5 sm:top-5">
-            Private clients too
-          </span>
-        )}
 
         <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 md:p-6">
           <div className="flex items-end justify-between gap-3">
@@ -152,29 +144,22 @@ function BrushHighlight({ children, reduceMotion }) {
   );
 }
 
-/** One audience, one band. */
-function ServicesBand({
-  eyebrow,
-  subtitle,
-  services,
-  showPrivateNote,
-  vip,
-  reduceMotion,
-}) {
-  // "For Companies" reads better with the preposition set
-  // apart from the audience it names; an eyebrow without one stays whole.
-  const titleLead = /^for\s/i.test(eyebrow ?? "") ? eyebrow.slice(0, 3) : "";
-  const titleMain = titleLead ? eyebrow.slice(4) : eyebrow;
+/** The list of services, under its heading. */
+function ServicesBand({ eyebrow, subtitle, services, reduceMotion }) {
+  // A short opening word reads better set apart from the noun it qualifies,
+  // and the noun is what goes on the brush stroke. A one-word heading stays
+  // whole.
+  const words = (eyebrow ?? "").trim().split(/\s+/);
+  const hasLead = words.length > 1 && words[0].length <= 4;
+  const titleLead = hasLead ? words[0] : "";
+  const titleMain = hasLead ? words.slice(1).join(" ") : eyebrow;
 
   if (!services.length) return null;
 
   return (
-    <section data-preview-anchor="items"
-      className={
-        vip
-          ? "relative overflow-hidden bg-white py-10 sm:py-10 md:py-14 lg:py-16"
-          : "relative overflow-hidden bg-[var(--muted)] py-10 sm:py-10 md:py-14 lg:py-16"
-      }
+    <section
+      data-preview-anchor="items"
+      className="relative overflow-hidden bg-white py-10 sm:py-10 md:py-14 lg:py-16"
     >
       <Container>
         <div className="max-w-4xl">
@@ -206,9 +191,6 @@ function ServicesBand({
               key={service.id}
               service={service}
               index={i}
-              showPrivateNote={
-                showPrivateNote && audiencesOf(service).includes("individual")
-              }
               reduceMotion={reduceMotion}
             />
           ))}
@@ -221,34 +203,14 @@ function ServicesBand({
 export default function ServicesExplorer({ heading, services = [] }) {
   const reduceMotion = useReducedMotion();
 
-  const corporate = useMemo(
-    () => servicesFor(services, "corporate"),
-    [services],
-  );
-  const individual = useMemo(
-    () => servicesFor(services, "individual"),
-    [services],
-  );
-
   if (!services.length) return null;
 
   return (
-    <>
-      <ServicesBand
-        eyebrow="For Companies"
-        subtitle={heading?.subtitle}
-        services={corporate}
-        showPrivateNote
-        vip
-        reduceMotion={reduceMotion}
-      />
-
-      <ServicesBand
-        eyebrow="For Private Clients"
-        subtitle="The same senior team, on a house — villas, palaces and private estates, handled end to end."
-        services={individual}
-        reduceMotion={reduceMotion}
-      />
-    </>
+    <ServicesBand
+      eyebrow={heading?.eyebrow}
+      subtitle={heading?.subtitle}
+      services={services}
+      reduceMotion={reduceMotion}
+    />
   );
 }

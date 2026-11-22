@@ -8,7 +8,25 @@
 // otherwise. The same reading is mirrored in the dashboard at
 // src/lib/projectAudience.js; change one without the other and they disagree.
 
-export { AUDIENCES, DEFAULT_AUDIENCE } from "@/lib/services/audience";
+// The two readers the portfolio is split for. The rule, and the reason the
+// two are not symmetric: a company can commission anything a private client
+// can, so the corporate list is everything. A private client cannot
+// commission a wastewater plant or a road network, so their list is the
+// subset marked for them.
+export const AUDIENCES = [
+  {
+    key: "corporate",
+    label: "Companies",
+    caption: "Developers, institutions and public bodies — the full record.",
+  },
+  {
+    key: "individual",
+    label: "Private Clients",
+    caption: "Villas, palaces and private estates, handled end to end.",
+  },
+];
+
+export const DEFAULT_AUDIENCE = "corporate";
 
 /** Projects commissioned by a private owner rather than a company or a body. */
 const DEMO_PRIVATE_PROJECTS = new Set([

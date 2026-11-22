@@ -48,23 +48,18 @@ value is gone on the next read.
 
 ---
 
-## 1. Who each service and project is for
+## 1. Who each project is for
 
-**The problem.** The site splits the services page and the projects page into
-*Companies* and *Private Clients*. A visitor picks one and the list narrows.
-Which bucket a record is in is decided by a map keyed on its slug, written in
-the front-end code, so the client cannot change it.
+**The problem.** The projects page splits the portfolio into *Companies* and
+*Private Clients*. A visitor picks one and the list narrows. Which bucket a
+project is in is decided by a map keyed on its slug, written in the front-end
+code, so the client cannot change it.
 
 The rule is asymmetric and has to stay that way: a company can commission
-anything a private client can, but not the reverse. A private-client record
+anything a private client can, but not the reverse. A private-client project
 belongs to **both** lists; a corporate one belongs to **corporate only**.
 
 ```prisma
-model Service {
-  // ...
-  audiences String[] @default(["corporate"])
-}
-
 model Project {
   // ...
   audiences String[] @default(["corporate"])
@@ -72,27 +67,24 @@ model Project {
 ```
 
 Allowed values: `"corporate"` and `"individual"`. Return the array from the
-public `GET /services`, `GET /projects`, `GET /services/by-slug/:slug` and
-`GET /projects/by-slug/:slug`, and accept it on the dashboard's create and
-update routes. Validate that every element is one of the two.
+public `GET /projects` and `GET /projects/by-slug/:slug`, and accept it on the
+dashboard's create and update routes. Validate that every element is one of
+the two.
 
-**Seed these, or the site changes on the day it ships.**
-
-Services that are **both**: `integrated-engineering-works`,
-`integrated-construction-works`, `mep-works`.
-Services that are **corporate only**: everything else, which today is
-`sewage-and-water-treatment-plants` and `roads-infrastructure-works`.
+**Seed these, or the page changes on the day it ships.**
 
 Projects that are **both**: `al-muhaiza-residential-palace`,
 `royal-palace-um-alhamam`, `private-residence-complex-vip`.
 Projects that are **corporate only**: every other project.
 
-**Then delete.** Site: the `DEMO_AUDIENCES` map in
-`src/lib/services/audience.js`, and `DEMO_PRIVATE_PROJECTS` and
-`PRIVATE_CLIENT` in `src/lib/projects/audience.js`. Both then read
-`record.audiences`. Dashboard: `src/lib/serviceAudience.js` and
-`src/lib/projectAudience.js`, and the `DemoTag`s on the Services and Projects
-list pages come off so the field becomes an editable multi-select.
+Services do **not** need this. The split was on that page too and has been
+taken off: five services are a short enough list to read whole, and splitting
+them only made a private client wonder what they were not being shown.
+
+**Then delete.** Site: `DEMO_PRIVATE_PROJECTS` and `PRIVATE_CLIENT` in
+`src/lib/projects/audience.js`, which then reads `project.audiences`.
+Dashboard: `src/lib/projectAudience.js`, and the `DemoTag` on the Projects
+list page comes off so the field becomes an editable multi-select.
 
 ---
 
@@ -201,7 +193,18 @@ and the text box becomes an upload field.
 
 ## 6. The site's own images are not in the API
 
-This needs a decision, so here is the whole picture.
+**Done, 22 November.** 144 images were uploaded and every record repointed at
+its `/uploads/media/...` URL. The script and the old-path-to-new-URL map are
+in the dashboard repo at `scripts/migrate-images.mjs` and
+`scripts/migrate-images.map.json`. Nothing is needed from you; the rest of
+this section is kept because it says what was done and what was left alone.
+
+Two things were deliberately left in the site repo: `logo.webp` and
+`logo-light.png`. The FADEN mark is part of the design, not the content, and
+moving it into the database lets anyone replace a logo with anything. The
+script takes `--include-brand` if that call is ever reversed.
+
+The original write-up follows.
 
 **Where images live now.** Two places.
 
@@ -223,6 +226,7 @@ replace them without a developer and a deploy.
    and inside `sections`), `gallery`, `equipment`, `clients`,
    `about_overview`, `about_partners`, `about_leadership`,
    `services_meta.banner.fallbackImage`, `settings.branding.images`.
+   (Already done - see the note at the end of this section.)
 2. For each distinct `/images/faden/...` path, read the file from the site
    repo's `public` folder and POST it to the upload endpoint.
 3. Rewrite the record with the `/uploads/media/...` URL that comes back.
@@ -332,7 +336,7 @@ Neither is your job, but both will be missed if nobody writes them down.
 1. §0 — read it before touching any update route.
 2. §9 `CORS_ORIGINS` — the contact form is broken on the live domain without
    it, and it is a one-line change.
-3. §1 audiences — the client will ask for this first.
+3. §1 project audiences — the client will ask for this first.
 4. §5 PDF uploads, then §6 the image migration — they are the same endpoint.
 5. §2, §3, §4 — copy and figures.
 6. §7, §8 — tidying.
