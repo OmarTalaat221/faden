@@ -45,11 +45,11 @@ export default function SectorsSection({ sectors }) {
           )}
         </div>
 
-        <div className="mt-8 grid gap-8 md:mt-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] lg:items-start lg:gap-14">
+        <div className="mt-8 grid gap-8 md:mt-10 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)] lg:items-start lg:gap-14">
           {/* The frame, on screens wide enough to show it beside the list.
               It follows whichever name is being read. */}
-          <div className="hidden lg:block lg:sticky lg:top-28">
-            <div className="relative aspect-square w-full overflow-hidden rounded-[4px] bg-[var(--foreground)]/5">
+          <div className="hidden lg:order-2 lg:block lg:sticky lg:top-28">
+            <div className="relative aspect-[2/3] w-full overflow-hidden rounded-[4px] bg-[var(--foreground)]/5">
               {/* All of them are drawn, stacked, and only the opacity moves.
                   Mounting one at a time left the frame empty for as long as
                   the next photograph took to arrive, which on a hover list is
@@ -71,7 +71,7 @@ export default function SectorsSection({ sectors }) {
                       src={sector.image}
                       alt={i === active ? sector.title : ""}
                       fill
-                      sizes="(min-width: 1024px) 40vw, 100vw"
+                      sizes="(min-width: 1024px) 34vw, 100vw"
                       className="object-cover"
                     />
                   )}
@@ -81,7 +81,7 @@ export default function SectorsSection({ sectors }) {
           </div>
 
           {/* The list itself. Rows, not tiles. */}
-          <ul className="border-t border-[var(--foreground)]/12 md:grid md:grid-cols-2 md:gap-x-8 lg:block">
+          <ul className="border-t border-[var(--foreground)]/12 md:grid md:grid-cols-2 md:gap-x-8 lg:order-1 lg:block">
             {items.map((sector, i) => {
               const isActive = i === active;
 
@@ -95,7 +95,7 @@ export default function SectorsSection({ sectors }) {
                     onMouseEnter={() => setActive(i)}
                     onFocus={() => setActive(i)}
                     aria-current={isActive ? "true" : undefined}
-                    className="group relative flex w-full items-center gap-4 border-b border-[var(--foreground)]/12 py-4 text-left sm:gap-6 lg:py-5"
+                    className="group relative flex w-full items-center gap-4 border-b border-[var(--foreground)]/12 py-4 text-left sm:gap-6 lg:gap-0 lg:py-6"
                   >
                     {/* Below the frame's breakpoint this photograph is the
                         only one there is, so it is sized to be looked at
@@ -113,14 +113,26 @@ export default function SectorsSection({ sectors }) {
                     </span>
 
                     <span
+                      aria-hidden
                       className={[
-                        "min-w-0 flex-1 text-[15px] font-semibold leading-snug tracking-[-0.01em] transition-colors duration-300 sm:text-[17px] md:text-[19px] lg:text-xl",
+                        "hidden h-px shrink-0 bg-[var(--brand-primary)] transition-all duration-500 ease-out lg:block",
+                        isActive ? "w-7 opacity-100" : "w-0 opacity-0",
+                      ].join(" ")}
+                    />
+
+                    <span
+                      className={[
+                        "min-w-0 flex-1 font-semibold leading-[1.2] transition-all duration-500 ease-out",
+                        "text-[15px] tracking-[-0.01em] sm:text-[17px] md:text-[19px]",
+                        // The name is the design on a wide screen, so it is
+                        // set at display size rather than list size.
+                        "lg:text-[30px] lg:tracking-[-0.02em] xl:text-[36px]",
                         // Only where the frame is drawn: on a phone there
                         // is nothing for the mark to point at, and a red row
                         // with no reason reads as an error.
                         isActive
-                          ? "text-[var(--foreground)] lg:text-[var(--brand-primary)]"
-                          : "text-[var(--foreground)]",
+                          ? "text-[var(--foreground)] lg:pl-4 lg:text-[var(--brand-primary)]"
+                          : "text-[var(--foreground)] lg:pl-0",
                       ].join(" ")}
                     >
                       {sector.title}
