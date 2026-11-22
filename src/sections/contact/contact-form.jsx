@@ -1,7 +1,14 @@
 "use client";
 
-import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
-import { useState } from "react";
+import { AlertCircle, CheckCircle2, Loader2, Paperclip, X } from "lucide-react";
+import { useRef, useState } from "react";
+
+import {
+  ACCEPT_ATTRIBUTE,
+  ATTACHMENTS_ENABLED,
+  attachmentError,
+  readableSize,
+} from "@/lib/contact/attachment";
 
 // Posts straight to the public submissions endpoint — no auth, and the
 // message lands in the dashboard's Contact Inbox.
@@ -57,6 +64,33 @@ export default function ContactForm({ form }) {
   const [values, setValues] = useState(INITIAL_VALUES);
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState("idle");
+  const [file, setFile] = useState(null);
+  const fileInputRef = useRef(null);
+
+  const clearFile = () => {
+    setFile(null);
+    setErrors((prev) => ({ ...prev, file: undefined }));
+    // The input keeps its own value, so picking the same file again after a
+    // removal would not fire a change event without this.
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
+  const handleFileChange = (e) => {
+    const picked = e.target.files?.[0] ?? null;
+    if (!picked) return clearFile();
+
+    const problem = attachmentError(picked);
+    if (problem) {
+      setErrors((prev) => ({ ...prev, file: problem }));
+      setFile(null);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+      return;
+    }
+
+    setErrors((prev) => ({ ...prev, file: undefined }));
+    setFile(picked);
+    if (status === "success") setStatus("idle");
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -79,14 +113,29 @@ export default function ContactForm({ form }) {
     setStatus("loading");
 
     try {
-      const res = await fetch(`${API_URL}/contact/submissions`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
+      // With a file the message goes as multipart, so the two arrive in one
+      // request and there is no upload left orphaned when a send fails.
+      // Without one it stays JSON, exactly as it always has.
+      const res = file
+        ? await fetch(`${API_URL}/contact/submissions`, {
+            method: "POST",
+            body: (() => {
+              const data = new FormData();
+              Object.entries(values).forEach(([k, v]) => data.append(k, v));
+              data.append("attachment", file, file.name);
+              return data;
+            })(),
+          })
+        : await fetch(`${API_URL}/contact/submissions`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(values),
+          });
+
       if (!res.ok) throw new Error(`Submission failed (${res.status})`);
       setStatus("success");
       setValues(INITIAL_VALUES);
+      clearFile();
       setErrors({});
     } catch (err) {
       console.error(err);
@@ -238,6 +287,59 @@ export default function ContactForm({ form }) {
             </p>
           )}
         </div>
+
+        {/* Attachment. Optional, so it is a quiet row rather than a field
+            with a label the same weight as the required ones. */}
+        {ATTACHMENTS_ENABLED && (
+          <div>
+            <input
+              ref={fileInputRef}
+              type="file"
+              id="attachment"
+              accept={ACCEPT_ATTRIBUTE}
+              onChange={handleFileChange}
+              disabled={status === "loading"}
+              className="sr-only"
+            />
+
+            {file ? (
+              <div className="flex items-center gap-3 rounded-md border border-[var(--border)] bg-white px-3.5 py-2.5">
+                <Paperclip className="h-4 w-4 shrink-0 text-[var(--brand-primary)]" />
+                <span className="min-w-0 flex-1 truncate text-sm text-[var(--foreground)]">
+                  {file.name}
+                </span>
+                <span className="shrink-0 text-xs text-[var(--muted-foreground)]">
+                  {readableSize(file.size)}
+                </span>
+                <button
+                  type="button"
+                  onClick={clearFile}
+                  disabled={status === "loading"}
+                  aria-label={`Remove ${file.name}`}
+                  className="shrink-0 rounded p-1 text-[var(--muted-foreground)] transition-colors hover:text-[var(--brand-primary)]"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+            ) : (
+              <label
+                htmlFor="attachment"
+                className="inline-flex cursor-pointer items-center gap-2 text-sm text-[var(--muted-foreground)] transition-colors hover:text-[var(--brand-primary)]"
+              >
+                <Paperclip className="h-4 w-4" />
+                <span>
+                  Attach a photo or a drawing
+                  <span className="text-[var(--muted-foreground)]">
+                    {" "}
+                    (optional, up to 10 MB)
+                  </span>
+                </span>
+              </label>
+            )}
+
+            {errors.file && <p className={errorClass}>{errors.file}</p>}
+          </div>
+        )}
 
         {/* Status messages */}
         {status === "success" && (

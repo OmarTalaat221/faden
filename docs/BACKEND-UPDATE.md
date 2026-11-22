@@ -80,6 +80,23 @@ what already works.
 
 ---
 
+## 3b. NEW: the contact form needs to accept a file
+
+Asked for by the client after the first handover. It is written up as
+`BACKEND-REQUESTS.md` §5b, next to the PDF upload, because both are the same
+endpoint problem seen from two sides.
+
+Short version: `ContactSubmission` needs an `attachment` column, and
+`POST /api/contact/submissions` needs to take `multipart/form-data`. That
+route is public, so it needs limits the dashboard upload does not: one file,
+10 MB, images and PDF only, sniffed not trusted, rate limited by IP, and
+never served back with a content type taken from the request.
+
+The site and the dashboard are already built for it and are waiting behind a
+switch. Nothing changes for them until you ship.
+
+---
+
 ## 4. ALREADY DONE — please do not redo these
 
 Three things were done directly against the live API. They need no work from

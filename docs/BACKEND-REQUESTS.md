@@ -191,6 +191,59 @@ and the text box becomes an upload field.
 
 ---
 
+## 5b. The contact form needs to accept a file
+
+**The client asked for this.** A visitor should be able to attach a photo or
+a drawing to a message. Today they cannot, for two reasons:
+
+- `ContactSubmission` has no column for it, and `createSubmission` in
+  `src/Modules/Website/contact/contact.service.ts` whitelists five named
+  fields, so anything else in the body is dropped silently.
+- The only upload route is `POST /api/dashboard/uploads`, which needs a
+  dashboard token. A public page cannot be given one: anybody could then
+  upload anything into the media store.
+
+**What to add.**
+
+```prisma
+model ContactSubmission {
+  // ...
+  attachment String?   // "/uploads/contact/..." or null
+}
+```
+
+And `POST /api/contact/submissions` accepts `multipart/form-data` as well as
+JSON. The five text fields keep their names. The file arrives as
+`attachment`. Store it somewhere of its own rather than in `media`, so a
+stranger's upload is never mixed with the client's own pictures.
+
+This route is **public and unauthenticated**, so it needs limits the
+dashboard one does not:
+
+- One file per message.
+- 10 MB maximum. The site enforces the same number before sending.
+- Accept `image/jpeg`, `image/png`, `image/webp`, `image/heic`, `image/heif`
+  and `application/pdf`. Reject on the server by sniffing the content, not by
+  trusting the name or the declared type.
+- Rate limit by IP. Without one this is free storage for anybody who finds
+  the endpoint.
+- Never serve an upload from this route with a content type taken from the
+  request. An HTML file served as HTML from your own domain is a cross-site
+  scripting hole.
+
+Return the stored path on the submission, and include `attachment` in the
+dashboard's `GET /api/dashboard/contact/submissions`.
+
+**The front end is already built and waiting.** The site sends the message as
+multipart when a file is attached and as JSON when it is not, so nothing
+about the existing path changes. The field is hidden behind
+`NEXT_PUBLIC_CONTACT_ATTACHMENTS`, which is `0` today: a control that
+silently drops a visitor's drawing is worse than no control. Set it to `1` in
+the same deploy that ships this, and the dashboard inbox already has the
+column to open what arrives.
+
+---
+
 ## 6. The site's own images are not in the API
 
 **Done, 22 November.** 144 images were uploaded and every record repointed at
@@ -337,6 +390,6 @@ Neither is your job, but both will be missed if nobody writes them down.
 2. §9 `CORS_ORIGINS` — the contact form is broken on the live domain without
    it, and it is a one-line change.
 3. §1 project audiences — the client will ask for this first.
-4. §5 PDF uploads, then §6 the image migration — they are the same endpoint.
+4. §5 PDF uploads and §5b the contact attachment, then §6 the image migration — they are the same endpoint.
 5. §2, §3, §4 — copy and figures.
 6. §7, §8 — tidying.
