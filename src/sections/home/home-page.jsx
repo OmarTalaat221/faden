@@ -4,6 +4,7 @@ import CtaSection from "./cta-section";
 import EquipmentSection from "./equipment-section";
 import GallerySection from "./gallery-section";
 import HeroSection from "./hero-section";
+import NewsSection from "./news-section";
 import PartnersSection from "./partners-section";
 import ProjectsSection from "./projects-section";
 import ServicesSection from "./services-section";
@@ -36,6 +37,7 @@ export default async function HomePage() {
         {on.whyChoose && <WhyChooseSection whyChoose={home.whyChoose} />}
         {on.services && <ServicesSection services={home.services} />}
         {on.projects && <ProjectsSection projects={home.projects} />}
+        {on.news && <NewsSection news={home.news} />}
         {on.cta && <CtaSection />}
         {on.partners && <PartnersSection partner={home.partner} />}
         {on.clients && <ClientsSection clients={home.clients} />}

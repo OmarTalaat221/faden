@@ -24,6 +24,7 @@ export const HIDEABLE_HOME_SECTIONS = [
   "about",
   "services",
   "projects",
+  "news",
   "whyChoose",
   "cta",
   "partners",
@@ -40,7 +41,7 @@ const OFF_BY_DEFAULT = {
   // News is off until the API serves /news; the page 404s without it.
   pages: ["gallery", "equipment", "news"],
   // Their homepage bands link to those pages, so they go too.
-  homeSections: ["gallery", "equipment"],
+  homeSections: ["gallery", "equipment", "news"],
 };
 
 function defaults(keys, off) {

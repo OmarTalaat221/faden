@@ -11,6 +11,7 @@ import { getProjects } from "@/lib/projects/data";
 import { getAllServices } from "@/lib/services/data";
 import { getClientsList } from "@/lib/clients/data";
 import { getEquipmentList } from "@/lib/equipment/data";
+import { getNewsList } from "@/lib/news/data";
 import { getPartners } from "@/sections/partners/data";
 import { getServicesPageMeta } from "@/lib/services/data";
 import { getSettings } from "@/lib/settings/data";
@@ -34,7 +35,9 @@ function pick(section, rows, ids) {
     );
   }
   const picked = ids.map((id) => byId.get(String(id))).filter(Boolean);
-  console.log(`[home] "${section}": ${picked.length} of ${rows.length} rows picked`);
+  console.log(
+    `[home] "${section}": ${picked.length} of ${rows.length} rows picked`,
+  );
   return picked;
 }
 
@@ -49,6 +52,7 @@ export async function getHomeContent() {
     partners,
     settings,
     servicesMeta,
+    news,
   ] = await Promise.all([
     apiGet("/home-features"),
     getGalleryList(),
@@ -59,6 +63,7 @@ export async function getHomeContent() {
     getPartners(),
     getSettings(),
     getServicesPageMeta(),
+    getNewsList(),
   ]);
 
   const services = servicesResponse?.items ?? [];
@@ -99,6 +104,12 @@ export async function getHomeContent() {
     // The same block the About page closes on, from the same record, so the
     // two can never say different things.
     whyChoose: servicesMeta.whyChoose,
+
+    // The newest stories, and nothing to pick in the dashboard: a band that
+    // always shows the latest is the only one that stays right without
+    // somebody remembering to come back and change it. Null means the API
+    // has no news store yet, which is an empty band, not an error.
+    news: (news ?? []).slice(0, 6),
 
     // Which sections are switched on, set in the dashboard under Visibility.
     sections: getVisibility(settings).homeSections,
