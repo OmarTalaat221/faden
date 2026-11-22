@@ -181,12 +181,12 @@ section[class*="F9FAFB"] {
  * Everything is in em, so the whole article scales with the one font-size
  * set on the container rather than needing a breakpoint of its own.
  *
- * The spacing is wider than it would be in a narrow column. The body runs the
- * full width of the container, and on a long line the gap between paragraphs
- * is the only thing telling the eye where to go back to.
+ * Headings take the brand's navy rather than the body's near-black. One
+ * colour change does the work that an extra two steps of type size would
+ * otherwise have to, which keeps the spacing tight.
  */
 .news-body > * + * {
-  margin-top: 1.45em;
+  margin-top: 1.05em;
 }
 
 .news-body p {
@@ -196,7 +196,7 @@ section[class*="F9FAFB"] {
 /* The opening paragraph, set larger. It is the step down from the headline,
    and without it the article starts at the same weight it ends at. */
 .news-body > p:first-of-type {
-  font-size: 1.16em;
+  font-size: 1.14em;
   line-height: 1.6;
 }
 
@@ -204,19 +204,27 @@ section[class*="F9FAFB"] {
 .news-body h3,
 .news-body h4 {
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
   line-height: 1.25;
-  color: var(--foreground);
+  color: var(--brand-secondary);
 }
 
 /* A section opens with a hairline across the whole measure. On a line this
    long the page needs a horizon every so often, or the piece reads as one
    undifferentiated block of grey. */
 .news-body h2 {
-  font-size: 1.5em;
-  margin-top: 2.4em;
-  padding-top: 1.4em;
+  font-size: 1.45em;
+  margin-top: 1.9em;
+  padding-top: 1.1em;
   border-top: 1px solid color-mix(in srgb, var(--foreground) 14%, transparent);
+}
+
+/* The paragraph under a heading belongs to it, so it sits closer than the
+   gap between two paragraphs. */
+.news-body h2 + *,
+.news-body h3 + *,
+.news-body h4 + * {
+  margin-top: 0.65em;
 }
 
 /* Unless it is the first thing in the article: a rule there would only draw
@@ -228,13 +236,13 @@ section[class*="F9FAFB"] {
 }
 
 .news-body h3 {
-  font-size: 1.22em;
-  margin-top: 1.75em;
+  font-size: 1.2em;
+  margin-top: 1.6em;
 }
 
 .news-body h4 {
   font-size: 1.05em;
-  margin-top: 1.5em;
+  margin-top: 1.35em;
 }
 
 /* A heading that opens the article should not push it down the page. */
@@ -265,7 +273,7 @@ section[class*="F9FAFB"] {
 }
 
 .news-body li + li {
-  margin-top: 0.6em;
+  margin-top: 0.4em;
 }
 
 .news-body li::marker {
@@ -274,17 +282,35 @@ section[class*="F9FAFB"] {
 
 /* A rule down the side rather than a tinted box: the quote is part of the
    article, not a panel that has been dropped into it. */
-/* Runs the measure like everything else, but set larger and on the brand's
-   rule, so it reads as the writer raising their voice rather than as a
-   paragraph that has been indented for no reason. */
+/* A real pull quote: lifted off the page onto white, on the brand's rule,
+   with the mark set large and faint behind the first line. White is what the
+   rest of the site uses to raise something off these surfaces, so the quote
+   is not introducing a material of its own. */
 .news-body blockquote {
+  position: relative;
+  background-color: var(--background);
   border-inline-start: 3px solid var(--brand-primary);
-  padding-inline-start: 1.3em;
-  margin-block: 2.4em;
-  font-size: 1.2em;
+  border-radius: 0 4px 4px 0;
+  padding: 1.15em 1.4em 1.15em 2.9em;
+  margin-block: 1.8em;
+  font-size: 1.15em;
   line-height: 1.55;
   letter-spacing: -0.005em;
   color: var(--foreground);
+}
+
+/* The mark hangs in its own gutter rather than sitting on top of the first
+   line, where it read as something that had gone wrong rather than as a
+   quotation mark. */
+.news-body blockquote::before {
+  content: "“";
+  position: absolute;
+  inset-inline-start: 0.5em;
+  top: 0.34em;
+  font-size: 2.4em;
+  line-height: 1;
+  color: color-mix(in srgb, var(--brand-primary) 30%, transparent);
+  pointer-events: none;
 }
 
 .news-body blockquote p {
@@ -311,7 +337,7 @@ section[class*="F9FAFB"] {
 .news-body hr {
   border: 0;
   border-top: 1px solid color-mix(in srgb, var(--foreground) 12%, transparent);
-  margin-block: 2.25em;
+  margin-block: 1.8em;
 }
 
 .news-body code {
