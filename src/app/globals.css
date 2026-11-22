@@ -180,13 +180,17 @@ section[class*="F9FAFB"] {
  *
  * Everything is in em, so the whole article scales with the one font-size
  * set on the container rather than needing a breakpoint of its own.
+ *
+ * The spacing is wider than it would be in a narrow column. The body runs the
+ * full width of the container, and on a long line the gap between paragraphs
+ * is the only thing telling the eye where to go back to.
  */
 .news-body > * + * {
-  margin-top: 1.25em;
+  margin-top: 1.45em;
 }
 
 .news-body p {
-  line-height: 1.75;
+  line-height: inherit;
 }
 
 .news-body h2,
@@ -199,8 +203,8 @@ section[class*="F9FAFB"] {
 }
 
 .news-body h2 {
-  font-size: 1.5em;
-  margin-top: 2em;
+  font-size: 1.6em;
+  margin-top: 2.1em;
 }
 
 .news-body h3 {
@@ -246,11 +250,14 @@ section[class*="F9FAFB"] {
 
 /* A rule down the side rather than a tinted box: the quote is part of the
    article, not a panel that has been dropped into it. */
+/* Pulled in from both sides rather than run the width of the page: a quote
+   is an aside, and at this measure it needs to look like one. */
 .news-body blockquote {
   border-inline-start: 3px solid var(--brand-primary);
-  padding-inline-start: 1.1em;
-  margin-block: 1.75em;
-  font-size: 1.1em;
+  padding-inline-start: 1.2em;
+  margin-block: 2em;
+  max-width: 62ch;
+  font-size: 1.12em;
   line-height: 1.6;
   color: var(--foreground);
 }
