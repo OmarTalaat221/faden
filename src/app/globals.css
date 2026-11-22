@@ -193,6 +193,13 @@ section[class*="F9FAFB"] {
   line-height: inherit;
 }
 
+/* The opening paragraph, set larger. It is the step down from the headline,
+   and without it the article starts at the same weight it ends at. */
+.news-body > p:first-of-type {
+  font-size: 1.16em;
+  line-height: 1.6;
+}
+
 .news-body h2,
 .news-body h3,
 .news-body h4 {
@@ -202,9 +209,22 @@ section[class*="F9FAFB"] {
   color: var(--foreground);
 }
 
+/* A section opens with a hairline across the whole measure. On a line this
+   long the page needs a horizon every so often, or the piece reads as one
+   undifferentiated block of grey. */
 .news-body h2 {
-  font-size: 1.6em;
-  margin-top: 2.1em;
+  font-size: 1.5em;
+  margin-top: 2.4em;
+  padding-top: 1.4em;
+  border-top: 1px solid color-mix(in srgb, var(--foreground) 14%, transparent);
+}
+
+/* Unless it is the first thing in the article: a rule there would only draw
+   a line under the photograph. */
+.news-body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
 }
 
 .news-body h3 {
@@ -222,9 +242,13 @@ section[class*="F9FAFB"] {
   margin-top: 0;
 }
 
+/* Indented past the prose rather than flush with it. A bullet flush to the
+   same edge as the paragraphs does not look like a list, it looks like a
+   paragraph with a dot in front of it. */
 .news-body ul,
 .news-body ol {
-  padding-inline-start: 1.35em;
+  padding-inline-start: 1.6em;
+  margin-inline-start: 0.25em;
 }
 
 .news-body ul {
@@ -241,7 +265,7 @@ section[class*="F9FAFB"] {
 }
 
 .news-body li + li {
-  margin-top: 0.5em;
+  margin-top: 0.6em;
 }
 
 .news-body li::marker {
@@ -250,15 +274,16 @@ section[class*="F9FAFB"] {
 
 /* A rule down the side rather than a tinted box: the quote is part of the
    article, not a panel that has been dropped into it. */
-/* Pulled in from both sides rather than run the width of the page: a quote
-   is an aside, and at this measure it needs to look like one. */
+/* Runs the measure like everything else, but set larger and on the brand's
+   rule, so it reads as the writer raising their voice rather than as a
+   paragraph that has been indented for no reason. */
 .news-body blockquote {
   border-inline-start: 3px solid var(--brand-primary);
-  padding-inline-start: 1.2em;
-  margin-block: 2em;
-  max-width: 62ch;
-  font-size: 1.12em;
-  line-height: 1.6;
+  padding-inline-start: 1.3em;
+  margin-block: 2.4em;
+  font-size: 1.2em;
+  line-height: 1.55;
+  letter-spacing: -0.005em;
   color: var(--foreground);
 }
 

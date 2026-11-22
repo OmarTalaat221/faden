@@ -92,7 +92,7 @@ export default function NewsArticleView({ item }) {
 
         {html && (
           <div
-            className="news-body mt-12 text-base leading-[1.8] text-[var(--foreground)] sm:text-[17px] md:mt-16 md:text-lg lg:text-[19px]"
+            className="news-body mt-12 text-base leading-[1.8] text-[var(--foreground)] sm:text-[17px] md:mt-16 md:text-lg lg:text-[20px]"
             dangerouslySetInnerHTML={{ __html: html }}
           />
         )}
