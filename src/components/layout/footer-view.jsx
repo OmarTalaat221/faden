@@ -5,14 +5,6 @@ import FooterMarks from "@/components/layout/footer-marks";
 import { telHref } from "@/lib/settings/data";
 import { Mail, MapPin, Phone } from "lucide-react";
 
-const quickLinks = [
-  { label: "Home", href: "/" },
-  { label: "About Us", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Projects", href: "#projects" },
-  { label: "Clients", href: "#clients" },
-  { label: "Contact Us", href: "#contact" },
-];
 
 // SVG Icons للـ Social Media
 const InstagramIcon = ({ size = 22 }) => (
@@ -68,8 +60,14 @@ const SOCIAL_ICONS = {
  * footer from a draft; a copy would drift, and a preview that has drifted is
  * worse than none.
  */
-export default function FooterView({ settings, visionMark }) {
-  const { contact, quickLinks, copyrightText } = settings.footer;
+export default function FooterView({ settings, visionMark, hiddenRoutes = [] }) {
+  const { contact, copyrightText } = settings.footer;
+
+  // A page switched off in the dashboard answers 404, so the link to it goes
+  // too. The header already does this; the footer was still offering them.
+  const quickLinks = (settings.footer.quickLinks || []).filter(
+    (item) => !hiddenRoutes.includes(item.href),
+  );
   const socialLinks = (settings.socialLinks || []).filter(
     (s) => SOCIAL_ICONS[s.icon],
   );
@@ -91,7 +89,7 @@ export default function FooterView({ settings, visionMark }) {
             Quick Links
           </h3>
           <ul className="space-y-3 text-sm text-[var(--muted-foreground)] sm:text-[15px]">
-            {(quickLinks || []).map((item) => (
+            {quickLinks.map((item) => (
               <li key={item.label}>
                 <a
                   href={item.href}
