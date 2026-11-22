@@ -6,8 +6,10 @@
 // and nobody has written anything", which is an empty state. They are
 // different things and the pages treat them differently.
 //
-// Delete the optional reads once the endpoint ships — see docs/BACKEND-
-// REQUESTS.md section 10.
+// Delete the optional reads once the endpoint ships — see
+// docs/BACKEND-REQUESTS.md section 11.
+
+import DOMPurify from "isomorphic-dompurify";
 
 import { apiGetOptional } from "@/lib/api";
 
@@ -59,10 +61,70 @@ export function formatNewsDate(item) {
   }).format(date);
 }
 
-/** The body as paragraphs. Blank lines separate them; that is the whole rule. */
-export function toParagraphs(body) {
-  return String(body || "")
-    .split(/\n\s*\n/)
-    .map((block) => block.trim())
-    .filter(Boolean);
+const ARTICLE_TAGS = [
+  "p",
+  "br",
+  "strong",
+  "b",
+  "em",
+  "i",
+  "u",
+  "s",
+  "h2",
+  "h3",
+  "h4",
+  "ul",
+  "ol",
+  "li",
+  "blockquote",
+  "hr",
+  "a",
+  "code",
+  "pre",
+];
+
+const HTML_TAG = /<\/?(p|h[1-6]|ul|ol|li|blockquote|br|strong|em|a)\b/i;
+const BLANK_LINE = /\n\s*\n/;
+const NEWLINE = /\n/g;
+
+/**
+ * The body, ready to render.
+ *
+ * It is written in the dashboard with a rich-text editor, so it arrives as
+ * HTML. It is sanitised here rather than trusted: the editor is the only
+ * thing meant to write this field, but the field is a string in a database,
+ * and anything that can set a string can set a `<script>`. The allow-list
+ * above is the editor's own toolbar and nothing beyond it.
+ *
+ * Anything written before the editor existed is plain text with blank lines
+ * between paragraphs, so that still renders — each block becomes a `<p>`.
+ */
+export function toArticleHtml(body) {
+  const text = String(body || "").trim();
+  if (!text) return "";
+
+  const html = HTML_TAG.test(text)
+    ? text
+    : text
+        .split(BLANK_LINE)
+        .map((block) => block.trim())
+        .filter(Boolean)
+        .map(
+          (block) => `<p>${escapeHtml(block).replace(NEWLINE, "<br />")}</p>`,
+        )
+        .join("");
+
+  return DOMPurify.sanitize(html, {
+    ALLOWED_TAGS: ARTICLE_TAGS,
+    // No target: whether a link opens a new tab is a decision for the design,
+    // not something a writer sets per link by accident.
+    ALLOWED_ATTR: ["href"],
+  });
+}
+
+function escapeHtml(value) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
 }

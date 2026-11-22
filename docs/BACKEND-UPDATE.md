@@ -110,6 +110,11 @@ put a story. What is needed is a `News` table, a `NewsMeta` singleton, the
 three public routes (`/news`, `/news/meta`, `/news/:slug`) and the four
 dashboard ones. Section 11 has the model and the route table.
 
+One thing in there is easy to miss: `body` holds **HTML**, written in a
+rich-text editor. Store and return it byte for byte. The site sanitises it
+against a fixed allow-list before rendering; escaping it on save would print
+the client's own tags on the page as text.
+
 The site's news page, the story pages, the dashboard screen and the preview
 are already built. They stay invisible until the endpoint exists — the site
 reads a 404 from `/news` as "not shipped yet" and keeps the page hidden, and

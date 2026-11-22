@@ -170,3 +170,135 @@ section[class*="F9FAFB"] {
     transition: none;
   }
 }
+
+/* A news story's body.
+ *
+ * The dashboard writes this with a rich-text editor, so only the tags on the
+ * allow-list in src/lib/news/data.js can reach here — that list and these
+ * rules have to be changed together, or the editor grows a button whose
+ * output is unstyled.
+ *
+ * Everything is in em, so the whole article scales with the one font-size
+ * set on the container rather than needing a breakpoint of its own.
+ */
+.news-body > * + * {
+  margin-top: 1.25em;
+}
+
+.news-body p {
+  line-height: 1.75;
+}
+
+.news-body h2,
+.news-body h3,
+.news-body h4 {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  color: var(--foreground);
+}
+
+.news-body h2 {
+  font-size: 1.5em;
+  margin-top: 2em;
+}
+
+.news-body h3 {
+  font-size: 1.22em;
+  margin-top: 1.75em;
+}
+
+.news-body h4 {
+  font-size: 1.05em;
+  margin-top: 1.5em;
+}
+
+/* A heading that opens the article should not push it down the page. */
+.news-body > :first-child {
+  margin-top: 0;
+}
+
+.news-body ul,
+.news-body ol {
+  padding-inline-start: 1.35em;
+}
+
+.news-body ul {
+  list-style: disc;
+}
+
+.news-body ol {
+  list-style: decimal;
+}
+
+.news-body li {
+  line-height: 1.7;
+  padding-inline-start: 0.2em;
+}
+
+.news-body li + li {
+  margin-top: 0.5em;
+}
+
+.news-body li::marker {
+  color: var(--brand-primary);
+}
+
+/* A rule down the side rather than a tinted box: the quote is part of the
+   article, not a panel that has been dropped into it. */
+.news-body blockquote {
+  border-inline-start: 3px solid var(--brand-primary);
+  padding-inline-start: 1.1em;
+  margin-block: 1.75em;
+  font-size: 1.1em;
+  line-height: 1.6;
+  color: var(--foreground);
+}
+
+.news-body blockquote p {
+  line-height: inherit;
+}
+
+.news-body a {
+  color: var(--brand-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color 0.25s ease;
+}
+
+.news-body a:hover {
+  color: var(--brand-primary-hover);
+}
+
+.news-body strong,
+.news-body b {
+  font-weight: 600;
+}
+
+.news-body hr {
+  border: 0;
+  border-top: 1px solid color-mix(in srgb, var(--foreground) 12%, transparent);
+  margin-block: 2.25em;
+}
+
+.news-body code {
+  font-size: 0.9em;
+  background-color: color-mix(in srgb, var(--foreground) 6%, transparent);
+  border-radius: 3px;
+  padding: 0.12em 0.35em;
+}
+
+.news-body pre {
+  background-color: color-mix(in srgb, var(--foreground) 6%, transparent);
+  border-radius: 4px;
+  padding: 1em 1.1em;
+  overflow-x: auto;
+  font-size: 0.9em;
+  line-height: 1.6;
+}
+
+.news-body pre code {
+  background: none;
+  padding: 0;
+}

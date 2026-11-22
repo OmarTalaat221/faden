@@ -399,15 +399,25 @@ model News {
 }
 ```
 
-`body` is plain text, not HTML and not Markdown. The dashboard is a plain
-textarea and the site splits on blank lines to make paragraphs. Keep it that
-way: the moment it holds HTML, anything typed into that box is rendered on
-the site, and the person typing is not the person who has to think about
-that.
+`body` is **HTML**. The dashboard writes it with a rich-text editor, so it
+arrives with headings, lists, quotes and links in it.
 
-`date` is the date shown to a reader and the one the list sorts by. It is
-separate from `createdAt` because a story is often written a week after the
-thing happened.
+Store it and hand it back as it was sent — **do not sanitise, rewrite or
+escape it on the way through**. The site sanitises it against a fixed
+allow-list before rendering (`toArticleHtml` in `src/lib/news/data.js`), and
+a second pass here would only disagree with that one. Escaping it on save is
+the failure to watch for: the client would see their own tags printed on the
+page as text.
+
+`date` is the date shown to a reader and the one the list sorts by. The
+dashboard sends it on create, so a default is a safety net rather than the
+usual path. It is separate from `createdAt` because the client may later want
+to date a story to when the thing happened rather than when it was typed.
+
+`slug` is sent too — the dashboard makes it from the headline, because the
+client asked for a form of four fields and a web address is not one of them.
+It never changes after the story is created, so links already shared keep
+working.
 
 ### The routes
 
@@ -445,8 +455,20 @@ is enough for the meta route. The dashboard writes:
 
 - **Return `date` as an ISO string.** The dashboard sends one and the site
   parses one. A `YYYY-MM-DD` with no time is fine; a localised string is not.
-- **Reject a duplicate `slug` with a clear message.** It is the story's web
-  address, and the dashboard shows whatever the API says.
+- **Reject a duplicate `slug` with a 409 or a message that says "slug".** The
+  dashboard retries with a number on the end rather than showing the client
+  an error about a field they have never seen, and it needs to be able to
+  tell that kind of failure from any other.
+
+### The tags the site will render
+
+Anything outside this list is stripped before the page is drawn, so there is
+no point storing more:
+
+`p` `br` `strong` `b` `em` `i` `u` `s` `h2` `h3` `h4` `ul` `ol` `li`
+`blockquote` `hr` `a` `code` `pre`, and on a link, `href` only.
+
+No `h1`: the headline is a field of its own and a page gets one.
 
 ### What happens when you ship it
 
