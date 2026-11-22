@@ -23,6 +23,7 @@ export const HIDEABLE_HOME_SECTIONS = [
   "about",
   "services",
   "projects",
+  "whyChoose",
   "cta",
   "partners",
   "clients",

@@ -11,13 +11,17 @@ export default function AboutOverviewPreviewClient({ initial, whyChoose }) {
   const data = useDraft(initial);
   if (!data) return null;
 
+  // The editor sends this block alongside the page's own record, because it
+  // is edited there even though it is stored elsewhere.
+  const credentials = data.whyChoose ?? whyChoose;
+
   return (
     <main className="min-h-screen">
       <PreviewBadge />
       <PageBannerView {...data.banner} />
       <OverviewIntro intro={data.intro} />
       <OverviewStats stats={data.stats} />
-      <WhyChooseSection whyChoose={whyChoose} />
+      <WhyChooseSection whyChoose={credentials} />
     </main>
   );
 }

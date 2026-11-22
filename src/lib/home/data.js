@@ -12,6 +12,7 @@ import { getAllServices } from "@/lib/services/data";
 import { getClientsList } from "@/lib/clients/data";
 import { getEquipmentList } from "@/lib/equipment/data";
 import { getPartners } from "@/sections/partners/data";
+import { getServicesPageMeta } from "@/lib/services/data";
 import { getSettings } from "@/lib/settings/data";
 import { getVisibility } from "@/lib/settings/visibility";
 
@@ -47,6 +48,7 @@ export async function getHomeContent() {
     equipment,
     partners,
     settings,
+    servicesMeta,
   ] = await Promise.all([
     apiGet("/home-features"),
     getGalleryList(),
@@ -56,6 +58,7 @@ export async function getHomeContent() {
     getEquipmentList(),
     getPartners(),
     getSettings(),
+    getServicesPageMeta(),
   ]);
 
   const services = servicesResponse?.items ?? [];
@@ -92,6 +95,10 @@ export async function getHomeContent() {
     // The homepage shows the same partner record as /partners — there is one
     // partner, so there is nothing to pick.
     partner: partners.intro,
+
+    // The same block the About page closes on, from the same record, so the
+    // two can never say different things.
+    whyChoose: servicesMeta.whyChoose,
 
     // Which sections are switched on, set in the dashboard under Visibility.
     sections: getVisibility(settings).homeSections,

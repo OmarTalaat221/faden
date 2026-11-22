@@ -7,6 +7,7 @@ import HeroSection from "./hero-section";
 import PartnersSection from "./partners-section";
 import ProjectsSection from "./projects-section";
 import ServicesSection from "./services-section";
+import WhyChooseSection from "@/sections/about-overview/why-choose-section";
 import StatsOverlap from "./stats-overlap";
 import { getHomeContent } from "@/lib/home/data";
 
@@ -32,6 +33,7 @@ export default async function HomePage() {
         <HeroSection />
         {on.stats && <StatsOverlap />}
         {on.about && <AboutSection />}
+        {on.whyChoose && <WhyChooseSection whyChoose={home.whyChoose} />}
         {on.services && <ServicesSection services={home.services} />}
         {on.projects && <ProjectsSection projects={home.projects} />}
         {on.cta && <CtaSection />}

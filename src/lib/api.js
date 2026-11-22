@@ -26,6 +26,9 @@ const FETCH_OPTIONS = { cache: "no-store" };
 // branch that uses it.
 const EGYPT_PAIRINGS = [
   [/Saudi Arabia and Egypt/g, "Saudi Arabia"],
+  [/Saudi Arabia & Egypt/g, "Saudi Arabia"],
+  [/Egypt & Saudi Arabia/g, "Saudi Arabia"],
+  [/KSA & Egypt/g, "KSA"],
   [/Egypt and Saudi Arabia/g, "Saudi Arabia"],
   [/KSA and Egypt/g, "KSA"],
   [/Egypt and KSA/g, "KSA"],

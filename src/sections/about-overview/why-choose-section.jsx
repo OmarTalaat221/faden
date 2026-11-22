@@ -1,8 +1,12 @@
 import Container from "@/components/layout/container";
 
 /**
- * Closes the Company Overview page. The copy is still stored on the services
- * meta record, where it has always lived.
+ * The company's credentials, on the homepage and at the foot of the Company
+ * Overview page. One component reading one record, so the two can never drift
+ * apart - which is the whole reason it is not copied into the homepage's own
+ * folder despite living here.
+ *
+ * The copy is stored on the services meta record, where it has always lived.
  */
 export default function WhyChooseSection({ whyChoose }) {
   if (!whyChoose || !whyChoose.items?.length) return null;
