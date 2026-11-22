@@ -81,7 +81,7 @@ export default function SectorsSection({ sectors }) {
           </div>
 
           {/* The list itself. Rows, not tiles. */}
-          <ul className="border-t border-[var(--foreground)]/12">
+          <ul className="border-t border-[var(--foreground)]/12 md:grid md:grid-cols-2 md:gap-x-8 lg:block">
             {items.map((sector, i) => {
               const isActive = i === active;
 
@@ -95,17 +95,18 @@ export default function SectorsSection({ sectors }) {
                     onMouseEnter={() => setActive(i)}
                     onFocus={() => setActive(i)}
                     aria-current={isActive ? "true" : undefined}
-                    className="group relative flex w-full items-center gap-4 border-b border-[var(--foreground)]/12 py-4 text-left sm:gap-5 sm:py-5"
+                    className="group relative flex w-full items-center gap-4 border-b border-[var(--foreground)]/12 py-4 text-left sm:gap-6 lg:py-5"
                   >
-                    {/* The thumbnail carries the list on phones, where there
-                        is no hover and the frame beside it is not drawn. */}
-                    <span className="relative h-14 w-16 shrink-0 overflow-hidden rounded-[4px] bg-[var(--foreground)]/5 sm:h-16 sm:w-20 lg:hidden">
+                    {/* Below the frame's breakpoint this photograph is the
+                        only one there is, so it is sized to be looked at
+                        rather than to sit politely beside the name. */}
+                    <span className="relative aspect-[4/3] w-[132px] shrink-0 overflow-hidden rounded-[4px] bg-[var(--foreground)]/5 sm:w-[168px] md:w-[150px] lg:hidden">
                       {sector.image && (
                         <Image
                           src={sector.image}
                           alt=""
                           fill
-                          sizes="80px"
+                          sizes="(min-width: 768px) 150px, (min-width: 640px) 168px, 132px"
                           className="object-cover"
                         />
                       )}
