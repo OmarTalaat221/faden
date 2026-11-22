@@ -70,10 +70,12 @@ survive any validation added to the update routes. One has been added:
 
 ```
 settings.navigation.visibility.homeSections.whyChoose
+settings.navigation.visibility.pages.news
 ```
 
 "Why Choose FADEN" now appears on the homepage as well as on the About page,
-and can be switched off there like every other homepage band.
+and can be switched off there like every other homepage band. The second key
+is the switch for the new news page, which starts off.
 
 Nothing to build. It is listed because §0 is the thing that can quietly break
 what already works.
@@ -94,6 +96,25 @@ never served back with a content type taken from the request.
 
 The site and the dashboard are already built for it and are waiting behind a
 switch. Nothing changes for them until you ship.
+
+---
+
+## 3c. NEW: a news section, which needs a table of its own
+
+Asked for by the client after the first handover, and written up as
+`BACKEND-REQUESTS.md` section 11.
+
+This is the only item on the list that is genuinely new work rather than a
+column, a limit or a string: there is no `News` model, so there is nowhere to
+put a story. What is needed is a `News` table, a `NewsMeta` singleton, the
+three public routes (`/news`, `/news/meta`, `/news/:slug`) and the four
+dashboard ones. Section 11 has the model and the route table.
+
+The site's news page, the story pages, the dashboard screen and the preview
+are already built. They stay invisible until the endpoint exists — the site
+reads a 404 from `/news` as "not shipped yet" and keeps the page hidden, and
+the dashboard screen says so in plain words instead of showing a broken
+table. Nothing in either repo changes when you ship.
 
 ---
 
@@ -154,3 +175,5 @@ particular these are untouched by anything above and still the priority:
   this is set. One line.
 - §2 the remaining copy columns, §3 the partner's contact details, §4 the
   hero figures, §5 PDF uploads, §7 `projects.country`, §8 the two strings.
+- **§11 news** — the only new table on the list, and the only thing the
+  client has asked for that has nowhere at all to go today.

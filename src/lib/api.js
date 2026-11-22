@@ -73,6 +73,22 @@ function describe(data) {
 
 /** GET a public endpoint. Throws on anything that isn't a usable response. */
 export async function apiGet(path) {
+  return request(path, { optional: false });
+}
+
+/**
+ * The same, but a 404 answers `null` instead of throwing.
+ *
+ * This is for one case only: a section the API has not shipped yet. The news
+ * store is the current one. Everything else must keep failing loudly — a page
+ * that quietly renders nothing is how a broken endpoint goes unnoticed for
+ * weeks. Any status other than 404 still throws here too.
+ */
+export async function apiGetOptional(path) {
+  return request(path, { optional: true });
+}
+
+async function request(path, { optional }) {
   const startedAt = Date.now();
   const url = `${API_URL}${path}`;
 
@@ -85,6 +101,11 @@ export async function apiGet(path) {
   }
 
   const ms = Date.now() - startedAt;
+
+  if (res.status === 404 && optional) {
+    console.warn(`[api] GET ${path} -> 404, treated as not shipped yet (${ms}ms)`);
+    return null;
+  }
 
   if (!res.ok) {
     console.error(`[api] GET ${path} -> HTTP ${res.status} (${ms}ms)`);

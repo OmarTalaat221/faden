@@ -30,7 +30,7 @@ const PAGES_WITHOUT_HERO = ["/equipment", "/gallery"];
 // Dynamic detail routes whose hero is a plain white section (no dark
 // PageBanner image), so the header must also start WHITE here — only the
 // detail pages themselves, not the listing page at the bare route.
-const DETAIL_ROUTES_WITHOUT_HERO = ["/projects"];
+const DETAIL_ROUTES_WITHOUT_HERO = ["/projects", "/news"];
 
 function isPageWithoutHero(pathname) {
   if (

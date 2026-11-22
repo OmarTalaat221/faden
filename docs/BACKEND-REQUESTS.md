@@ -359,14 +359,107 @@ The dashboard now shows the page being edited beside the form, redrawing as
 the client types. It works entirely in the browser: the dashboard posts the
 unsaved record into an iframe, and the site draws it with its own sections.
 
-Thirteen routes under `/preview/*` — project, service, partners,
+Fourteen routes under `/preview/*` — project, service, partners,
 about-overview, vision-mission, leadership, gallery, clients, equipment,
-projects, services, contact, footer.
+projects, services, contact, footer, news.
 
 **Nothing is needed from the API.** They are `noindex`, disallowed in
 `robots.txt`, fetch only what the matching public page fetches, and write
 nothing. Listed here so they are not a surprise in the route table, and so
 nobody deletes them thinking they are dead code.
+
+---
+
+## 11. News — the one part of the site with nowhere to keep it
+
+**The client asked for this.** "News: writing with a picture." It is the only
+thing on the site that has no table, so this is the one section here that is
+entirely new work rather than a column or a limit.
+
+Everything else is done. The news page, the story pages, the dashboard screen
+and the preview are all built and in the two repos. They do nothing today
+because `GET /news` answers 404, and the site treats that 404 as "not shipped
+yet" and keeps the page hidden rather than showing an empty shell.
+
+### The record
+
+```prisma
+model News {
+  id        String   @id @default(uuid())
+  title     String
+  slug      String   @unique
+  image     String
+  excerpt   String?
+  body      String   @db.Text
+  date      DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("news")
+}
+```
+
+`body` is plain text, not HTML and not Markdown. The dashboard is a plain
+textarea and the site splits on blank lines to make paragraphs. Keep it that
+way: the moment it holds HTML, anything typed into that box is rendered on
+the site, and the person typing is not the person who has to think about
+that.
+
+`date` is the date shown to a reader and the one the list sorts by. It is
+separate from `createdAt` because a story is often written a week after the
+thing happened.
+
+### The routes
+
+Public, matching every other resource here:
+
+| Route | Returns |
+|---|---|
+| `GET /api/news` | every story, **newest `date` first** |
+| `GET /api/news/meta` | the page's banner and CTA copy |
+| `GET /api/news/:slug` | one story, 404 when there is no such slug |
+
+`/news/meta` must be matched **before** `/news/:slug`, or "meta" is read as a
+slug. Same as `/gallery/meta` and `/services/meta` already are.
+
+Dashboard, behind the token:
+
+| Route | Does |
+|---|---|
+| `POST /api/dashboard/news` | create |
+| `PUT /api/dashboard/news/:id` | update |
+| `DELETE /api/dashboard/news/:id` | delete |
+| `PUT /api/dashboard/news/meta` | the page copy |
+
+A `NewsMeta` singleton like the others, with `banner Json?` and `cta Json?`,
+is enough for the meta route. The dashboard writes:
+
+```json
+{
+  "banner": { "title": "News", "subtitle": "..." },
+  "cta": { "title": "...", "subtitle": "..." }
+}
+```
+
+### Two things that are easy to get wrong
+
+- **Return `date` as an ISO string.** The dashboard sends one and the site
+  parses one. A `YYYY-MM-DD` with no time is fine; a localised string is not.
+- **Reject a duplicate `slug` with a clear message.** It is the story's web
+  address, and the dashboard shows whatever the API says.
+
+### What happens when you ship it
+
+Nothing needs changing in either front end. The dashboard's News screen stops
+showing "not switched on yet" and becomes the editor. The site's news page
+can then be switched on in the dashboard under **Show or hide pages** — it is
+off by default precisely so that it stays invisible until there is something
+behind it.
+
+Two things the client does by hand afterwards, both in the dashboard: add
+**News** to the menu under Site Settings → Navigation, and to the footer's
+quick links if they want it there. Those lists live in the database, so
+neither is a code change.
 
 ---
 
@@ -392,4 +485,5 @@ Neither is your job, but both will be missed if nobody writes them down.
 3. §1 project audiences — the client will ask for this first.
 4. §5 PDF uploads and §5b the contact attachment, then §6 the image migration — they are the same endpoint.
 5. §2, §3, §4 — copy and figures.
-6. §7, §8 — tidying.
+6. §11 news — new work, and the only item with no code waiting on it.
+7. §7, §8 — tidying.
