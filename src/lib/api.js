@@ -88,16 +88,84 @@ export async function apiGetOptional(path) {
   return request(path, { optional: true });
 }
 
+// The API host refuses connections often enough that a single attempt fails
+// several times an hour, and one failed call takes a whole page down with it:
+// a homepage is ten of these at once, and apiGet throws on purpose rather
+// than render half a page.
+//
+// Only a connection that never opened is retried. A reply from the server is
+// a real answer however unwelcome, and retrying a 500 would turn one broken
+// endpoint into three requests for it. Each attempt is bounded, so a host
+// that is genuinely down fails in seconds rather than holding the render
+// open for the platform's own timeout.
+const ATTEMPTS = 4;
+const ATTEMPT_TIMEOUT_MS = 8000;
+const BACKOFF_MS = [300, 800, 1600];
+
+// And it is the burst that breaks it, not the volume. A homepage render asks
+// for ten things at once and the host drops most of them; the same ten asked
+// a few at a time mostly answer in a second or two. So requests queue here,
+// three in flight at most, and a request that still times out is tried again
+// rather than taking the page down with it.
+//
+// This is a workaround for the host, not a design: take it out once the API
+// stops refusing connections.
+const MAX_IN_FLIGHT = 3;
+let inFlight = 0;
+const waiting = [];
+
+function acquire() {
+  if (inFlight < MAX_IN_FLIGHT) {
+    inFlight += 1;
+    return Promise.resolve();
+  }
+  return new Promise((resolve) => waiting.push(resolve));
+}
+
+function release() {
+  const next = waiting.shift();
+  if (next) next();
+  else inFlight -= 1;
+}
+
 async function request(path, { optional }) {
   const startedAt = Date.now();
   const url = `${API_URL}${path}`;
 
   let res;
-  try {
-    res = await fetch(url, FETCH_OPTIONS);
-  } catch (error) {
-    console.error(`[api] GET ${path} -> NETWORK ERROR: ${error.message}`);
-    throw error;
+  let lastError;
+
+  for (let attempt = 1; attempt <= ATTEMPTS; attempt += 1) {
+    await acquire();
+    try {
+      res = await fetch(url, {
+        ...FETCH_OPTIONS,
+        signal: AbortSignal.timeout(ATTEMPT_TIMEOUT_MS),
+      });
+      break;
+    } catch (error) {
+      lastError = error;
+      if (attempt === ATTEMPTS) break;
+      console.warn(
+        `[api] GET ${path} -> ${error.message}, retrying (${attempt}/${ATTEMPTS - 1})`,
+      );
+      await new Promise((resolve) =>
+        setTimeout(resolve, BACKOFF_MS[attempt - 1]),
+      );
+    } finally {
+      release();
+    }
+  }
+
+  if (!res) {
+    console.error(
+      `[api] GET ${path} -> NETWORK ERROR after ${ATTEMPTS} attempts: ${lastError?.message}`,
+    );
+    // Raised as a plain Error rather than rethrown. An abort hands back a
+    // DOMException whose `message` is a getter, and something between here
+    // and Next's error overlay tries to write to it, which turns one failed
+    // request into an unhandled rejection that says nothing useful.
+    throw new Error(`GET ${path} failed: ${lastError?.message}`);
   }
 
   const ms = Date.now() - startedAt;
