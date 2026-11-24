@@ -29,7 +29,21 @@ export default function ListPreviewClient({ kind, items, meta }) {
     <main className="min-h-screen">
       <PreviewBadge />
 
-      {pageMeta.banner && <PageBannerView {...pageMeta.banner} />}
+      {/* The record keys this `image`; the component takes `backgroundImage`.
+          Spread straight through, as it was, the banner drew with no picture
+          behind it and handed next/image an empty src, which makes the
+          browser fetch the whole page again as though it were the image.
+          The fallback is the file the site ships with, which is what the
+          real page resolves to from Site Settings and cannot be read here. */}
+      {pageMeta.banner && (
+        <PageBannerView
+          title={pageMeta.banner.title}
+          subtitle={pageMeta.banner.subtitle}
+          backgroundImage={
+            pageMeta.banner.image || "/images/faden/image-05.jpg"
+          }
+        />
+      )}
 
       {kind === "gallery" && (
         <>

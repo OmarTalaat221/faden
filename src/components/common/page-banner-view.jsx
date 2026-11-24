@@ -23,17 +23,28 @@ export default function PageBannerView({
     >
       {/* Banner height (leaves room for header on top) */}
       <div className="relative h-[340px] w-full sm:h-[400px] md:h-[460px] lg:h-[500px] xl:h-[520px]">
-        {/* Background Image */}
-        <Image
-          src={backgroundImage}
-          alt=""
-          fill
-          priority
-          fetchPriority="high"
-          sizes="100vw"
-          className="object-cover"
-          aria-hidden="true"
-        />
+        {/* Background Image.
+            Guarded, because an empty or missing src makes the browser
+            request the current page again as if it were an image. The band
+            then draws on the overlay alone, which is a dark header rather
+            than a hole in the page. */}
+        {backgroundImage ? (
+          <Image
+            src={backgroundImage}
+            alt=""
+            fill
+            priority
+            fetchPriority="high"
+            sizes="100vw"
+            className="object-cover"
+            aria-hidden="true"
+          />
+        ) : (
+          <div
+            className="absolute inset-0 bg-[var(--brand-secondary)]"
+            aria-hidden="true"
+          />
+        )}
 
         {/* Dark Overlay */}
         <div
