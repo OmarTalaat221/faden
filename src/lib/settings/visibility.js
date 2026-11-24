@@ -38,10 +38,9 @@ export const HIDEABLE_HOME_SECTIONS = [
 // this only decides what a site with no flags saved yet shows. Drop the
 // entries once the client has made the call.
 const OFF_BY_DEFAULT = {
-  // News is off until the API serves /news; the page 404s without it.
-  pages: ["gallery", "equipment", "news"],
+  pages: ["gallery", "equipment"],
   // Their homepage bands link to those pages, so they go too.
-  homeSections: ["gallery", "equipment", "news"],
+  homeSections: ["gallery", "equipment"],
 };
 
 function defaults(keys, off) {

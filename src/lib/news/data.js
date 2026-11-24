@@ -1,13 +1,16 @@
 // The news page: a dated piece of writing with one picture, nothing more.
 //
-// The API does not serve /news yet, so every read here is optional and a 404
-// answers null rather than throwing. Null means "the store is not built",
-// which the page turns into a 404 of its own; an empty array means "built,
-// and nobody has written anything", which is an empty state. They are
-// different things and the pages treat them differently.
+// There are two possible stores and this file picks between them on every
+// read. The API is preferred; while it answers 404 — it has no news table
+// yet — the stories come from src/content/news.js in this repo instead.
 //
-// Delete the optional reads once the endpoint ships — see
-// docs/BACKEND-REQUESTS.md section 11.
+// That means the day the endpoint ships, the site switches to it with no
+// code change and nothing to remember. The local file is then dead and can
+// be deleted. See docs/BACKEND-REQUESTS.md section 11.
+//
+// The catch, and it is the whole reason this is a stopgap: nothing in the
+// local file is editable from the dashboard. Until the API has the table,
+// a new story is a code change and a deploy.
 
 // sanitize-html, not DOMPurify. DOMPurify needs a DOM, so on the server it
 // pulls in jsdom — four megabytes of it — and importing this module brought
@@ -15,30 +18,48 @@
 // kept working. This one is a parser, not a DOM, and runs the same in Node
 // and in the browser.
 import sanitizeHtml from "sanitize-html";
+import { cache } from "react";
 
 import { apiGetOptional } from "@/lib/api";
+import { LOCAL_NEWS, LOCAL_NEWS_META } from "@/content/news";
 
-/** Newest first. Null when the endpoint does not exist yet. */
-export async function getNewsList() {
+/**
+ * Every story, newest first. The API's if it has them, this repo's if not.
+ *
+ * Cached for the render: the article page reads the list as well as the
+ * story, and the homepage band reads it too.
+ */
+export const getNewsList = cache(async () => {
   const items = await apiGetOptional("/news");
-  if (!Array.isArray(items)) return items === null ? null : [];
+  const list = Array.isArray(items) ? items : LOCAL_NEWS;
 
-  // Sorted here as well as on the server: the order a reader sees is the
-  // point of a news page, and it should not depend on which one of the two
-  // was deployed last.
-  return [...items].sort(
+  // Sorted here as well as on the server. The order a reader sees is the
+  // point of a news page, and it should not depend on which of the two
+  // stores answered.
+  return [...list].sort(
     (a, b) => publishedAt(b).getTime() - publishedAt(a).getTime(),
   );
-}
+});
 
-/** One article by its web address. Null when there is no such article. */
+/**
+ * One story by its web address. Null when there is no such story.
+ *
+ * The direct read is tried first so a live API stays the single source of
+ * truth; falling back to the list covers the local store, and also means a
+ * slug that no longer exists answers null rather than coming back from a
+ * file the API has replaced.
+ */
 export async function getNewsItem(slug) {
-  return apiGetOptional(`/news/${encodeURIComponent(slug)}`);
+  const direct = await apiGetOptional(`/news/${encodeURIComponent(slug)}`);
+  if (direct) return direct;
+
+  const list = await getNewsList();
+  return list.find((item) => item.slug === slug) ?? null;
 }
 
-/** The banner and intro copy at the top of the page. */
+/** The banner and contact copy at the top of the page. */
 export async function getNewsPageMeta() {
-  return (await apiGetOptional("/news/meta")) ?? {};
+  return (await apiGetOptional("/news/meta")) ?? LOCAL_NEWS_META;
 }
 
 /** The date to show and sort by: the one that was set, else when it was made. */
