@@ -9,7 +9,12 @@
 // Delete the optional reads once the endpoint ships — see
 // docs/BACKEND-REQUESTS.md section 11.
 
-import DOMPurify from "isomorphic-dompurify";
+// sanitize-html, not DOMPurify. DOMPurify needs a DOM, so on the server it
+// pulls in jsdom — four megabytes of it — and importing this module brought
+// the whole homepage down on Vercel while every page that did not touch news
+// kept working. This one is a parser, not a DOM, and runs the same in Node
+// and in the browser.
+import sanitizeHtml from "sanitize-html";
 
 import { apiGetOptional } from "@/lib/api";
 
@@ -114,11 +119,15 @@ export function toArticleHtml(body) {
         )
         .join("");
 
-  return DOMPurify.sanitize(html, {
-    ALLOWED_TAGS: ARTICLE_TAGS,
+  return sanitizeHtml(html, {
+    allowedTags: ARTICLE_TAGS,
     // No target: whether a link opens a new tab is a decision for the design,
     // not something a writer sets per link by accident.
-    ALLOWED_ATTR: ["href"],
+    allowedAttributes: { a: ["href"] },
+    allowedSchemes: ["http", "https", "mailto", "tel"],
+    // A relative href is how the client links to another page of their own
+    // site, so it has to survive the scheme check.
+    allowProtocolRelative: false,
   });
 }
 
